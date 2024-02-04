@@ -45,7 +45,7 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmitt = (values: z.infer<typeof LoginSchema>) => {
     setError("");
     setSuccess("");
 
@@ -56,6 +56,8 @@ export const LoginForm = () => {
         setError(data?.error);
         setSuccess(data?.success);
       });
+
+      // console.log("hello broa");
 
       //     login(values, callbackUrl)
       //       .then((data) => {
@@ -84,7 +86,7 @@ export const LoginForm = () => {
     >
       <div className="">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmitt)} className="space-y-6">
             <div className="space-y-4">
               {/* {showTwoFactor && (
                 <FormField
@@ -154,9 +156,9 @@ export const LoginForm = () => {
                 </>
               )}
             </div>
-            <FormError message={error || urlError} />
-            <FormSuccess message={success} />
-            <Button disabled={isPending} type="submit" className="w-full">
+            {/* <FormError message={error || urlError} />
+            <FormSuccess message={success} /> */}
+            <Button disabled={isPending} className="w-full">
               {/* {showTwoFactor ? "Confirm" : "Login"} */}
               login
             </Button>
