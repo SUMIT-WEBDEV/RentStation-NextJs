@@ -13,6 +13,7 @@ function Products({ products }: any) {
         <Link
           className="border border-gray rounded-md p-5 w-72"
           href={`/settings/item/${p.title}-${p.id}`}
+          key={p.id}
         >
           {p?.image ? (
             <Image src={p?.image} width={500} height={500} alt="Picture" />
