@@ -9,11 +9,13 @@ import Home from "../_components/home";
 
 function page() {
   return (
-    <div>
-      {/* <Navbar /> */}
-      <CategoryCard />
-      <Home />
-      {/* <Footer /> */}
+    <div className=" w-full items-center flex justify-center bg-slate-50">
+      <div className="lg:w-11/12 w-full">
+        {/* <Navbar /> */}
+        <CategoryCard />
+        <Home />
+        {/* <Footer /> */}
+      </div>
     </div>
   );
 }

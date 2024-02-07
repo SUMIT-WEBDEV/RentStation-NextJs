@@ -26,6 +26,7 @@ model User {
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   Products              Products[]
+  createdAt             DateTime               @default(now())
 }
 
 model Account {
@@ -84,7 +85,7 @@ model TwoFactorConfirmation {
 }
 
 model Products {
-  id          String  @id @default(cuid())
+  id          String   @id @default(cuid())
   location    String
   price       String
   description String
@@ -92,6 +93,7 @@ model Products {
   duration    String
   category    String
   image       String?
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+  createdAt   DateTime @default(now())
 }

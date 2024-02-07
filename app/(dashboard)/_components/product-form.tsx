@@ -37,44 +37,30 @@ function ProductForm() {
       title: "",
       duration: "",
       category: "",
-      image: null, // Ensure it's an object with an 'image' property
+      image: undefined,
     },
   });
 
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const [selectedImage, setSelectedImage] = useState<File | undefined>(
+    undefined
+  );
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileInput = event.target;
-    const files = fileInput.files;
+    const files = event.target.files;
 
     if (files && files.length > 0) {
       const file = files[0];
-      form.setValue("image", file);
+      setSelectedImage(file);
     }
   };
-
-  // const onSubmit = (values: z.infer<typeof ProductSchema>) => {
-  //   // console.log("Form values:", values);
-  //   setError("");
-  //   setSuccess("");
-
-  //   console.log("hello world", values);
-
-  // startTransition(() => {
-  //   createProduct(values, user?.id).then((data) => {
-  //     // setError(data.error);
-  //     // setSuccess(data.success);
-  //   });
-  // });
-  // };
 
   const onSubmit = async (values: z.infer<typeof ProductSchema>) => {
     console.log("values", values);
 
-    const image = values.image.image;
     const formData = new FormData();
-    formData.append("file", image);
+    formData.append("file", selectedImage!);
     formData.append("upload_preset", "rentstation");
     const uploadResponse = await fetch(
       "https://api.cloudinary.com/v1_1/ddqpumkxe/image/upload",
@@ -85,8 +71,6 @@ function ProductForm() {
     );
     const uploadedImageData = await uploadResponse.json();
     const imageUrl = uploadedImageData.secure_url;
-    // console.log(imageUrl);
-    // const imageId = JSON.stringify(imageUrl);
 
     const serializableValues = {
       location: values.location,

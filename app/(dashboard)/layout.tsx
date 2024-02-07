@@ -31,9 +31,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         > */}
-        <Navbar />
-        {children}
-        {/* </ThemeProvider> */}
+        <div className="pb-24 lg:pb-2">
+          <Navbar />
+          {children}
+          {/* </ThemeProvider> */}
+        </div>
         <MobileFooter />
       </body>
     </html>

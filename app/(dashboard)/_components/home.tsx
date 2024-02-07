@@ -8,7 +8,7 @@ async function Home() {
   console.log("products", products);
 
   return (
-    <div className="flex space-x-5 m-5">
+    <div className="flex space-x-5 mt-5 w-full justify-center items-center">
       {/* TODO: favourite  */}
 
       {/* TODO: Trending  */}

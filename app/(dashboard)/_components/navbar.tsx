@@ -88,7 +88,7 @@ function Navbar() {
   };
 
   return (
-    <div className="sticky">
+    <div className="sticky overflow-hidden">
       <div className="lg:flex lg:flex-row justify-around items-center bg-black text-white p-4 relative w-screen">
         <div className="flex lg:items-center lg:flex-row flex-col ">
           <div className="mb-2 lg:mr-6 flex justify-between ">
