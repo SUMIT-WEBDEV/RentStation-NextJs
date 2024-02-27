@@ -8,8 +8,8 @@ const page = ({ params }: any) => {
 
     return (
         <div>
-            {/* <Chat conversationId={conversationId} /> */}
-            <Chat />
+            <Chat conversationId={conversationId} />
+            {/* <Chat /> */}
 
         </div>
     )
