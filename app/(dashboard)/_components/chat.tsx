@@ -125,7 +125,7 @@ const Chat = ({ conversationId }: any) => {
             <div className='m-5'>
 
                 {messages && messages.map((msg: any, index: number) => (
-                    <h1>{msg.text}</h1>
+                    <h1 key={index}>{msg.text}</h1>
                 ))}
 
 
