@@ -47,7 +47,9 @@ export function Products({ products }: ProductsProps) {
             : products.map((product: Product) => <ProductCard key={product.id} product={product} />)}
         </div>
       </div>
-      <Button onClick={handleNext} className="m-3">Load More</Button>
+      <div className="flex mt-3">
+        <Button onClick={handleNext} className="m-auto">Load More</Button>
+      </div>
     </div>
   );
 }

@@ -18,7 +18,7 @@ async function Home({ params }: any) {
       {/* TODO: favourite  */}
 
       {/* TODO: Trending  */}
-      <h1 className="lg:text-3xl text-xl py-4 pl-1 font-medium text-gray-900 lg:ml-28">
+      <h1 className="lg:text-3xl text-xl py-2 pl-1 font-medium text-gray-900 lg:ml-28">
         Fresh Recommendations
       </h1>
       <div className="flex justify-center items-center">
