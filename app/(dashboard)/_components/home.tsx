@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { db } from "@/lib/db";
 import Products from "./products";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
-async function Home() {
-  const products = await db.products.findMany();
+async function Home({ params }: any) {
+  const products = await db.products.findMany({
+    // take: params || 2,
+  });
 
-  console.log("products", products);
+  // const user = useCurrentUser()
+
+  console.log("params is ---->", params);
+  // console.log("user user ---->", user);
 
   return (
-    <div className="flex space-x-5 mt-5 w-full justify-center items-center">
+    <div className="flex flex-col space-x-5 mt-5 w-full">
       {/* TODO: favourite  */}
 
       {/* TODO: Trending  */}
-
-      <Products products={products} />
+      <h1 className="lg:text-3xl text-xl py-4 ml-2 font-medium text-gray-900 lg:ml-28">
+        Fresh Recommendations
+      </h1>
+      <div className="flex justify-center items-center">
+        <Products products={products} />
+      </div>
     </div>
   );
 }

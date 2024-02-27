@@ -1,12 +1,19 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { ProductCard } from "./product-card";
+import { ProductSkeleton } from "./product-skelton";
+
 
 type Product = {
   id: string;
   location: string;
   price: string;
-  description: string;
   title: string;
   duration: string;
   category: string;
@@ -19,54 +26,30 @@ type ProductsProps = {
   products: Product[];
 };
 
-function Products({ products }: ProductsProps) {
-  console.log("products", products);
+export function Products({ products }: ProductsProps) {
+  const [page, setPage] = useState(3);
+  const router = useRouter();
+
+  const handleNext = () => {
+    router.push(`/settings?page=${page}`);
+  };
+
+  // Determine loading state based on the length of products array
+  const loading = products.length === 0;
 
   return (
     <div className="lg:m-3 w-full">
-      <h1 className="lg:text-3xl text-xl py-4 ml-2 font-medium text-gray-900 lg:ml-28">
-        Fresh Recommendations
-      </h1>
-      <div className="flex justify-center">
-        <div className="flex lg:gap-3 gap-1 justify-start items-start flex-wrap">
-          {products?.map((p: any) => (
-            <Link
-              className="border border-gray rounded-md lg:p-3 p-2 lg:w-[24.1%] w-[49%] bg-white"
-              href={`/settings/item/${p.title}-${p.id}`}
-              key={p.id}
-            >
-              {p?.image ? (
-                <div className="relative w-auto h-36 lg:h-60">
-                  <Image
-                    src={p?.image}
-                    layout="fill"
-                    objectFit="cover"
-                    alt="Picture"
-                  />
-                </div>
-              ) : (
-                ""
-              )}
-
-              <div className="flex flex-col justify-between h-full space-y-3 p-1">
-                <div className="h-16">
-                  <p className="font-bold text-lg lg:text-xl">
-                    ${p.price}/{p.duration}
-                  </p>
-                  <p className="text-gray-700 text-sm">{p.title}</p>
-                </div>
-                <div className="flex justify-between">
-                  <p className="text-xs truncate flex-1">{p.location}</p>
-                  {/* <p>{p?.createdAt}</p> */}
-                  <p className="text-xs flex-[0.4] text-end">10 JAN</p>
-                </div>
-              </div>
-            </Link>
-          ))}
+      <div className="flex justify-center w-full">
+        <div className="w-full lg:w-auto mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {loading
+            ? Array.from({ length: 8 }).map((_, index) => <ProductSkeleton key={index} />)
+            : products.map((product: Product) => <ProductCard key={product.id} product={product} />)}
         </div>
       </div>
+      <Button onClick={handleNext}>Load More</Button>
     </div>
   );
 }
-
 export default Products;
+
+
