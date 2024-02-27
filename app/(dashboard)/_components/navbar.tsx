@@ -77,7 +77,7 @@ function Navbar() {
     fetchData();
   }, []);
 
-  console.log("data is", data);
+  // console.log("data is", data);
 
   const handleCloseSidebar = () => {
     setAccountSidebar(false);
@@ -123,7 +123,7 @@ function Navbar() {
                 placeholder="Search Your Product..."
               />
               {query.length > 0 && suggestions.length > 0 && (
-                <ul className="absolute z-10 top-full w-full bg-gray-200 border text-black rounded-md shadow-sm">
+                <ul className="absolute z-50 top-full w-full bg-gray-200 border text-black rounded-md shadow-sm">
                   {suggestions.map((suggestion, index) => (
                     <li key={index} className="px-4 py-2">
                       {suggestion}

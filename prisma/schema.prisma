@@ -26,6 +26,8 @@ model User {
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   Products              Products[]
+  conversations         Conversation[]         @relation("ConversationMembers")
+  messages              Message[]              @relation("SenderMessages")
   createdAt             DateTime               @default(now())
 }
 
@@ -96,4 +98,21 @@ model Products {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   createdAt   DateTime @default(now())
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  members   User[]    @relation("ConversationMembers")
+  messages  Message[] @relation("ConversationMessages")
+  createdAt DateTime  @default(now())
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  text           String
+  sender         User         @relation("SenderMessages", fields: [senderId], references: [id])
+  senderId       String
+  conversation   Conversation @relation("ConversationMessages", fields: [conversationId], references: [id])
+  conversationId String
+  createdAt      DateTime     @default(now())
 }

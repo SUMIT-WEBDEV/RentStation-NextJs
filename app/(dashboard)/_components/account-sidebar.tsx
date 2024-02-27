@@ -1,4 +1,3 @@
-// Sidebar.tsx
 import Image from "next/image";
 import React from "react";
 import profile from "../../assets/profileEmail.jpg";
@@ -34,9 +33,9 @@ const menuItems = [
 const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   return (
     <>
-      <div className="fixed top-0 right-0 h-full w-full bg-black opacity-75 shadow-2xl transition-opacity duration-300 ease-in-out" />
+      <div className="fixed top-0 right-0 h-full w-full bg-black opacity-75 shadow-2xl transition-opacity duration-300 ease-in-out z-50" />
 
-      <div className="fixed top-0 right-0 h-full bg-black text-white p-4 lg:w-3/12 w-full shadow-2xl transform translate-x-0 transition-transform duration-300 ease-in-out">
+      <div className="fixed top-0 right-0 h-full bg-black text-white p-4 lg:w-3/12 w-full shadow-2xl transform translate-x-0 transition-transform duration-300 ease-in-out z-50">
         <div className="flex justify-start">
           <button onClick={onClose} className="text-white">
             <CloseIcon className="text-3xl" />

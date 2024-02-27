@@ -1,3 +1,5 @@
+import ProductFilter from "@/app/(dashboard)/_components/product-filter";
+import Products from "@/app/(dashboard)/_components/products";
 import { db } from "@/lib/db";
 import React from "react";
 
@@ -21,12 +23,8 @@ async function page({ params }: any) {
 
   return (
     <div>
-      {products.map((p) => (
-        <div key={p.id} className="border w-fit p-2 m-2">
-          <p>{p.title}</p>
-          <p>{p.price}</p>
-        </div>
-      ))}
+      <ProductFilter />
+      <Products products={products} />
     </div>
   );
 }
