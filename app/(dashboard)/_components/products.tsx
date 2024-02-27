@@ -36,17 +36,18 @@ export function Products({ products }: ProductsProps) {
 
   // Determine loading state based on the length of products array
   const loading = products.length === 0;
+  // const loading = true;
 
   return (
     <div className="lg:m-3 w-full">
       <div className="flex justify-center w-full">
-        <div className="w-full lg:w-auto mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="w-full lg:w-auto mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {loading
             ? Array.from({ length: 8 }).map((_, index) => <ProductSkeleton key={index} />)
             : products.map((product: Product) => <ProductCard key={product.id} product={product} />)}
         </div>
       </div>
-      <Button onClick={handleNext}>Load More</Button>
+      <Button onClick={handleNext} className="m-3">Load More</Button>
     </div>
   );
 }

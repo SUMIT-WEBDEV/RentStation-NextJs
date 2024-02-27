@@ -9,7 +9,7 @@ export function ProductSkeleton() {
             href={`/settings/item/`}
             className="border border-gray rounded-md lg:p-3 p-2 bg-white h-fit"
         >
-            <div className="w-64 h-40 lg:h-60 z-10">
+            <div className="lg:w-64 w-auto h-40 lg:h-60 z-10">
 
                 <Skeleton className="h-40 lg:h-60" />
             </div>

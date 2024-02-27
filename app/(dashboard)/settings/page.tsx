@@ -14,8 +14,8 @@ function page() {
       <div className="lg:w-11/12 w-full">
         {/* <Navbar /> */}
         <CategoryCard />
-
         <Home />
+
         {/* <Image src="/next.svg" width={1800} height={200} alt="" /> */}
         {/* <Footer /> */}
       </div>
@@ -24,3 +24,9 @@ function page() {
 }
 
 export default page;
+
+
+
+// https://github.com/SUMIT-WEBDEV/RentStation-NextJs
+// https://github.com/settings/applications/2433325
+// https://console.cloud.google.com/apis/credentials?project=next-auth-410307

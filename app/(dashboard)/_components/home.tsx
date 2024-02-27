@@ -14,11 +14,11 @@ async function Home({ params }: any) {
   // console.log("user user ---->", user);
 
   return (
-    <div className="flex flex-col space-x-5 mt-5 w-full">
+    <div className="flex flex-col mt-5 w-full">
       {/* TODO: favourite  */}
 
       {/* TODO: Trending  */}
-      <h1 className="lg:text-3xl text-xl py-4 ml-2 font-medium text-gray-900 lg:ml-28">
+      <h1 className="lg:text-3xl text-xl py-4 pl-1 font-medium text-gray-900 lg:ml-28">
         Fresh Recommendations
       </h1>
       <div className="flex justify-center items-center">
