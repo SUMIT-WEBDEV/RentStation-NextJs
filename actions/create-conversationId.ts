@@ -4,10 +4,15 @@ import * as z from "zod";
 import { db } from "@/lib/db";
 
 export const createConversationId = async (
-  userId: string | undefined,
+  userId: string,
   sellerId: string
 ) => {
   try {
+    console.log("===================");
+    console.log(userId);
+    console.log(sellerId);
+    console.log("===================");
+
     // Check if a conversation between these users already exists
     const existingConversation = await db.conversation.findFirst({
       where: {

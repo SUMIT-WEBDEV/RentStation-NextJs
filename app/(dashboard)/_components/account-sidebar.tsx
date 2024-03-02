@@ -13,6 +13,7 @@ import PublicIcon from "@mui/icons-material/Public";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { logout } from "@/actions/logout";
 
 interface SidebarProps {
   onClose: () => void;
@@ -30,7 +31,16 @@ const menuItems = [
   { icon: <ExitToAppIcon fontSize="medium" />, text: "Sign Out" },
 ];
 
+
+
 const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
+
+
+  const handleLogOut = () => {
+    logout()
+  }
+
+
   return (
     <>
       <div className="fixed top-0 right-0 h-full w-full bg-black opacity-75 shadow-2xl transition-opacity duration-300 ease-in-out z-50" />
@@ -58,6 +68,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
               <span className="text-sm">{item.text}</span>
             </li>
           ))}
+          <li className="flex items-center gap-2 cursor-pointer" onClick={handleLogOut}>
+            <ExitToAppIcon fontSize="medium" />
+            <span className="text-sm">Sign Out</span>
+          </li>
         </ul>
       </div>
     </>

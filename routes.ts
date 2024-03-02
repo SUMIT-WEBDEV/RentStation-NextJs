@@ -8,7 +8,8 @@ export const publicRoutes = [
   "/",
   "/auth/new-verification",
   "/settings",
-  // "/settings/sell",
+  // "/settings/chat/new/[conversationId]",
+  // "/settings/item/[productName]",
 ];
 
 /**

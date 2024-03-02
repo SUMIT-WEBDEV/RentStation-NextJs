@@ -16,6 +16,11 @@ import { useRouter } from "next/navigation";
 import { createConversationId } from "@/actions/create-conversationId";
 
 
+
+interface IUser {
+    id: string;
+    name: string | null
+}
 interface Products {
     id: string;
     location: string;
@@ -27,10 +32,11 @@ interface Products {
     image: string | null;
     userId: string;
     createdAt: Date;
+    user: IUser
 }
 
 interface ProductDetailsProps {
-    product: Products | null;
+    product: Products;
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
@@ -40,10 +46,12 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
 
     const handleChat = (id: string) => {
-        createConversationId(user?.id, id).then((data) => {
-            // console.log("data is conversationId-----", data);
-            Router.push(`/settings/chat/new/${data.conversationId}`)
-        }).catch(err => console.error(err))
+        if (user) {
+            createConversationId(user?.id, id).then((data) => {
+                console.log("data is conversationId-----", data);
+                Router.push(`/settings/chat/new/${data.conversationId}/${id}`)
+            }).catch(err => console.error(err))
+        }
     }
 
 
@@ -80,9 +88,17 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                         <div className="w-full h-full bg-gray-400" />
                     )}
 
-
-                    <div className="flex flex-[30%] ">
-                        <h1>{product.userId}</h1>
+                    <div className="flex flex-[30%] bg-green-300 flex-col">
+                        <div>seller id {product.userId}</div>
+                        <br />
+                        <div>seller Id {product.user.name}</div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <div>
+                            <h1>current user Id {user?.id}</h1>
+                        </div>
 
                         {/* <Link href={`settings/${product.userId}/${user?.id}`}>Chat with Seller</Link> */}
 

@@ -9,18 +9,24 @@ async function page({ params }: any) {
     where: {
       id: productId,
     },
-  });
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+        }
+      }
+    },
+  })
 
   console.log("productDetails---->", product)
 
 
   return (
     <div>
-      <div className=" w-fit p-2 m-2">
+      <div className=" w-fit p-2 m-2 ">
 
-        <ProductDetails product={product} />
-
-        {/* <ProductDetails product={product} /> */}
+        {product && <ProductDetails product={product} />}
 
       </div>
     </div>

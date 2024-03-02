@@ -53,6 +53,5 @@ export function Products({ products }: ProductsProps) {
     </div>
   );
 }
+
 export default Products;
-
-
