@@ -1,4 +1,4 @@
-import ProductDetails from "@/app/(dashboard)/_components/product-details";
+import ProductDetails from "@/app/_components/product-details";
 import { db } from "@/lib/db";
 import React from "react";
 

@@ -19,7 +19,7 @@ export function ProductCard({ product }: ProductCardProps) {
     return (
         <Link
             className="border border-gray rounded-md lg:p-3 p-2 bg-white h-fit"
-            href={`/settings/item/${product.title}-${product.id}`}
+            href={`/item/${product.title}-${product.id}`}
         >
             <div className="w-auto h-40 lg:h-60 z-10">
                 {product.image && (

@@ -1,5 +1,5 @@
 import React from "react";
-import ProductForm from "../../_components/product-form";
+import ProductForm from "../_components/product-form";
 
 function page() {
   return (

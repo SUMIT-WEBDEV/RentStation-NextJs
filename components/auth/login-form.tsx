@@ -50,14 +50,12 @@ export const LoginForm = () => {
     setSuccess("");
 
     startTransition(() => {
-      login(values).then((data) => {
+      login(values, callbackUrl).then((data) => {
         console.log("data is", data);
 
         setError(data?.error);
         setSuccess(data?.success);
       });
-
-      // console.log("hello broa");
 
       //     login(values, callbackUrl)
       //       .then((data) => {

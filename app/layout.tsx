@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import Navbar from "./_components/navbar";
+import MobileFooter from "@/components/ui/mobile-footer";
+import Sidebar from "./_components/account-sidebar";
 // import { db } from "@/lib/db";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,7 +29,21 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          {/* <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        > */}
+          <div className="pb-24 lg:pb-2 overflow-hidden">
+            <Navbar />
+            <Sidebar />
+            {children}
+            {/* </ThemeProvider> */}
+          </div>
+          <MobileFooter />
+        </body>
       </html>
     </SessionProvider>
   );

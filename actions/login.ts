@@ -19,8 +19,8 @@ import {
 // } from "@/data/two-factor-confirmation";
 
 export const login = async (
-  values: z.infer<typeof LoginSchema>
-  //   callbackUrl?: string | null,
+  values: z.infer<typeof LoginSchema>,
+  callbackUrl?: string | null
 ) => {
   const validatedFields = LoginSchema.safeParse(values);
 
@@ -52,7 +52,7 @@ export const login = async (
     return { success: "Confirmation email sent!" };
   }
 
-  //   if (existingUser.isTwoFactorEnabled && existingUser.email) {
+  //   if (existingUser.isTwoFactorEnabled && .email) {
   //     if (code) {
   //       const twoFactorToken = await getTwoFactorTokenByEmail(
   //         existingUser.email
@@ -63,7 +63,7 @@ export const login = async (
   //       }
 
   //       if (twoFactorToken.token !== code) {
-  //         return { error: "Invalid code!" };
+  //         return { error: "Invalid code!" };existingUser
   //       }
 
   //       const hasExpired = new Date(twoFactorToken.expires) < new Date();
@@ -106,8 +106,8 @@ export const login = async (
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
-      // redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+      // redirectTo: "DEFAULT_LOGIN_REDIRECT",
+      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
     if (error instanceof AuthError) {

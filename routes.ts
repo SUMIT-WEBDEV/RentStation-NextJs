@@ -7,9 +7,8 @@
 export const publicRoutes = [
   "/",
   "/auth/new-verification",
-  "/settings",
-  // "/settings/chat/new/[conversationId]",
-  // "/settings/item/[productName]",
+  "/item/[productName]",
+  "/location/[item]",
 ];
 
 /**
@@ -38,4 +37,4 @@ export const apiAuthPrefix = "/api/auth";
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = "/settings";
+export const DEFAULT_LOGIN_REDIRECT = "/";

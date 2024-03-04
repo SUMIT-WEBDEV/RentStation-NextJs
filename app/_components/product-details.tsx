@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { createConversationId } from "@/actions/create-conversationId";
 
 
@@ -43,14 +43,19 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     const user = useCurrentUser()
     console.log("user is", user)
     const Router = useRouter()
+    const currentPage = usePathname();
+
+
 
 
     const handleChat = (id: string) => {
         if (user) {
             createConversationId(user?.id, id).then((data) => {
                 console.log("data is conversationId-----", data);
-                Router.push(`/settings/chat/new/${data.conversationId}/${id}`)
+                Router.push(`/chat/new/${data.conversationId}/${id}`)
             }).catch(err => console.error(err))
+        } else {
+            Router.push(`/auth/login?callbackUrl=${encodeURIComponent(currentPage)}`);
         }
     }
 

@@ -11,12 +11,13 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import userNullProfile from "@/app/assets/nullProfile.png"
 import { Skeleton } from '@/components/ui/skeleton'
+import { Search } from 'lucide-react'
 
 
 interface IChatProps {
-    conversationId: string,
-    sellerId: string,
-    sellerName: string
+    conversationId?: string,
+    sellerId?: string,
+    sellerName?: string
 }
 
 interface IInboxUsers {
@@ -28,7 +29,7 @@ interface IInboxUsers {
 
 
 const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
-    const [receiverId, setReceiverId] = useState<string>("")
+    // const [receiverId, setReceiverId] = useState<string>("")
     // const [inboxUsers, setInboxUsers] = useState<any>([]);
     const Router = useRouter()
     const [dynamicConversationId, setDynamicConversationId] = useState<any>(conversationId)
@@ -41,11 +42,11 @@ const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
 
     // console.log("currentuser details is", userData)
 
-    useEffect(() => {
-        if (sellerId) {
-            setReceiverId(sellerId)
-        }
-    }, [sellerId])
+    // useEffect(() => {
+    //     if (sellerId) {
+    //         setReceiverId(sellerId)
+    //     }
+    // }, [sellerId])
 
     useEffect(() => {
         // Add overflow hidden to body on mount
@@ -66,7 +67,7 @@ const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
                 setDynamicSellerName(selectedUser.name)
                 setDynamicSellerId(selectedUser.id)
 
-                window.history.pushState({}, '', `/settings/chat/new/${data.conversationId}/${selectedUser.id}`);
+                window.history.pushState({}, '', `/chat/new/${data.conversationId}/${selectedUser.id}`);
             }).catch(err => console.error(err))
         }
     }
@@ -82,7 +83,7 @@ const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
                         <div className="search-chat flex p-3">
                             <input className="input text-gray-700 dark:text-gray-200 text-sm p-3 focus:outline-none bg-gray-200 dark:bg-gray-700  w-full rounded-l-md" type="text" placeholder="Search Messages" />
                             <div className="bg-gray-200 dark:bg-gray-700 flex justify-center items-center pr-3 text-gray-400 rounded-r-md">
-                                🔍
+                                <Search />
                             </div>
                         </div>
                         <div>
@@ -92,7 +93,16 @@ const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
                     </div>
                 </div>
                 <div className="flex-grow h-full p-2 rounded-md">
-                    <Chat conversationId={dynamicConversationId} sellerName={dynamicSellerName} receiverId={dynamicSellerId} />
+                    {
+                        dynamicConversationId ?
+                            <Chat conversationId={dynamicConversationId} sellerName={dynamicSellerName} receiverId={dynamicSellerId} /> :
+                            <div>
+                                <h1> select an user</h1>
+
+                            </div>
+
+                    }
+
                 </div>
             </div>
         </div>
@@ -176,3 +186,10 @@ const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, loading, er
 });
 
 UserList.displayName = 'UserList';
+
+
+
+
+
+
+// TODO:I have to store the coversationId, selerId and name in store so that when I come again I will get to same user selection

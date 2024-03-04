@@ -1,7 +1,7 @@
 
 import React from 'react'
-import Chat from '@/app/(dashboard)/_components/chat/chat'
-import ChatList from '@/app/(dashboard)/_components/chat/chat-list'
+import Chat from '@/app/_components/chat/chat'
+import ChatList from '@/app/_components/chat/chat-list'
 import { db } from '@/lib/db'
 import { useCurrentUser } from '@/hooks/use-current-user'
 

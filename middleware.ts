@@ -13,11 +13,18 @@ export default auth((req) => {
 
   const isLoggedIn = !!req.auth;
   // console.log("Is loggedIn", isLoggedIn);
-  // console.log("Is nextUrl", nextUrl);
+  console.log("Is nextUrl", nextUrl);
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+
+  // Define a regex pattern to match dynamic routes
+  const dynamicRoutePattern = /^\/item\/[^\/]+$/;
+
+  // Check if the request URL matches the dynamic route pattern
+  const isDynamicRoute = dynamicRoutePattern.test(nextUrl.pathname);
+  const isPublicRoute =
+    publicRoutes.includes(nextUrl.pathname) || isDynamicRoute;
 
   if (isApiAuthRoute) {
     return null;
@@ -31,15 +38,18 @@ export default auth((req) => {
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    // let callbackUrl = nextUrl.pathname;
-    // if (nextUrl.search) {
-    //   callbackUrl += nextUrl.search;
-    // }
-    // const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-    // return Response.redirect(
-    //   new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl)
-    // );
-    // return Response.redirect(new URL("/auth/login", nextUrl));
+    console.log("Request URL:", nextUrl.href);
+    console.log("Is public route:", isPublicRoute);
+
+    let callbackUrl = nextUrl.pathname;
+    if (nextUrl.search) {
+      callbackUrl += nextUrl.search;
+    }
+    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+    return Response.redirect(
+      new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl)
+    );
+    // return Response.redirect(new URL("/", nextUrl));
   }
 
   return null;

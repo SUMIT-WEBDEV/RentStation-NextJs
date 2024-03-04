@@ -6,7 +6,7 @@ import Link from "next/link";
 export function ProductSkeleton() {
     return (
         <Link
-            href={`/settings/item/`}
+            href={`/item/`}
             className="border border-gray rounded-md lg:p-3 p-2 bg-white h-fit"
         >
             <div className="lg:w-64 w-auto h-40 lg:h-60 z-10">

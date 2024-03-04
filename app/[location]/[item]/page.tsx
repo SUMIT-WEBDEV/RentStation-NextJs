@@ -1,5 +1,5 @@
-import ProductFilter from "@/app/(dashboard)/_components/product-filter";
-import Products from "@/app/(dashboard)/_components/products";
+import ProductFilter from "@/app/_components/product-filter";
+import Products from "@/app/_components/products";
 import { db } from "@/lib/db";
 import React from "react";
 

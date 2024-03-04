@@ -31,7 +31,7 @@ export function Products({ products }: ProductsProps) {
   const router = useRouter();
 
   const handleNext = () => {
-    router.push(`/settings?page=${page}`);
+    router.push(`/?page=${page}`);
   };
 
   // Determine loading state based on the length of products array

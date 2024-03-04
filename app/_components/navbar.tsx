@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
-import profile from "../../assets/profileEmail.jpg";
+import profile from "../assets/profileEmail.jpg";
 import Sidebar from "./account-sidebar";
 import { useTheme } from "next-themes";
 import {
@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import nullProfile from "@/app/assets/nullProfile.png"
 
 const dummySuggestions = [
   "Laptop",
@@ -29,6 +30,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useRouter } from "next/navigation";
 import { ADDRESS_API, CORSPROXY, SEARCH_LOCATION_API } from "@/lib/constant";
 import { Search } from "lucide-react";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import useSidebarStore from "@/store/toggle-sidebar";
 
 function Navbar() {
   const locations = ["Delhi", "Mumbai", "Hyderabad"];
@@ -40,6 +43,7 @@ function Navbar() {
   const [Locations, setLocations] = useState([])
   const [SearchText, setSearchText] = useState("")
 
+  const { isSidebarOpen, toggleSidebar } = useSidebarStore();
 
   const router = useRouter();
 
@@ -53,6 +57,9 @@ function Navbar() {
 
   // const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+
+  const user = useCurrentUser()
+  const userImage = user?.image
 
 
 
@@ -102,14 +109,8 @@ function Navbar() {
   }
 
 
-
-
-  const handleCloseSidebar = () => {
-    setAccountSidebar(false);
-  };
-
   const handleSearch = () => {
-    router.push(`/settings/location/${query}`);
+    router.push(`/location/${query}`);
   };
 
   return (
@@ -119,7 +120,7 @@ function Navbar() {
 
           <div className="lg:mb-0 mb-2 lg:mr-6 flex justify-between ">
             <Link
-              href="/settings"
+              href="/"
               className="text-xl text-yellow-500 font-extrabold tracking-normal lg:tracking-wider"
             >
               RentStation
@@ -193,24 +194,39 @@ function Navbar() {
         </div>
 
         <div className="justify-between lg:flex space-x-6 font-courier hidden items-center">
-          <Link href="/Inbox" className="text-[#fff] ">
+          <Link href="/chat" className="text-[#fff] ">
             Inbox
           </Link>
           <Link href="/wishlist" className="text-[#fff]">
             WishList
           </Link>
-          <Link href="/settings/sell" className="text-[#fff]">
+          <Link href="/sell" className="text-[#fff]">
             Rent+
           </Link>
           {/* <Link href="/list-product" className="text-[#fff]"> */}
-          <Image
+          {/* <Image
             src={profile}
             alt=""
             width="40"
             height="40"
             className="rounded-full cursor-pointer"
             onClick={() => setAccountSidebar(true)}
-          />
+          /> */}
+
+          <div
+            className="cursor-pointer"
+            // onClick={() => setAccountSidebar(true)}
+            onClick={toggleSidebar}
+          >
+            {
+              userImage ?
+                <Image src={userImage} alt="" height={40} width={40} className="rounded-full" />
+                :
+                <Image src={nullProfile} alt="" height={40} width={40} className="rounded-full" />
+            }
+          </div>
+
+
           {/* </Link> */}
           <div className="hidden">
             <DropdownMenu>
@@ -235,7 +251,7 @@ function Navbar() {
             </DropdownMenu>
           </div>
         </div>
-        {accountSidebar && <Sidebar onClose={handleCloseSidebar} />}
+        {/* {accountSidebar && <Sidebar onClose={handleCloseSidebar} />} */}
       </div>
     </div >
   );

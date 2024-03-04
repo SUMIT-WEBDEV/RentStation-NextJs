@@ -100,13 +100,15 @@ function CategoryCard() {
 
   return (
     <div className="flex justify-center items-center h-full">
-      <div className="flex flex-wrap lg:gap-4 gap-5 justify-start pt-3 lg:w-5/6 w-[90%] ">
+
+
+      <div className="grid grid-cols-4 lg:grid-cols-8 gap-2 justify-center py-3">
         {iconData.map((item, index) => (
           <Link
-            href={`/settings/location/${item.text}`}
+            href={`/location/${item.text}`}
             key={index}
-            className="lg:w-32 w-16 flex flex-col lg:p-3 lg:border lg:border-gray-300 rounded-md justify-between cursor-pointer"
-            // onClick={() => handleGetProduct(item.text)}
+            className="lg:w-32 min-w-16 w-auto flex flex-col lg:p-3 lg:border lg:border-gray-300 rounded-md justify-between cursor-pointer"
+          // onClick={() => handleGetProduct(item.text)}
           >
             <div className="text-center">{item.icon}</div>
             <div className="lg:h-9 h-6">
@@ -117,6 +119,8 @@ function CategoryCard() {
           </Link>
         ))}
       </div>
+
+
     </div>
   );
 }

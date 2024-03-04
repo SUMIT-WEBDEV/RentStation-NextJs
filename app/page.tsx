@@ -1,35 +1,35 @@
-import { Poppins } from "next/font/google";
+import React from "react";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { LoginButton } from "@/components/auth/login-button";
+import MobileFooter from "@/components/ui/mobile-footer";
+// import CategoryCards from "../_components/category-cards";
+// import CategoryCard from "../_components/category-card";
+;
+// import Home from "../_components/home";
+import Image from "next/image";
+import CategoryCard from "./_components/category-card";
+import Home from "./_components/home";
+import Sidebar from "./_components/account-sidebar";
 
-const font = Poppins({
-  subsets: ["latin"],
-  weight: ["600"],
-});
-
-export default function Home() {
+function page() {
   return (
-    <main className="flex h-full flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
-      <div className="space-y-6 text-center">
-        <h1
-          className={cn(
-            "text-6xl font-semibold text-white drop-shadow-md",
-            font.className
-          )}
-        >
-          🔐 Auth
-        </h1>
-        <p className="text-white text-lg">A simple authentication service</p>
-        <div>
-          <LoginButton>
-            <Button variant="secondary" size="lg">
-              Sign in
-            </Button>
-          </LoginButton>
-        </div>
+    <div className=" w-full items-center flex justify-center bg-slate-50">
+      <div className="lg:w-11/12 w-full">
+        {/* <Navbar /> */}
+        <CategoryCard />
+        <Home />
+
+        {/* <Image src="/next.svg" width={1800} height={200} alt="" /> */}
+        {/* <Footer /> */}
       </div>
-    </main>
+    </div>
   );
 }
+
+export default page;
+
+
+
+// https://github.com/SUMIT-WEBDEV/RentStation-NextJs
+// https://github.com/settings/applications/2433325
+// https://console.cloud.google.com/apis/credentials?project=next-auth-410307
+// https://rent-station-next-js.vercel.app
