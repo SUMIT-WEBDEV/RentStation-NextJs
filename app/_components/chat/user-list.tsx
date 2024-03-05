@@ -78,7 +78,7 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
     );
 });
 
-// UserList.displayName = 'UserList';
+UserList.displayName = 'UserList';
 
 
 
