@@ -32,16 +32,15 @@ import { ADDRESS_API, CORSPROXY, SEARCH_LOCATION_API } from "@/lib/constant";
 import { Search } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import useSidebarStore from "@/store/toggle-sidebar";
+import useStoreLocation from "@/hooks/use-location";
 
 function Navbar() {
-  const locations = ["Delhi", "Mumbai", "Hyderabad"];
   const [query, setQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [accountSidebar, setAccountSidebar] = useState(false);
   const { setTheme } = useTheme();
 
-  const [Locations, setLocations] = useState([])
-  const [SearchText, setSearchText] = useState("")
+  const [locations, setLocations] = useState([])
 
   const { isSidebarOpen, toggleSidebar } = useSidebarStore();
 
@@ -61,6 +60,14 @@ function Navbar() {
   const user = useCurrentUser()
   const userImage = user?.image
 
+  const { storedLocation, setLocation } = useStoreLocation("userLocation", {
+    address: "",
+    city: "",
+    lat: 0,
+    lng: 0,
+  });
+
+  const [SearchText, setSearchText] = useState<string>(storedLocation?.address || "")
 
 
   const handleSearchLocation = async (e: any) => {
@@ -94,18 +101,23 @@ function Navbar() {
       }
       else {
         const { data } = await response.json();
-        // dispatch(getLocation({
-        //     city: data[0]?.address_components[0]?.short_name,
-        //     lat: data[0]?.geometry?.location?.lat,
-        //     lng: data[0]?.geometry?.location?.lng,
-        //     address: data[0]?.formatted_address
-        // }))
-        console.log("data return", data)
+        setLocation({
+          city: data[0]?.address_components[0]?.short_name,
+          lat: data[0]?.geometry?.location?.lat,
+          lng: data[0]?.geometry?.location?.lng,
+          address: data[0]?.formatted_address
+        })
       }
-      // window.location.reload();
+      setSearchText("")
     } catch (err) {
       console.log(err)
     }
+  }
+
+
+  const handleCloseLocationBar = () => {
+    setSearchText(storedLocation?.address || '')
+    setLocations([])
   }
 
 
@@ -135,22 +147,27 @@ function Navbar() {
 
 
             {/* <div className="lg:block hidden relative w-52 bg-slate-50 border rounded-md"> */}
-            <div className=" lg:flex items-center hidden relative w-60 min-w-auto  rounded-md focus:border-gray-700 lg:border-none justify-between bg-slate-50 ">
+            <div className=" lg:flex items-center hidden relative w-60 min-w-auto  rounded-md focus:border-gray-700 lg:border-none justify-between bg-slate-50">
 
               <input
-                className="px-3 py-2 h-9 outline-none rounded-md bg-transparent text-black text-sm"
+                className="px-3 text-xs py-2 h-9 outline-none rounded-md bg-transparent text-black w-5/6"
                 type="text"
-                onChange={(e) => handleSearchLocation(e)} value={SearchText}
+                onChange={(e) => handleSearchLocation(e)}
+                // value={storedLocation?.address}
+                value={SearchText}
+                onFocus={() => setSearchText('')}
+                onBlur={handleCloseLocationBar}
                 placeholder="Select Location"
               />
 
               <LocationOnIcon className="text-gray-500 absolute right-3" />
 
-              {SearchText.length > 0 && (
+              {SearchText.length > 0 && locations.length > 0 && (
                 <ul className="absolute text-xs top-full w-full bg-slate-50 text-black rounded-md mt-2 shadow-lg border-gray-300 border">
                   {
-                    Locations?.map((item: any) => (
+                    locations?.map((item: any) => (
                       <div className="text-xs p-2 cursor-pointer" key={item?.place_id} onClick={() => handleUserLocation(item?.place_id)}>
+                        {/* <LocationOnIcon className="text-gray-500" /> */}
                         <p className='font-ProximaNovaMed text-color-1'>{item?.structured_formatting?.main_text}</p>
                         <p className='text-color-5 leading-5 font-ProximaNovaThin'>{item?.structured_formatting?.secondary_text}</p>
                       </div>
@@ -161,7 +178,7 @@ function Navbar() {
 
             </div>
 
-            <div className="flex items-center relative w-full bg-red lg:w-80 min-w-auto border rounded-md border-white focus:border-gray-700 lg:border-none justify-between bg-slate-50">
+            <div className="flex items-center relative w-full lg:w-80 min-w-auto border rounded-md border-white focus:border-gray-700 lg:border-none justify-between bg-slate-50">
               <input
                 className="px-3 py-2 h-9 outline-none rounded-md bg-transparent text-black text-sm"
                 type="text"
@@ -187,8 +204,6 @@ function Navbar() {
               )}
 
             </div>
-
-
 
           </div>
         </div>

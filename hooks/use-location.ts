@@ -1,50 +1,42 @@
-// import React, { createContext, useContext, useState, FC, Dispatch, SetStateAction } from 'react';
+"use client";
 
-// // Define the type for user location
-// interface UserLocation {
-//     city: string;
-//     lat: number;
-//     lng: number;
-//     address: string;
-// }
+import { useState } from "react";
 
-// // Define the context type
-// interface LocationContextType {
-//     userLocation: UserLocation | null;
-//     setLocation: Dispatch<SetStateAction<UserLocation | null>>;
-// }
+interface LocationProps {
+  address: string;
+  city: string;
+  lat: number;
+  lng: number;
+}
 
-// // Create the context
-// const LocationContext = createContext<LocationContextType | undefined>(undefined);
+const useStoreLocation = (
+  key: string,
+  { address, city, lat, lng }: LocationProps
+) => {
+  // State to store the location
+  const [storedLocation, setStoredLocation] = useState<LocationProps | null>(
+    () => {
+      // Retrieve from localStorage if available
+      const storedLocationJSON = localStorage.getItem(key);
+      return storedLocationJSON ? JSON.parse(storedLocationJSON) : null;
+    }
+  );
 
-// // Custom hook to use the location context
-// export const useLocation = (): LocationContextType => {
-//     const context = useContext(LocationContext);
-//     if (!context) {
-//         throw new Error('useLocation must be used within a LocationProvider');
-//     }
-//     return context;
-// };
+  // Function to store the location
+  const storeLocation = () => {
+    const locationToStore = { address, city, lat, lng };
+    setStoredLocation(locationToStore);
+    localStorage.setItem(key, JSON.stringify(locationToStore));
+    // Here you can perform any additional logic
+  };
 
-// // Location provider component
-// export const LocationProvider: FC = ({ children }) => {
-//     const [userLocation, setUserLocation] = useState<UserLocation | null>(() => {
-//         const storedLocation = localStorage.getItem('userLocation');
-//         return storedLocation ? JSON.parse(storedLocation) : null;
-//     });
+  // Function to set location from outside the hook
+  const setLocation = (location: LocationProps) => {
+    setStoredLocation(location);
+    localStorage.setItem(key, JSON.stringify(location));
+  };
 
-//     const setLocation: Dispatch<SetStateAction<UserLocation | null>> = (newLocation) => {
-//         setUserLocation(newLocation);
-//         if (newLocation) {
-//             localStorage.setItem('userLocation', JSON.stringify(newLocation));
-//         } else {
-//             localStorage.removeItem('userLocation');
-//         }
-//     };
+  return { storedLocation, storeLocation, setLocation };
+};
 
-//     return (
-//         <LocationContext.Provider value={{ userLocation, setLocation }}>
-//             {children}
-//         </LocationContext.Provider>
-//     );
-// };
+export default useStoreLocation;
