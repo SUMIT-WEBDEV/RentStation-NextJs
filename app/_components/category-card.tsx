@@ -102,7 +102,7 @@ function CategoryCard() {
     <div className="flex justify-center items-center h-full">
 
 
-      <div className="grid grid-cols-4 lg:grid-cols-8 gap-2 justify-center py-3">
+      <div className="grid grid-cols-4 lg:grid-cols-8 gap-2 justify-center py-3 lg:w-auto w-11/12" >
         {iconData.map((item, index) => (
           <Link
             href={`/location/${item.text}`}
