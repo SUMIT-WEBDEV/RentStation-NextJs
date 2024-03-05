@@ -81,8 +81,8 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
 
     return (
 
-        <div className="h-full flex flex-col">
-            <div className="w-full h-15 p-1 bg-purple-600 dark:bg-gray-800 shadow-md rounded-xl rounded-bl-none rounded-br-none">
+        <div className="h-full flex flex-col lg:static lg:w-auto fixed w-full right-0 top-0">
+            <div className="w-full h-15 p-1 bg-purple-600 dark:bg-gray-800 shadow-md lg:rounded-xl rounded-bl-none rounded-br-none">
                 <div className="flex p-2 align-middle items-center">
                     <div className="p-2 md:hidden rounded-full mr-1 hover:bg-purple-500 text-white" onClick={() => setShow(!show)} >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -150,7 +150,7 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
                 }
             </div>
 
-            <div className="h-15 p-1 rounded-xl rounded-tr-none rounded-tl-none dark:bg-gray-800">
+            <div className="h-15  p-1 rounded-xl rounded-tr-none rounded-tl-none dark:bg-gray-800 lg: static fixed bottom-16 w-full">
                 <div className="flex items-center">
                     <div className="p-2 text-gray-600 dark:text-gray-200 ">
                         <Smile />

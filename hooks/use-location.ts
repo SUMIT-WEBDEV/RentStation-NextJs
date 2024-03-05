@@ -17,7 +17,10 @@ const useStoreLocation = (
   const [storedLocation, setStoredLocation] = useState<LocationProps | null>(
     () => {
       // Retrieve from localStorage if available
-      const storedLocationJSON = localStorage.getItem(key);
+      const storedLocationJSON =
+        typeof window !== "undefined"
+          ? window.localStorage.getItem(key)
+          : false;
       return storedLocationJSON ? JSON.parse(storedLocationJSON) : null;
     }
   );
