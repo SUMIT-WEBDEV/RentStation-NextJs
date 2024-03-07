@@ -2,11 +2,7 @@
 
 import React, { memo, useEffect, useMemo, useState } from 'react'
 import Chat from './chat'
-import { useCurrentUser } from '@/hooks/use-current-user'
-// import { getInboxUsers } from '@/actions/get-inbox-users'
 import { createConversationId } from '@/actions/create-conversationId'
-import { useRouter } from 'next/navigation'
-import { useUserDetails } from '@/hooks/use-current-user-details'
 import Image from 'next/image'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Search } from 'lucide-react'
@@ -23,20 +19,16 @@ interface IChatProps {
 const ChatList = ({ conversationId, sellerId, sellerName, user }: IChatProps) => {
     // const [receiverId, setReceiverId] = useState<string>("")
     // const [inboxUsers, setInboxUsers] = useState<any>([]);
-    const Router = useRouter()
     const [dynamicConversationId, setDynamicConversationId] = useState<any>(conversationId)
     const [dynamicSellerId, setDynamicSellerId] = useState<any>(sellerId)
     const [dynamicSellerName, setDynamicSellerName] = useState<any>(sellerName)
+    const [userLoading, setUserLoading] = useState(false)
 
-    // const user = useCurrentUser()
-
-    // console.log("user in chat", user)
-
-    // const { userData, loading, error } = useUserDetails();
-
+    if (user === undefined) {
+        setUserLoading(true)
+    }
 
     const loading = false
-    const error = false
 
     useEffect(() => {
         // Add overflow hidden to body on mount
@@ -79,13 +71,16 @@ const ChatList = ({ conversationId, sellerId, sellerName, user }: IChatProps) =>
                         </div>
                         <div>
 
-                            <UserList userData={user} handleInboxChat={handleInboxChat} dynamicSellerId={dynamicSellerId} loading={loading} error={error} />
+                            <UserList userData={user} handleInboxChat={handleInboxChat} dynamicSellerId={dynamicSellerId} loading={userLoading} />
 
                         </div>
                     </div>
                 </div>
                 <div className="flex-grow h-full p-2 lg:rounded-md">
-                    <Chat conversationId={dynamicConversationId} sellerName={dynamicSellerName} receiverId={dynamicSellerId} /> :
+                    {
+                        dynamicConversationId &&
+                        <Chat conversationId={dynamicConversationId} sellerName={dynamicSellerName} receiverId={dynamicSellerId} />
+                    }
 
                     {!dynamicConversationId &&
                         <div className='lg:block hidden'>

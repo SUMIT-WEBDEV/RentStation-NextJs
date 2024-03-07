@@ -5,7 +5,8 @@ import { memo, useEffect, useState } from "react";
 import userNullProfile from "@/app/assets/nullProfile.png"
 
 
-export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, loading, error }: any) => {
+export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, loading }: any) => {
+
 
     if (loading) {
         return (
@@ -28,15 +29,20 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
         )
     }
 
-    if (error) {
-        return <div>Something went wrong</div>;
-    }
+    // if (error) {
+    //     return <div>Something went wrong</div>;
+    // }
+
+
+    console.log("userData is", userData)
 
     return (
         <div>
+
             {userData && userData.conversations && userData.conversations.length > 0 ? (
 
                 userData.conversations.map((conversation: any, index: number) => {
+
                     const currentUserId = userData.id;
                     const member1 = conversation.members[0];
                     const member2 = conversation.members[1];
@@ -67,7 +73,7 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
                     }
                 })
             ) : (
-                <div>No conversations found.</div>
+                <div>No user found.</div>
             )}
         </div>
     );

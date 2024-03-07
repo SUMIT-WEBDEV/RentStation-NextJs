@@ -34,6 +34,7 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
 
     const handleCloseChat = () => {
         setToggleChat(false)
+        setMessages([])
     }
 
 
@@ -93,7 +94,7 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
     return (
 
         // <div className="h-full flex flex-col lg:static lg:w-auto fixed w-full right-0 top-0">
-        <div className={`h-full flex flex-col lg:static lg:w-auto fixed w-full right-0 top-0 transform translate-x-0 transition-transform duration-200 ease-in-out ${toggleChat ? "-translate-x-0" : "translate-x-full"}`}>
+        <div className={`h-full flex flex-col lg:static lg:w-auto fixed w-full right-0 top-0 transform translate-x-0 transition-transform duration-200 ease-in-out ${toggleChat ? "-translate-x-0" : "translate-x-full lg:transition-none"}`}>
             <div className="w-full h-15 p-1 bg-purple-600 dark:bg-gray-800 shadow-md lg:rounded-xl rounded-bl-none rounded-br-none">
                 <div className="flex p-2 align-middle items-center">
 
@@ -166,7 +167,7 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
                 }
             </div>
 
-            <div className="h-15  p-1 rounded-xl rounded-tr-none rounded-tl-none dark:bg-gray-800 lg:static fixed bottom-16 w-full">
+            <div className="h-15  p-1 rounded-xl rounded-tr-none rounded-tl-none dark:bg-gray-800 fixed bottom-16 w-full">
                 <div className="flex items-center">
                     <div className="p-2 text-gray-600 dark:text-gray-200 ">
                         <Smile />
