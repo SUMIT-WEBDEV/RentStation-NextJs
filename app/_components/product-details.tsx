@@ -46,8 +46,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     const currentPage = usePathname();
 
 
-
-
     const handleChat = (id: string) => {
         if (user) {
             createConversationId(user?.id, id).then((data) => {

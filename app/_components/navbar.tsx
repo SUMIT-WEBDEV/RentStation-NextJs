@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
 import profile from "../assets/profileEmail.jpg";
@@ -117,7 +117,7 @@ function Navbar() {
 
   const handleCloseLocationBar = () => {
     setSearchText(storedLocation?.address || '')
-    setLocations([])
+    // setLocations([])
   }
 
 
@@ -272,7 +272,7 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default memo(Navbar);
 
 
 // useEffect(() => {

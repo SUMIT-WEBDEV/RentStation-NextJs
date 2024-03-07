@@ -1,10 +1,19 @@
 import React from 'react'
 import ChatList from '../_components/chat/chat-list'
+import { currentUser, currentUserDetails } from '@/lib/auth';
 
-function page() {
+async function page() {
+
+
+    const user = await currentUserDetails();
+
+    // console.log("user in chat page is", user)
+
+
     return (
-        <div><ChatList /></div>
+        <div><ChatList user={user} /></div>
     )
 }
 
 export default page
+

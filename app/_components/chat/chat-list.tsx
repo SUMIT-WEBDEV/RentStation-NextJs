@@ -17,9 +17,10 @@ interface IChatProps {
     conversationId?: string,
     sellerId?: string,
     sellerName?: string
+    user?: any
 }
 
-const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
+const ChatList = ({ conversationId, sellerId, sellerName, user }: IChatProps) => {
     // const [receiverId, setReceiverId] = useState<string>("")
     // const [inboxUsers, setInboxUsers] = useState<any>([]);
     const Router = useRouter()
@@ -27,10 +28,15 @@ const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
     const [dynamicSellerId, setDynamicSellerId] = useState<any>(sellerId)
     const [dynamicSellerName, setDynamicSellerName] = useState<any>(sellerName)
 
-    const user = useCurrentUser()
+    // const user = useCurrentUser()
 
-    const { userData, loading, error } = useUserDetails();
+    // console.log("user in chat", user)
 
+    // const { userData, loading, error } = useUserDetails();
+
+
+    const loading = false
+    const error = false
 
     useEffect(() => {
         // Add overflow hidden to body on mount
@@ -58,8 +64,9 @@ const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
 
 
     return (
-        <div className="h-screen w-screen">
-            <div className="flex flex-col h-[calc(100%-70px)]  md:flex-row mx-auto bg-gray-100 dark:bg-gray-900 max-w-5xl">
+        <div className="h-screen w-screen ">
+            {/* <div className="flex flex-col h-[calc(100%-70px)]  md:flex-row mx-auto bg-gray-100 dark:bg-gray-900 max-w-5xl"> */}
+            <div className="flex flex-col h-full  md:flex-row mx-auto bg-gray-100 dark:bg-gray-900 max-w-5xl">
 
                 <div className="w-full md:w-80 h-full dark:bg-gray-800 p-2">
                     <div className="h-full overflow-y-auto">
@@ -72,17 +79,18 @@ const ChatList = ({ conversationId, sellerId, sellerName }: IChatProps) => {
                         </div>
                         <div>
 
-                            <UserList userData={userData} handleInboxChat={handleInboxChat} dynamicSellerId={dynamicSellerId} loading={loading} error={error} />
+                            <UserList userData={user} handleInboxChat={handleInboxChat} dynamicSellerId={dynamicSellerId} loading={loading} error={error} />
+
                         </div>
                     </div>
                 </div>
-                <div className="flex-grow h-full p-2 lg:rounded-md ">
-                    {
-                        dynamicConversationId ?
-                            <Chat conversationId={dynamicConversationId} sellerName={dynamicSellerName} receiverId={dynamicSellerId} /> :
-                            <div>
-                                <h1> select an user</h1>
-                            </div>
+                <div className="flex-grow h-full p-2 lg:rounded-md">
+                    <Chat conversationId={dynamicConversationId} sellerName={dynamicSellerName} receiverId={dynamicSellerId} /> :
+
+                    {!dynamicConversationId &&
+                        <div className='lg:block hidden'>
+                            <h1> select an user</h1>
+                        </div>
 
                     }
 

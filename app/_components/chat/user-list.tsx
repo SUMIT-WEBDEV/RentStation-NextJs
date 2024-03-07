@@ -6,12 +6,6 @@ import userNullProfile from "@/app/assets/nullProfile.png"
 
 
 export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, loading, error }: any) => {
-    const [lazyLoadImages, setLazyLoadImages] = useState(false);
-
-    useEffect(() => {
-        // Enable lazy loading of images after component mounts
-        setLazyLoadImages(true);
-    }, []);
 
     if (loading) {
         return (
@@ -41,6 +35,7 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
     return (
         <div>
             {userData && userData.conversations && userData.conversations.length > 0 ? (
+
                 userData.conversations.map((conversation: any, index: number) => {
                     const currentUserId = userData.id;
                     const member1 = conversation.members[0];
@@ -55,7 +50,7 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
                         return (
                             <div key={index} className={cn('m-4 p-2 cursor-pointer rounded-md flex space-x-3 items-center', userId === dynamicSellerId ? "bg-blue-400" : "bg-blue-200")} onClick={() => handleInboxChat(otherMember)}>
                                 <div className=''>
-                                    {userProfile && lazyLoadImages ? (
+                                    {userProfile ? (
                                         <Image src={userProfile} width={40} height={40} alt="userImage" className='rounded-full' />
                                     ) : (
                                         <Image src={userNullProfile} width={40} height={40} alt="userImage" className='rounded-full' />

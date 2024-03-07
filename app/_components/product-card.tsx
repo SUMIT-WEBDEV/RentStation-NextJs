@@ -18,12 +18,13 @@ type ProductCardProps = {
 export function ProductCard({ product }: ProductCardProps) {
     return (
         <Link
-            className="border border-gray rounded-md lg:p-3 p-2 bg-white h-fit"
+            className="border border-gray rounded-md lg:p-3 p-2 bg-white h-fit w-full"
             href={`/item/${product.title}-${product.id}`}
         >
-            <div className="w-auto h-40 lg:h-60 z-10">
+            {/* <div className="w-auto h-40 lg:h-60 z-10 bg-red-200 aspect-square"> */}
+            <div className="w-full z-10 ">
                 {product.image && (
-                    <Image src={product.image} width={250} height={200} alt="Picture" />
+                    <Image src={product.image} width={250} height={250} alt="Picture" className="object-cover aspect-square" />
                 )}
             </div>
             <div className="flex flex-col h-full justify-between space-y-3 pt-5">

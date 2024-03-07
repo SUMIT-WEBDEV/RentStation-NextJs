@@ -4,6 +4,7 @@ import Chat from '@/app/_components/chat/chat'
 import ChatList from '@/app/_components/chat/chat-list'
 import { db } from '@/lib/db'
 import { useCurrentUser } from '@/hooks/use-current-user'
+import { currentUserDetails } from '@/lib/auth'
 
 const page = async ({ params }: any) => {
 
@@ -17,6 +18,9 @@ const page = async ({ params }: any) => {
     const conversationId = params.conversationId
     const sellerName = sellerData?.name || "";
 
+    const user = await currentUserDetails();
+
+
 
     // console.log("sellerData", sellerData)
     // console.log("params are", params)
@@ -24,7 +28,7 @@ const page = async ({ params }: any) => {
 
     return (
         <div className='overflow-y-hidden min-h-screen'>
-            <ChatList conversationId={conversationId} sellerId={params.sellerId} sellerName={sellerName} />
+            <ChatList conversationId={conversationId} sellerId={params.sellerId} sellerName={sellerName} user={user} />
         </div>
     )
 }
