@@ -20,6 +20,7 @@ import { Heart } from "lucide-react";
 import { Share2 } from "lucide-react";
 import { CalendarDays } from "lucide-react";
 import { User } from "lucide-react";
+import { MessageSquareMore } from "lucide-react";
 
 const review = [1, 2, 3, 4, 5];
 
@@ -121,7 +122,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 </div>
               </div>
 
-              <Button onClick={() => handleChat(product.userId)}>
+              <Button
+                className="p-5 flex items-center gap-2 rounded-lg"
+                onClick={() => handleChat(product.userId)}
+              >
+                <MessageSquareMore />
                 Chat with Seller
               </Button>
               <div className="flex gap-16">
@@ -176,13 +181,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                     Description:
                   </p>
                   <p className="font-medium text-l text-gray-400">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Similique sit delectus, atque excepturi id sint, nesciunt
-                    quasi ipsam consequuntur placeat, reiciendis deleniti dicta
-                    repellat. Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Similique sit delectus, atque excepturi id sint,
-                    nesciunt quasi ipsam consequuntur placeat, reiciendis
-                    deleniti dicta repellat.
+                    {product.description}
                   </p>
                 </div>
               </div>
