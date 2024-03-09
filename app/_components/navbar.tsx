@@ -68,11 +68,13 @@ function Navbar() {
   });
 
   const [SearchText, setSearchText] = useState<string>(storedLocation?.address || "")
+  const [showSuggestion, setShowSuggestion] = useState(false)
 
 
   const handleSearchLocation = async (e: any) => {
     try {
       setSearchText(e.target.value);
+      setShowSuggestion(true)
       if (SearchText.length >= 3) {
         const response = await fetch(CORSPROXY + encodeURIComponent(SEARCH_LOCATION_API) + SearchText)
         if (!response.ok) {
@@ -107,8 +109,9 @@ function Navbar() {
           lng: data[0]?.geometry?.location?.lng,
           address: data[0]?.formatted_address
         })
+        setSearchText(data[0]?.formatted_address)
+        setShowSuggestion(false)
       }
-      setSearchText("")
     } catch (err) {
       console.log(err)
     }
@@ -116,6 +119,9 @@ function Navbar() {
 
 
   const handleCloseLocationBar = () => {
+
+    setShowSuggestion(false)
+
     setSearchText(storedLocation?.address || '')
     // setLocations([])
   }
@@ -124,6 +130,12 @@ function Navbar() {
   const handleSearch = () => {
     router.push(`/location/${query}`);
   };
+
+
+  const handleFocus = () => {
+    console.log("focusedddd")
+    setSearchText('')
+  }
 
   return (
     <div className="sticky">
@@ -147,7 +159,9 @@ function Navbar() {
 
 
             {/* <div className="lg:block hidden relative w-52 bg-slate-50 border rounded-md"> */}
-            <div className=" lg:flex items-center hidden relative w-60 min-w-auto  rounded-md focus:border-gray-700 lg:border-none justify-between bg-slate-50">
+            <div className=" lg:flex items-center hidden relative w-60 min-w-auto  rounded-md focus:border-gray-700 lg:border-none justify-between bg-slate-50"
+            // onBlur={handleCloseLocationBar}
+            >
 
               <input
                 className="px-3 text-xs py-2 h-9 outline-none rounded-md bg-transparent text-black w-5/6"
@@ -155,15 +169,18 @@ function Navbar() {
                 onChange={(e) => handleSearchLocation(e)}
                 // value={storedLocation?.address}
                 value={SearchText}
-                onFocus={() => setSearchText('')}
+                onFocus={handleFocus}
                 onBlur={handleCloseLocationBar}
+                // onMouseDown={(e) => e.preventDefault()}
                 placeholder="Select Location"
               />
 
               <LocationOnIcon className="text-gray-500 absolute right-3" />
 
-              {SearchText.length > 0 && locations.length > 0 && (
-                <ul className="absolute text-xs top-full w-full bg-slate-50 text-black rounded-md mt-2 shadow-lg border-gray-300 border">
+              {showSuggestion && locations.length > 0 && (
+                <ul className="absolute text-xs top-full w-full bg-slate-50 text-black rounded-md mt-2 shadow-lg border-gray-300 border" id="badButton"
+                  onMouseDown={(e) => e.preventDefault()}
+                >
                   {
                     locations?.map((item: any) => (
                       <div className="text-xs p-2 cursor-pointer" key={item?.place_id} onClick={() => handleUserLocation(item?.place_id)}>
