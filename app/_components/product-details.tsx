@@ -1,118 +1,198 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import React from "react";
 import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel"
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { usePathname, useRouter } from "next/navigation";
 import { createConversationId } from "@/actions/create-conversationId";
+import { Star } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { Heart } from "lucide-react";
+import { Share2 } from "lucide-react";
+import { CalendarDays } from "lucide-react";
+import { User } from "lucide-react";
+import { MessageSquareMore } from "lucide-react";
 
-
+const review = [1, 2, 3, 4, 5];
 
 interface IUser {
-    id: string;
-    name: string | null
+  id: string;
+  name: string | null;
 }
 interface Products {
-    id: string;
-    location: string;
-    price: string;
-    description: string;
-    title: string;
-    duration: string;
-    category: string;
-    image: string | null;
-    userId: string;
-    createdAt: Date;
-    user: IUser
+  id: string;
+  location: string;
+  price: string;
+  description: string;
+  title: string;
+  duration: string;
+  category: string;
+  image: string | null;
+  userId: string;
+  createdAt: Date;
+  user: IUser;
 }
 
 interface ProductDetailsProps {
-    product: Products;
+  product: Products;
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-    const user = useCurrentUser()
-    console.log("user is", user)
-    const Router = useRouter()
-    const currentPage = usePathname();
+  const user = useCurrentUser();
+  console.log("user is", user);
+  const Router = useRouter();
+  const currentPage = usePathname();
 
-
-    const handleChat = (id: string) => {
-        if (user) {
-            createConversationId(user?.id, id).then((data) => {
-                console.log("data is conversationId-----", data);
-                Router.push(`/chat/new/${data.conversationId}/${id}`)
-            }).catch(err => console.error(err))
-        } else {
-            Router.push(`/auth/login?callbackUrl=${encodeURIComponent(currentPage)}`);
-        }
+  const handleChat = (id: string) => {
+    if (user) {
+      createConversationId(user?.id, id)
+        .then((data) => {
+          console.log("data is conversationId-----", data);
+          Router.push(`/chat/new/${data.conversationId}/${id}`);
+        })
+        .catch((err) => console.error(err));
+    } else {
+      Router.push(`/auth/login?callbackUrl=${encodeURIComponent(currentPage)}`);
     }
+  };
 
+  return (
+    <div className="">
+      {product ? (
+        <div className="flex flex-col items-center gap-5">
+          <div className="flex flex-col gap-10 md:flex-row md:items-center p-[20px] md:justify-center md:gap-40 shadow-md w-full">
+            {product.image ? (
+              <div className="">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  width={500}
+                  height={200}
+                  className="rounded-md"
+                />
+              </div>
+            ) : (
+              <div className="bg-gray-400" />
+            )}
 
-    return (
-        <div>
-            {product ? (
-                <div className="flex w-screen p-8">
-
-                    {product.image ? (
-                        <div className="flex flex-[60%] justify-center items-center w-full border-2 border-gray-50">
-                            {/* <Carousel>
-                                <CarouselContent>
-                                    <CarouselItem>
-                                        <Image src={product.image} alt={product.title} width={500} height={200} />
-
-                                    </CarouselItem>
-                                    <CarouselItem>
-                                        <Image src={product.image} alt={product.title} width={500} height={200} />
-
-                                    </CarouselItem>
-                                    <CarouselItem>
-                                        <Image src={product.image} alt={product.title} width={500} height={200} />
-
-
-                                    </CarouselItem>
-                                </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
-                            </Carousel> */}
-                            <Image src={product.image} alt={product.title} width={500} height={200} />
-
-                        </div>
-                    ) : (
-                        <div className="w-full h-full bg-gray-400" />
-                    )}
-
-                    <div className="flex flex-[30%] bg-green-300 flex-col">
-                        <div>seller id {product.userId}</div>
-                        <br />
-                        <div>seller Id {product.user.name}</div>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <div>
-                            <h1>current user Id {user?.id}</h1>
-                        </div>
-
-                        {/* <Link href={`settings/${product.userId}/${user?.id}`}>Chat with Seller</Link> */}
-
-                        <Button onClick={() => handleChat(product.userId)}>Chat with Seller</Button>
-
-                    </div>
-
+            <div className="flex flex-col md:justify-center gap-5">
+              <div className="flex flex-col gap-2">
+                <h1 className="text-5xl font-bold">{product.title}</h1>
+                <div className="flex gap-2 items-center">
+                  <p className="font-bold">4.6</p>
+                  {review.map((star) => (
+                    <Star key={star} className="w-4" />
+                  ))}
+                  <p className="text-sm underline cursor-pointer text-gray-400">
+                    195 reviews
+                  </p>
                 </div>
-            ) : ""}
+              </div>
+
+              <div>
+                <p className="text-4xl font-medium">₹ {product.price}</p>
+              </div>
+              <div className="flex items-center gap-3 flex-wrap max-w-full">
+                <div className="flex items-center gap-1">
+                  <MapPin className="w-3 text-gray-400" />
+                  <p className="font-medium text-sm text-gray-400">
+                    {product.location}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1 ">
+                  <CalendarDays className="w-3 text-gray-400" />
+                  <p className="font-medium text-sm text-gray-400">
+                    {product.duration}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <User className="w-3 text-gray-400" />
+                  <p className="font-medium text-sm text-gray-400">
+                    {product.user.name}
+                  </p>
+                </div>
+              </div>
+
+              <Button
+                className="p-5 flex items-center gap-2 rounded-lg"
+                onClick={() => handleChat(product.userId)}
+              >
+                <MessageSquareMore />
+                Chat with Seller
+              </Button>
+              <div className="flex gap-16">
+                <div className="flex flex-col items-center gap-2 cursor-pointer">
+                  <Heart />
+                  <p className="text-sm">Shortlist</p>
+                </div>
+                <div className="flex flex-col items-center gap-2 cursor-pointer">
+                  <Star />
+                  <p className="text-sm">Review</p>
+                </div>
+                <div className="flex flex-col items-center gap-2 cursor-pointer">
+                  <Share2 />
+                  <p className="text-sm">Share</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full p-5">
+            <div className="shadow border rounded-md p-5 flex flex-col gap-5">
+              <h1 className="font-bold text-2xl">{product.title}</h1>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-3">
+                  <p className="font-medium text-l text-gray-600">Location:</p>
+                  <p className="font-medium text-l text-gray-400">
+                    {product.location}
+                  </p>
+                </div>
+
+                <div className="flex gap-3">
+                  <p className="font-medium text-l text-gray-600">Category:</p>
+                  <p className="font-medium text-l text-gray-400">
+                    {product.category}
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <p className="font-medium text-l text-gray-600">
+                    Created At:
+                  </p>
+                  <p className="font-medium text-l text-gray-400">
+                    {product.createdAt.toLocaleDateString()}
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <p className="font-medium text-l text-gray-600">Seller:</p>
+                  <p className="font-medium text-l text-gray-400">
+                    {product.user.name}
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <p className="font-medium text-l text-gray-600">
+                    Description:
+                  </p>
+                  <p className="font-medium text-l text-gray-400">
+                    {product.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      ) : (
+        ""
+      )}
+    </div>
+  );
 };
 
 export default ProductDetails;

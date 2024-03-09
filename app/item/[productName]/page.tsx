@@ -14,21 +14,16 @@ async function page({ params }: any) {
         select: {
           id: true,
           name: true,
-        }
-      }
+        },
+      },
     },
-  })
+  });
 
-  console.log("productDetails---->", product)
-
+  console.log("productDetails---->", product);
 
   return (
     <div>
-      <div className=" w-fit p-2 m-2 ">
-
-        {product && <ProductDetails product={product} />}
-
-      </div>
+      <div className="">{product && <ProductDetails product={product} />}</div>
     </div>
   );
 }
