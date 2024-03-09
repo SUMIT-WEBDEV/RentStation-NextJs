@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { db } from "@/lib/db";
 import Products from "./products";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { getProduct } from "@/actions/get-product";
 
 async function Home({ params }: any) {
-  const products = await db.products.findMany({
-    // take: params || 2,
-  });
+
+
+  const products = await getProduct()
+
+  console.log("products are", products)
+
 
   // const user = useCurrentUser()
-
-  console.log("params is ---->", params);
+  // console.log("params is ---->", params);
   // console.log("user user ---->", user);
 
   return (

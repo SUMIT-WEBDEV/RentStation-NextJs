@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { ProductCard } from "./product-card";
 import { ProductSkeleton } from "./product-skelton";
+import { getProduct } from "@/actions/get-product";
 
 
 type Product = {
@@ -27,15 +28,26 @@ type ProductsProps = {
 };
 
 export function Products({ products }: ProductsProps) {
-  const [page, setPage] = useState(3);
+  // export function Products() {
+  const [page, setPage] = useState<number>(1);
   const router = useRouter();
+  const [productData, setProductData] = useState(products)
 
   const handleNext = () => {
     router.push(`/?page=${page}`);
   };
 
+
+  const loadMoreProducts = async () => {
+    const next: number = page + 1;
+    const products = await getProduct({ page: next });
+    setPage(next)
+    setProductData([...productData, ...products])
+  }
+
+
   // Determine loading state based on the length of products array
-  const loading = products.length === 0;
+  const loading = productData.length === 0;
   // const loading = true;
 
   return (
@@ -44,11 +56,11 @@ export function Products({ products }: ProductsProps) {
         <div className="w-full lg:w-auto mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {loading
             ? Array.from({ length: 8 }).map((_, index) => <ProductSkeleton key={index} />)
-            : products.map((product: Product) => <ProductCard key={product.id} product={product} />)}
+            : productData.map((product: Product) => <ProductCard key={product.id} product={product} />)}
         </div>
       </div>
       <div className="flex mt-3">
-        <Button onClick={handleNext} className="m-auto">Load More</Button>
+        <Button onClick={loadMoreProducts} className="m-auto">Load More</Button>
       </div>
     </div>
   );

@@ -40,9 +40,3 @@ export const createProduct = async (
     return { error: "Failed to add product." };
   }
 };
-
-export const getProduct = async () => {
-  const products = await db.products.findMany();
-
-  return products;
-};
