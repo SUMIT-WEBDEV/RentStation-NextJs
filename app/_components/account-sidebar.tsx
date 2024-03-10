@@ -28,7 +28,7 @@ const menuItems = [
   { icon: <FavoriteIcon fontSize="medium" />, text: "Favorites" },
   { icon: <ShoppingCartIcon fontSize="medium" />, text: "Saved" },
   { icon: <EditIcon fontSize="medium" />, text: "Edit Profile" },
-  { icon: <PaymentIcon fontSize="medium" />, text: "My Transactions" },
+  { icon: <PaymentIcon fontSize="medium" />, text: "My Ads" },
   { icon: <LanguageIcon fontSize="medium" />, text: "Change Language" },
   { icon: <HelpIcon fontSize="medium" />, text: "Notifications" },
   { icon: <MoreHorizIcon fontSize="medium" />, text: "Others" },
@@ -41,7 +41,6 @@ const Sidebar = () => {
 
   const user = useCurrentUser()
   const userImage = user?.image
-  // console.log("user is", user)
   const { isSidebarOpen, toggleSidebar } = useSidebarStore();
 
 
@@ -63,7 +62,7 @@ const Sidebar = () => {
 
         <div className="flex justify-between mb-10">
           <div>
-            <p className="font-bold text-xl">Sumit Sahu</p>
+            <p className="font-bold text-xl">{user?.name || ""}</p>
             <p className="text-sm text-gray-50">Manage profile and setting</p>
           </div>
           {

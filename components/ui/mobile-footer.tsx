@@ -23,7 +23,7 @@ const menuItems: MenuItem[] = [
   { icon: <HomeIcon fontSize="small" />, text: "Home", route: "/" },
   { icon: <ChatIcon fontSize="small" />, text: "Chats", route: "/chat" },
   { icon: <SellIcon fontSize="small" />, text: "Sell", route: "/sell" },
-  { icon: <ListAltIcon fontSize="small" />, text: "My Ads", route: "/myads" },
+  { icon: <ListAltIcon fontSize="small" />, text: "My Ads", route: "/my-ads" },
 ];
 // { icon: <AccountCircleIcon fontSize="small" />, text: "Account" },
 
