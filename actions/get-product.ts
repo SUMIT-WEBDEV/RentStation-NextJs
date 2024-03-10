@@ -3,6 +3,7 @@
 import * as z from "zod";
 import { ProductSchema } from "@/schemas";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export const getProduct = async ({ page }: { page?: number } = {}) => {
   const limit = 4;
@@ -14,5 +15,6 @@ export const getProduct = async ({ page }: { page?: number } = {}) => {
     take: limit,
   });
 
+  revalidatePath("/");
   return products;
 };

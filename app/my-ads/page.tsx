@@ -1,8 +1,25 @@
 import React from 'react'
+import Myads from '../_components/my-ads'
+import { db } from '@/lib/db'
+import { currentUser } from '@/lib/auth'
 
-const page = () => {
+const page = async () => {
+
+    const user = await currentUser()
+
+    console.log("user", user)
+    const myAds = await db.products.findMany({
+        where: {
+            userId: user?.id
+        }
+    })
+
+    console.log("myads", myAds)
+
     return (
-        <div>page</div>
+        <div className='w-screen'>
+            <Myads myAds={myAds} />
+        </div>
     )
 }
 

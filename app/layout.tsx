@@ -6,7 +6,6 @@ import { auth } from "@/auth";
 import Navbar from "./_components/navbar";
 import MobileFooter from "@/components/ui/mobile-footer";
 import Sidebar from "./_components/account-sidebar";
-// import { db } from "@/lib/db";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +19,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const users = await db.user.find();
 
-  // console.log(users);
 
   const session = await auth();
 
@@ -36,7 +33,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         > */}
-          <div className="pb-24 lg:pb-2 overflow-hidden">
+          <div className="pb-24 lg:pb-2 overflow-hidden bg-slate-50">
             <Navbar />
             <Sidebar />
             {children}
