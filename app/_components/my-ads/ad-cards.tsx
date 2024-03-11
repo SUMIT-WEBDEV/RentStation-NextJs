@@ -21,7 +21,7 @@ type CardAdProps = {
 const CardAd = ({ id, location, price, title, duration, category, image, userId, createdAt }: Product) => {
 
     return (
-        <div className='border border-gray-300 space-x-9 lg:space-x-36 flex items-center justify-between w-full p-1 lg:m-2 m-1 rounded-s bg-[#fff] '>
+        <div className='border border-gray-300 flex items-center justify-between w-full p-1 m-1 rounded-s bg-[#fff] shadow-md '>
 
             <div className='h-16 w-20 relative'>
                 {image &&

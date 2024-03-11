@@ -229,7 +229,7 @@ function Navbar() {
           <Link href="/chat" className="text-[#fff] ">
             Inbox
           </Link>
-          <Link href="/wishlist" className="text-[#fff]">
+          <Link href="/my-ads" className="text-[#fff]">
             WishList
           </Link>
           <Link href="/sell" className="text-[#fff]">

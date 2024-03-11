@@ -17,7 +17,7 @@ const page = async () => {
     console.log("myads", myAds)
 
     return (
-        <div className='w-screen'>
+        <div className='w-full'>
             <Myads myAds={myAds} />
         </div>
     )
