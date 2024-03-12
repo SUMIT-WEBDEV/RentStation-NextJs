@@ -28,6 +28,7 @@ model User {
   Products              Products[]
   conversations         Conversation[]         @relation("ConversationMembers")
   messages              Message[]              @relation("SenderMessages")
+  favorites             Favorite[]
   createdAt             DateTime               @default(now())
 }
 
@@ -87,7 +88,7 @@ model TwoFactorConfirmation {
 }
 
 model Products {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   location    String
   price       String
   description String
@@ -95,9 +96,10 @@ model Products {
   duration    String
   category    String
   image       String?
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  createdAt   DateTime @default(now())
+  createdAt   DateTime   @default(now())
+  Favorite    Favorite[]
 }
 
 model Conversation {
@@ -115,4 +117,15 @@ model Message {
   conversation   Conversation @relation("ConversationMessages", fields: [conversationId], references: [id])
   conversationId String
   createdAt      DateTime     @default(now())
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  product   Products @relation(fields: [productId], references: [id])
+  productId String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@unique([productId, userId])
 }
