@@ -167,7 +167,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                     Created At:
                   </p>
                   <p className="font-medium text-l text-gray-400">
-                    {product.createdAt.toLocaleDateString()}
+                    {/* {product.createdAt.toLocaleDateString()} */}
+                    10Jan
                   </p>
                 </div>
                 <div className="flex gap-3">

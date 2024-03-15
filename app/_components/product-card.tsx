@@ -37,7 +37,9 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
     const user = useCurrentUser()
     console.log("user", user)
 
-    const handleFavorite = (productId: string) => {
+    const handleFavorite = (e: React.MouseEvent<HTMLParagraphElement>, productId: string) => {
+        e.preventDefault();
+        e.stopPropagation()
         if (user) {
             const values = {
                 userId: user.id,
@@ -49,9 +51,9 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
 
 
     return (
-        <div
+        <Link
             className="border border-gray rounded-md lg:p-3 p-2 h-fit w-full "
-        // href={`/item/${product.title}-${product.id}`}
+            href={`/item/${product.title}-${product.id}`}
         >
             {/* <div className="w-auto h-40 lg:h-60 z-10 bg-red-200 aspect-square"> */}
             <div className="w-full z-10 ">
@@ -65,16 +67,13 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
 
                         <p className="font-bold text-lg lg:text-xl">${product.price}/{product.duration}</p>
 
-                        <div onClick={(e) => e.stopPropagation()}>
 
-                            <p className="cursor-pointer" onClick={() => handleFavorite(product.id)}>
-                                {
-                                    isFavorite ? <Heart fill="black" /> :
-                                        <Heart />
-                                }
-                            </p>
-                        </div>
-
+                        <p className="cursor-pointer" onClick={(e) => handleFavorite(e, product.id)}>
+                            {
+                                isFavorite ? <Heart fill="black" /> :
+                                    <Heart />
+                            }
+                        </p>
 
                     </div>
                     <p className="text-gray-700 text-sm">{product.title}</p>
@@ -86,6 +85,6 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
             </div>
 
 
-        </div>
+        </Link>
     );
 }
