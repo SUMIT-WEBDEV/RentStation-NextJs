@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import Navbar from "./_components/navbar";
 import MobileFooter from "@/components/ui/mobile-footer";
 import Sidebar from "./_components/account-sidebar";
+import DesktopFooter from "./_components/footer/desktop-footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default async function RootLayout({
             {/* </ThemeProvider> */}
           </div>
           <MobileFooter />
+          <DesktopFooter />
         </body>
       </html>
     </SessionProvider>

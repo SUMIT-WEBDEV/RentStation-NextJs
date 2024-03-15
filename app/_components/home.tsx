@@ -11,12 +11,12 @@ async function Home({ params }: any) {
   const products = await getProducts()
   const user = await currentUserDetails()
 
-  console.log("products are", products)
+  // console.log("products are", products)
 
 
   // const user = useCurrentUser()
   // console.log("params is ---->", params);
-  console.log("user user ---->", user);
+  // console.log("user user ---->", user);
 
   return (
     <div className="flex flex-col mt-5 w-full">

@@ -133,7 +133,6 @@ function Navbar() {
 
 
   const handleFocus = () => {
-    console.log("focusedddd")
     setSearchText('')
   }
 
