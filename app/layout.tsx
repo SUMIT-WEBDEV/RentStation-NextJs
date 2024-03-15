@@ -7,6 +7,8 @@ import Navbar from "./_components/navbar";
 import MobileFooter from "@/components/ui/mobile-footer";
 import Sidebar from "./_components/account-sidebar";
 import DesktopFooter from "./_components/footer/desktop-footer";
+import Script from "next/script";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,6 +44,7 @@ export default async function RootLayout({
           </div>
           <MobileFooter />
           <DesktopFooter />
+          <Script src="/service-worker.js" />
         </body>
       </html>
     </SessionProvider>
