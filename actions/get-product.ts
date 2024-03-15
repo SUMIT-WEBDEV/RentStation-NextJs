@@ -5,8 +5,8 @@ import { ProductSchema } from "@/schemas";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
-export const getProduct = async ({ page }: { page?: number } = {}) => {
-  const limit = 4;
+export const getProducts = async ({ page }: { page?: number } = {}) => {
+  const limit = 10;
   const pageNum = page || 1;
 
   const products = await db.products.findMany({
@@ -15,6 +15,5 @@ export const getProduct = async ({ page }: { page?: number } = {}) => {
     take: limit,
   });
 
-  revalidatePath("/");
   return products;
 };

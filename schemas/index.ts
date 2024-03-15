@@ -111,3 +111,8 @@ export const ProductSchema = z.object({
     (),
   // userId: z.string(),
 });
+
+export const favoriteSchema = z.object({
+  userId: z.string(),
+  productId: z.string(),
+});

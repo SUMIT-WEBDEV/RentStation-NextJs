@@ -2,19 +2,21 @@ import React, { useState } from "react";
 import { db } from "@/lib/db";
 import Products from "./products";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { getProduct } from "@/actions/get-product";
+import { getProducts } from "@/actions/get-product";
+import { currentUserDetails } from "@/lib/auth";
 
 async function Home({ params }: any) {
 
 
-  const products = await getProduct()
+  const products = await getProducts()
+  const user = await currentUserDetails()
 
   console.log("products are", products)
 
 
   // const user = useCurrentUser()
   // console.log("params is ---->", params);
-  // console.log("user user ---->", user);
+  console.log("user user ---->", user);
 
   return (
     <div className="flex flex-col mt-5 w-full">
@@ -25,7 +27,7 @@ async function Home({ params }: any) {
         Fresh Recommendations
       </h1>
       <div className="flex justify-center items-center">
-        <Products products={products} />
+        <Products products={products} user={user} />
       </div>
     </div>
   );

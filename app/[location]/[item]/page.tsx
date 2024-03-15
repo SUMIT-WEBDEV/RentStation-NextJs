@@ -24,7 +24,7 @@ async function page({ params }: any) {
   return (
     <div>
       <ProductFilter />
-      <Products products={products} />
+      {/* <Products products={products} /> */}
     </div>
   );
 }

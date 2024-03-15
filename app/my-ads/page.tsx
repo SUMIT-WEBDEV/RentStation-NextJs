@@ -14,11 +14,18 @@ const page = async () => {
         }
     })
 
-    console.log("myads", myAds)
+    const favorites = await db.favorite.findMany({
+        where: { userId: user?.id },
+        include: {
+            product: true
+        },
+    })
+
+    console.log("my favorites", favorites)
 
     return (
         <div className='w-full'>
-            <Myads myAds={myAds} />
+            <Myads myAds={myAds} favorites={favorites} />
         </div>
     )
 }

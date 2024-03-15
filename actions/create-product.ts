@@ -3,6 +3,7 @@
 import * as z from "zod";
 import { ProductSchema } from "@/schemas";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export const createProduct = async (
   values: z.infer<typeof ProductSchema>,
@@ -34,6 +35,7 @@ export const createProduct = async (
     await db.products.create({
       data: productData,
     });
+    revalidatePath("/");
     return { success: "Product is added!" };
   } catch (error) {
     console.error("Prisma error:", error);

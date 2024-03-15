@@ -21,6 +21,7 @@ export const currentUserDetails = async () => {
             members: true,
           },
         },
+        favorites: true,
       },
     });
 

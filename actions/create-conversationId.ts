@@ -8,11 +8,6 @@ export const createConversationId = async (
   sellerId: string
 ) => {
   try {
-    console.log("===================");
-    console.log(userId);
-    console.log(sellerId);
-    console.log("===================");
-
     // Check if a conversation between these users already exists
     const existingConversation = await db.conversation.findFirst({
       where: {
