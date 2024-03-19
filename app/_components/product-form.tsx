@@ -25,7 +25,7 @@ import { json } from "stream/consumers";
 function ProductForm() {
   const user = useCurrentUser();
 
-  console.log("user is", user?.id);
+  // console.log("user is", user?.id);
 
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof ProductSchema>>({

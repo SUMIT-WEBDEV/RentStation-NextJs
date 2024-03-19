@@ -7,7 +7,7 @@ const page = async () => {
 
     const user = await currentUser()
 
-    console.log("user", user)
+    // console.log("user", user)
     const myAds = await db.products.findMany({
         where: {
             userId: user?.id

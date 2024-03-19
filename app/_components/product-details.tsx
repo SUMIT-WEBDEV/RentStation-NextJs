@@ -48,7 +48,7 @@ interface ProductDetailsProps {
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
   const user = useCurrentUser();
-  console.log("user is", user);
+  // console.log("user is", user);
   const Router = useRouter();
   const currentPage = usePathname();
 
