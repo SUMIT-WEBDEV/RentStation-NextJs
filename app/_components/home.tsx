@@ -6,7 +6,6 @@ import Products from "./products";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { getProducts } from "@/actions/get-product";
 import useStoreLocation from "@/store/user-location";
-// import { currentUserDetails } from "@/lib/auth";
 
 type Product = {
   id: string;
@@ -27,8 +26,6 @@ function Home({ user }: any) {
   const { storedLocation, storeLocation, setLocation } = useStoreLocation();
   const [loadingproduct, setloadingproduct] = useState(true)
 
-  console.log("storedLocation in product page---->", storedLocation?.city)
-
   const isLocation = storedLocation?.city || ""
 
 
@@ -45,15 +42,6 @@ function Home({ user }: any) {
     fetchInitialProduct()
   }, [isLocation])
 
-  console.log("initialProducts are", initialProducts)
-
-  // const products = await getProducts()
-
-  // console.log("products are", products)
-
-  // const user = useCurrentUser()
-  // console.log("params is ---->", params);
-  // console.log("user user ---->", user);
 
   return (
     <div className="flex flex-col mt-5 w-full">

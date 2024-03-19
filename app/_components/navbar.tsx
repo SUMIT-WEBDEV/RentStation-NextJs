@@ -54,7 +54,6 @@ function Navbar() {
     setSuggestions(filteredSuggestions);
   }, [query]);
 
-  // const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
   const user = useCurrentUser()
@@ -62,7 +61,6 @@ function Navbar() {
 
   const { storedLocation, storeLocation, setLocation } = useStoreLocation();
 
-  // console.log("storedLocation in navbar page---->", storedLocation?.address)
 
   const [SearchText, setSearchText] = useState<string>(storedLocation?.address || "")
   const [showSuggestion, setShowSuggestion] = useState(false)
@@ -91,9 +89,6 @@ function Navbar() {
       console.log("error is", error)
     }
   }
-
-  console.log("corsproxy is", CORSPROXY)
-
 
   const handleUserLocation = async (placeid: string) => {
     try {

@@ -44,7 +44,7 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
         lng: 0,
     });
 
-    console.log("storedLocation in product page", storedLocation?.address)
+    // console.log("storedLocation in product page", storedLocation?.address)
     // console.log("user", user)
 
     const handleFavorite = (e: React.MouseEvent<HTMLParagraphElement>, productId: string) => {
