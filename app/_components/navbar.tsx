@@ -28,11 +28,11 @@ const dummySuggestions = [
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useRouter } from "next/navigation";
-import { ADDRESS_API, CORSPROXY, SEARCH_LOCATION_API } from "@/lib/constant";
+import { ADDRESS_API, SEARCH_LOCATION_API } from "@/lib/constant";
 import { Search } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import useSidebarStore from "@/store/toggle-sidebar";
-import useStoreLocation from "@/hooks/use-location";
+import useStoreLocation from "@/store/user-location";
 
 function Navbar() {
   const [query, setQuery] = useState<string>("");
@@ -60,15 +60,14 @@ function Navbar() {
   const user = useCurrentUser()
   const userImage = user?.image
 
-  const { storedLocation, setLocation } = useStoreLocation("userLocation", {
-    address: "",
-    city: "",
-    lat: 0,
-    lng: 0,
-  });
+  const { storedLocation, storeLocation, setLocation } = useStoreLocation();
+
+  // console.log("storedLocation in navbar page---->", storedLocation?.address)
 
   const [SearchText, setSearchText] = useState<string>(storedLocation?.address || "")
   const [showSuggestion, setShowSuggestion] = useState(false)
+
+  const CORSPROXY = process.env.NEXT_PUBLIC_CORSPROXY
 
 
   const handleSearchLocation = async (e: any) => {
@@ -76,27 +75,29 @@ function Navbar() {
       setSearchText(e.target.value);
       setShowSuggestion(true)
       if (SearchText.length >= 3) {
-        const response = await fetch(CORSPROXY + encodeURIComponent(SEARCH_LOCATION_API) + SearchText)
+        const response = await fetch(CORSPROXY + SEARCH_LOCATION_API + SearchText)
         if (!response.ok) {
           // const err = response.status;
-          // throw new err
           console.log("err")
+          // throw new err
         }
         else {
           const res = await response.json();
-          console.log("location", res?.data)
+          // console.log("location", res)
           setLocations(res?.data)
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log("error is", error)
     }
   }
+
+  console.log("corsproxy is", CORSPROXY)
 
 
   const handleUserLocation = async (placeid: string) => {
     try {
-      const response = await fetch(CORSPROXY + encodeURIComponent(ADDRESS_API) + placeid)
+      const response = await fetch(CORSPROXY + ADDRESS_API + placeid)
       if (!response.ok) {
         const err = response.status;
         throw new Error("err")
@@ -289,73 +290,5 @@ function Navbar() {
   );
 }
 
-export default memo(Navbar);
+export default Navbar;
 
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const response = await fetch(
-//         "https://countriesnow.space/api/v0.1/countries/cities",
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify({
-//             country: "india",
-//           }),
-//         }
-//       );
-
-//       if (!response.ok) {
-//         throw new Error("Network response was not ok");
-//       }
-
-//       const result = await response.json();
-//       setData(result);
-//     } catch (error) {
-//       console.log("error");
-//     }
-//   };
-
-//   fetchData();
-// }, []);
-
-// console.log("data is", data);
-
-
-
-{/* <ul className="absolute top-full w-full bg-slate-50 border text-black rounded-md shadow-sm">
-{
-  SearchText && Locations?.map((item: any) => (
-    <li onClick={() => handleUserLocation(item?.place_id)} key={item?.place_id} className='cursor-pointer relative'>
-    <li onClick={() => { }} className='cursor-pointer relative'>
-      <div className='md:p-6 py-4 flex location'>
-        <div className='text-lg text-color-6 w-8 text-left pt-1 pr-4'>
-          <GoLocation />
-          📍
-        </div>
-        <div className='flex flex-col'>
-          <h3 className='text-base font-ProximaNovaMed text-color-1'>{item?.structured_formatting?.main_text}</h3>
-          <h4 className='text-[13px] text-color-5 leading-5 font-ProximaNovaThin'>{item?.structured_formatting?.secondary_text}</h4>
-        </div>
-      </div>
-    </li>
-  ))
-}
-</ul> */}
-
-
-
-// {
-//   query.length > 0 && suggestions.length > 0 && (
-//     <ul className="absolute top-full w-full bg-slate-50 border text-black rounded-md shadow-sm">
-//       {suggestions.map((suggestion, index) => (
-//         <li key={index} className="px-4 py-2">
-//           {suggestion}
-//         </li>
-//       ))}
-//     </ul>
-//   )
-// }

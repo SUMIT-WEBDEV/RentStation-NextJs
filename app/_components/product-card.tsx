@@ -7,6 +7,7 @@ import { addToFavorite } from "@/actions/add-to-favorite";
 import { currentUser } from "@/lib/auth";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { Heart } from "lucide-react";
+import useStoreLocation from "@/hooks/use-location";
 
 type Favorite = {
     id: string;
@@ -35,7 +36,16 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
     const [success, setSuccess] = useState<string | undefined>("");
 
     const user = useCurrentUser()
-    console.log("user", user)
+
+    const { storedLocation } = useStoreLocation("userLocation", {
+        address: "",
+        city: "",
+        lat: 0,
+        lng: 0,
+    });
+
+    console.log("storedLocation in product page", storedLocation?.address)
+    // console.log("user", user)
 
     const handleFavorite = (e: React.MouseEvent<HTMLParagraphElement>, productId: string) => {
         e.preventDefault();

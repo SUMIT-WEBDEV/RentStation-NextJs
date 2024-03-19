@@ -1,25 +1,19 @@
 import React from "react";
 
-import MobileFooter from "@/components/ui/mobile-footer";
-// import CategoryCards from "../_components/category-cards";
-// import CategoryCard from "../_components/category-card";
-;
-// import Home from "../_components/home";
-import Image from "next/image";
 import CategoryCard from "./_components/category-card";
 import Home from "./_components/home";
-import Sidebar from "./_components/account-sidebar";
+import { currentUserDetails } from "@/lib/auth";
 
-function page() {
+async function page() {
+
+  const user = await currentUserDetails()
+
+
   return (
     <div className=" w-full items-center flex justify-center bg-slate-50">
       <div className="lg:w-11/12 w-full">
-        {/* <Navbar /> */}
         <CategoryCard />
-        <Home />
-
-        {/* <Image src="/next.svg" width={1800} height={200} alt="" /> */}
-        {/* <Footer /> */}
+        <Home user={user} />
       </div>
     </div>
   );
