@@ -5,7 +5,7 @@ import { FaFacebook } from 'react-icons/fa'
 
 const DesktopFooter = () => {
     return (
-        <footer className="p-4 bg-black text-white sm:p-6 dark:bg-gray-800 lg:block hidden">
+        <footer className="p-4 bg-black text-white sm:p-6 dark:bg-gray-800 lg:block hidden fixed bottom-0 w-full">
             <div className="mx-auto max-w-screen-xl">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0 space-y-3">
