@@ -27,7 +27,7 @@ const dummySuggestions = [
 ];
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ADDRESS_API, SEARCH_LOCATION_API } from "@/lib/constant";
 import { Search } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -39,6 +39,7 @@ function Navbar() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [accountSidebar, setAccountSidebar] = useState(false);
   const { setTheme } = useTheme();
+  const pathname = usePathname()
 
   const [locations, setLocations] = useState([])
 
@@ -123,8 +124,27 @@ function Navbar() {
   }
 
 
+  // const handleSearch = () => {
+  //   router.push(pathname + `/?item=${query}`);
+  // };
+
   const handleSearch = () => {
-    router.push(`/location/${query}`);
+    // Check if the current pathname is the root URL
+    if (pathname === "/") {
+      // If so, construct the dynamic location URL with the query
+      const dynamicLocation = storedLocation?.city.toLowerCase().replace(/\s+/g, '-');
+      router.push(`/${dynamicLocation}/?item=${query}`);
+    } else {
+      // If not, append the query to the current pathname
+      router.push(pathname + `/?item=${query}`);
+    }
+  };
+
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
 
@@ -163,11 +183,9 @@ function Navbar() {
                 className="px-3 text-xs py-2 h-9 outline-none rounded-md bg-transparent text-black w-5/6"
                 type="text"
                 onChange={(e) => handleSearchLocation(e)}
-                // value={storedLocation?.address}
                 value={SearchText}
                 onFocus={handleFocus}
                 onBlur={handleCloseLocationBar}
-                // onMouseDown={(e) => e.preventDefault()}
                 placeholder="Select Location"
               />
 
@@ -198,6 +216,7 @@ function Navbar() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search Your Product..."
+                onKeyPress={handleKeyPress}
               />
 
               <Search className="absolute right-3 text-gray-500"
