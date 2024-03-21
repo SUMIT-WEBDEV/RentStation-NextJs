@@ -128,17 +128,35 @@ function Navbar() {
   //   router.push(pathname + `/?item=${query}`);
   // };
 
+  // const handleSearch = () => {
+  //   // Check if the current pathname is the root URL
+  //   if (pathname === "/") {
+  //     // If so, construct the dynamic location URL with the query
+  //     const dynamicLocation = storedLocation?.city.toLowerCase().replace(/\s+/g, '-');
+  //     router.push(`/${dynamicLocation}/?item=${query}`);
+  //   } else {
+  //     // If not, append the query to the current pathname
+  //     router.push(pathname + `/?item=${query}`);
+  //   }
+  // };
+
   const handleSearch = () => {
     // Check if the current pathname is the root URL
     if (pathname === "/") {
-      // If so, construct the dynamic location URL with the query
-      const dynamicLocation = storedLocation?.city.toLowerCase().replace(/\s+/g, '-');
-      router.push(`/${dynamicLocation}/?item=${query}`);
+      // If storedLocation is null or empty, redirect to the default search page
+      if (!storedLocation || !storedLocation.city) {
+        router.push(`/items/?item=${query}`);
+      } else {
+        // If not, construct the dynamic location URL with the query
+        const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
+        router.push(`/${dynamicLocation}/?item=${query}`);
+      }
     } else {
-      // If not, append the query to the current pathname
+      // If not on the root URL, append the query to the current pathname
       router.push(pathname + `/?item=${query}`);
     }
   };
+
 
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
