@@ -33,7 +33,7 @@ async function page({ searchParams }: any) {
         return <div> No result found on this product name</div>;
     }
 
-    console.log("products in the category", products)
+    // console.log("products in the category", products)
 
     return (
         <div>

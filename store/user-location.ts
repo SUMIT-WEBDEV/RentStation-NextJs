@@ -1,6 +1,6 @@
-"use client";
-
+import Cookies from "js-cookie";
 import { create } from "zustand";
+// import { cookies } from "next/headers";
 
 interface LocationProps {
   address: string;
@@ -16,21 +16,29 @@ interface LocationStore {
 }
 
 const ISSERVER = typeof window === "undefined";
-const initialStoredLocation = ISSERVER
-  ? null
-  : JSON.parse(localStorage.getItem("userLocation") || "null");
+
+// Function to parse the stored location from the cookie
+const getStoredLocationFromCookie = (): LocationProps | null => {
+  const storedLocation = Cookies.get("userLocation");
+  return storedLocation ? JSON.parse(storedLocation) : null;
+};
+
+// Initial stored location
+const initialStoredLocation = ISSERVER ? null : getStoredLocationFromCookie();
 
 const useStoreLocation = create<LocationStore>((set, get) => ({
   storedLocation: initialStoredLocation,
   storeLocation: () => {
     const { storedLocation } = get();
     if (storedLocation) {
-      localStorage.setItem("userLocation", JSON.stringify(storedLocation));
+      Cookies.set("userLocation", JSON.stringify(storedLocation), {
+        expires: 365,
+      });
     }
   },
   setLocation: (location: LocationProps) => {
     set({ storedLocation: location });
-    localStorage.setItem("userLocation", JSON.stringify(location));
+    Cookies.set("userLocation", JSON.stringify(location), { expires: 365 });
   },
 }));
 

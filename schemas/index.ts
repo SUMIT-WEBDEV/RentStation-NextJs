@@ -116,3 +116,10 @@ export const favoriteSchema = z.object({
   userId: z.string(),
   productId: z.string(),
 });
+
+export const LocationSchema = z.object({
+  city: z.string(),
+  lat: z.number(),
+  lng: z.number(),
+  address: z.string(),
+});

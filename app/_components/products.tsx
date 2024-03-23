@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { ProductCard } from "./product-card";
 import { ProductSkeleton } from "./product-skelton";
 import { getProducts } from "@/actions/get-product";
+import useStoreLocation from "@/store/user-location";
 
 
 type Product = {
@@ -24,21 +25,46 @@ type Product = {
 type ProductsProps = {
   products: Product[];
   user: any
-  loadingproduct: boolean
-  isLocation: string
+  // loadingproduct: boolean
+  // isLocation: string
 };
 
-export function Products({ products, user, loadingproduct, isLocation }: ProductsProps) {
+export function Products({ products, user }: ProductsProps) {
   const [page, setPage] = useState<number>(1);
   const router = useRouter();
   const [productData, setProductData] = useState<Product[]>([])
-  const [loading, setLoading] = useState<boolean>(loadingproduct);
+  // const [loading, setLoading] = useState<boolean>(loadingproduct);
   // const { storedLocation, storeLocation, setLocation } = useStoreLocation();
+  // const [initialProducts, setInitialProducts] = useState<Product[]>([])
+  // const [loadingproduct, setloadingproduct] = useState(true)
+
+
+  const { storedLocation, storeLocation, setLocation } = useStoreLocation();
+
+  console.log("storedLocation is", storedLocation)
+  const isLocation = storedLocation?.city
+
+  // const isLocation = storedLocation?.city || ""
+
+
+  useEffect(() => {
+    console.log("I called")
+    const fetchInitialProduct = async () => {
+      console.log("clickedddddd")
+
+      const products = await getProducts({ location: isLocation });
+      // setloadingproduct(false);
+      console.log("products are-", products)
+      setProductData(products)
+    }
+    fetchInitialProduct()
+  }, [isLocation])
+
 
 
   useEffect(() => {
     setProductData(products);
-    setLoading(false);
+    // setLoading(false);
   }, [products]);
 
 
@@ -49,12 +75,13 @@ export function Products({ products, user, loadingproduct, isLocation }: Product
     setProductData([...productData, ...products])
   }
 
+  const loading = false
 
   return (
     <div className="lg:m-3 w-full">
       <div className="flex justify-center w-full">
         <div className="w-full lg:w-auto mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-          {loadingproduct || loading
+          {loading
             ?
             Array.from({ length: 8 }).map((_, index) => <ProductSkeleton key={index} />)
 

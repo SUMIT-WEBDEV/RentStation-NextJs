@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, { memo, useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
-import profile from "../assets/profileEmail.jpg";
 import Sidebar from "./account-sidebar";
 import { useTheme } from "next-themes";
 import {
@@ -33,6 +32,8 @@ import { Search } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import useSidebarStore from "@/store/toggle-sidebar";
 import useStoreLocation from "@/store/user-location";
+// import { updateUserLocation } from "@/actions/add-user-location";
+import { LocationSchema } from "@/schemas";
 
 function Navbar() {
   const [query, setQuery] = useState<string>("");
@@ -84,6 +85,7 @@ function Navbar() {
           const res = await response.json();
           // console.log("location", res)
           setLocations(res?.data)
+          // router.replace("/")
         }
       }
     } catch (error) {
@@ -106,6 +108,22 @@ function Navbar() {
           lng: data[0]?.geometry?.location?.lng,
           address: data[0]?.formatted_address
         })
+
+        // router.replace("/")
+
+
+
+        // const validationResult = LocationSchema.parse({
+        //   city: data[0]?.address_components[0]?.short_name,
+        //   lat: data[0]?.geometry?.location?.lat,
+        //   lng: data[0]?.geometry?.location?.lng,
+        //   address: data[0]?.formatted_address,
+        // });
+
+
+        // updateUserLocation(validationResult, user.id)
+
+
         setSearchText(data[0]?.formatted_address)
         setShowSuggestion(false)
       }

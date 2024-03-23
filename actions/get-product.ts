@@ -28,3 +28,30 @@ export const getProducts = async ({ page, location }: productProps = {}) => {
 
   return products;
 };
+
+export const getProductbyLocationCategoryItem = async ({
+  location,
+  category,
+  title,
+}: any) => {
+  console.log("in action get product", location, category, title);
+
+  const products = await db.products.findMany({
+    where: {
+      location: {
+        contains: location,
+        mode: "insensitive",
+      },
+      category: {
+        contains: category,
+        mode: "insensitive",
+      },
+      title: {
+        contains: title || "",
+        mode: "insensitive",
+      },
+    },
+    // take: 1. TODO
+  });
+  return products;
+};

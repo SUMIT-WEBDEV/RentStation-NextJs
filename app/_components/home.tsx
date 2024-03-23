@@ -1,11 +1,8 @@
-"use client"
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { db } from "@/lib/db";
 import Products from "./products";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { getProducts } from "@/actions/get-product";
-import useStoreLocation from "@/store/user-location";
 
 type Product = {
   id: string;
@@ -20,27 +17,31 @@ type Product = {
 };
 
 
-function Home({ user }: any) {
+async function Home({ user, location }: any) {
 
-  const [initialProducts, setInitialProducts] = useState<Product[]>([])
-  const { storedLocation, storeLocation, setLocation } = useStoreLocation();
-  const [loadingproduct, setloadingproduct] = useState(true)
+  // const [initialProducts, setInitialProducts] = useState<Product[]>([])
+  // const { storedLocation, storeLocation, setLocation } = useStoreLocation();
+  // const [loadingproduct, setloadingproduct] = useState(true)
 
-  const isLocation = storedLocation?.city || ""
+  // const isLocation = storedLocation?.city || ""
 
 
-  useEffect(() => {
-    console.log("I called")
-    const fetchInitialProduct = async () => {
-      console.log("clickedddddd")
+  // useEffect(() => {
+  //   console.log("I called")
+  //   const fetchInitialProduct = async () => {
+  //     console.log("clickedddddd")
 
-      const products = await getProducts({ location: isLocation });
-      setloadingproduct(false);
-      console.log("products are-", products)
-      setInitialProducts(products)
-    }
-    fetchInitialProduct()
-  }, [isLocation])
+  //     const products = await getProducts({ location: isLocation });
+  //     setloadingproduct(false);
+  //     console.log("products are-", products)
+  //     setInitialProducts(products)
+  //   }
+  //   fetchInitialProduct()
+  // }, [isLocation])
+
+  const initialProducts = await getProducts({ location });
+
+  // console.log("initialProducts are", initialProducts)
 
 
   return (
@@ -52,7 +53,8 @@ function Home({ user }: any) {
         Fresh Recommendations
       </h1>
       <div className="flex justify-center items-center">
-        <Products products={initialProducts} user={user} loadingproduct={loadingproduct} isLocation={isLocation} />
+        {/* <Products products={initialProducts} user={user} isLocation={location} /> */}
+        <Products products={initialProducts} user={user} />
       </div>
     </div>
   );

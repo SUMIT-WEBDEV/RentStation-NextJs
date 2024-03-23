@@ -7,6 +7,7 @@ import {
   authRoutes,
   publicRoutes,
 } from "@/routes";
+import { cookies } from "next/headers";
 
 export default auth((req) => {
   const { nextUrl } = req;
@@ -18,11 +19,17 @@ export default auth((req) => {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  // Define a regex pattern to match dynamic routes
-  const dynamicRoutePattern = /^\/item\/[^\/]+$/;
+  const dynamicRoutePatterns = [
+    /^\/item\/[^\/]+$/,
+    /^\/([^\/]+)\/([^\/]+)$/,
+    /^\/[^\/]+$/,
+  ];
 
   // Check if the request URL matches the dynamic route pattern
-  const isDynamicRoute = dynamicRoutePattern.test(nextUrl.pathname);
+  const isDynamicRoute = dynamicRoutePatterns.some((pattern) =>
+    pattern.test(nextUrl.pathname)
+  );
+
   const isPublicRoute =
     publicRoutes.includes(nextUrl.pathname) || isDynamicRoute;
 
