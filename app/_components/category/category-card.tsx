@@ -13,7 +13,7 @@ function CategoryCard({ address }: any) {
 
   const { storedLocation } = useStoreLocation();
 
-  console.log("storedLocation is", storedLocation)
+  // console.log("storedLocation is", storedLocation)
 
   // useEffect(() => {
   //   // setUserLocation(storedLocation?.city || "");
@@ -37,7 +37,7 @@ function CategoryCard({ address }: any) {
           <div
             key={index}
             onClick={() => handleItemClick(item.text)}
-            className="lg:w-32 min-w-16 w-auto flex flex-col lg:p-3 lg:border lg:border-gray-300 rounded-md justify-between cursor-pointer"
+            className="lg:w-32 min-w-16 w-auto flex flex-col lg:p-3 lg:border lg:border-gray-300 rounded-md justify-between cursor-pointer lg:hover:shadow-md"
           >
             <div className="text-center">{item.icon}</div>
             <div className="lg:h-9 h-6">
