@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -34,19 +35,27 @@ import useSidebarStore from "@/store/toggle-sidebar";
 import useStoreLocation from "@/store/user-location";
 // import { updateUserLocation } from "@/actions/add-user-location";
 import { LocationSchema } from "@/schemas";
+import useLocationSidebarStore from "@/store/toggle-location-sidebar";
 
 function Navbar() {
+  const router = useRouter();
+  const pathname = usePathname()
+
   const [query, setQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [accountSidebar, setAccountSidebar] = useState(false);
-  const { setTheme } = useTheme();
-  const pathname = usePathname()
-
   const [locations, setLocations] = useState([])
 
-  const { isSidebarOpen, toggleSidebar } = useSidebarStore();
 
-  const router = useRouter();
+  const { setTheme } = useTheme();
+  const { isSidebarOpen, toggleSidebar } = useSidebarStore();
+  const { isLocationSidebarOpen, toggleLocationSidebar } = useLocationSidebarStore();
+
+  const [client, setClient] = useState(false)
+
+  useEffect(() => {
+    setClient(true)
+  }, [])
 
   useEffect(() => {
     const filteredSuggestions = dummySuggestions.filter((suggestion) =>
@@ -56,7 +65,6 @@ function Navbar() {
     setSuggestions(filteredSuggestions);
   }, [query]);
 
-  const [error, setError] = useState(null);
 
   const user = useCurrentUser()
   const userImage = user?.image
@@ -68,7 +76,6 @@ function Navbar() {
   const [showSuggestion, setShowSuggestion] = useState(false)
 
   const CORSPROXY = process.env.NEXT_PUBLIC_CORSPROXY
-
 
   const handleSearchLocation = async (e: any) => {
     try {
@@ -108,22 +115,6 @@ function Navbar() {
           lng: data[0]?.geometry?.location?.lng,
           address: data[0]?.formatted_address
         })
-
-        // router.replace("/")
-
-
-
-        // const validationResult = LocationSchema.parse({
-        //   city: data[0]?.address_components[0]?.short_name,
-        //   lat: data[0]?.geometry?.location?.lat,
-        //   lng: data[0]?.geometry?.location?.lng,
-        //   address: data[0]?.formatted_address,
-        // });
-
-
-        // updateUserLocation(validationResult, user.id)
-
-
         setSearchText(data[0]?.formatted_address)
         setShowSuggestion(false)
       }
@@ -142,21 +133,6 @@ function Navbar() {
   }
 
 
-  // const handleSearch = () => {
-  //   router.push(pathname + `/?item=${query}`);
-  // };
-
-  // const handleSearch = () => {
-  //   // Check if the current pathname is the root URL
-  //   if (pathname === "/") {
-  //     // If so, construct the dynamic location URL with the query
-  //     const dynamicLocation = storedLocation?.city.toLowerCase().replace(/\s+/g, '-');
-  //     router.push(`/${dynamicLocation}/?item=${query}`);
-  //   } else {
-  //     // If not, append the query to the current pathname
-  //     router.push(pathname + `/?item=${query}`);
-  //   }
-  // };
 
   const handleSearch = () => {
     // Check if the current pathname is the root URL
@@ -189,6 +165,8 @@ function Navbar() {
   }
 
 
+
+
   return (
     <div className="fixed top-0 left-0">
       <div className="lg:flex lg:flex-row justify-around items-center bg-black text-white p-4 w-screen">
@@ -201,8 +179,18 @@ function Navbar() {
             >
               RentStation
             </Link>
-            <div className="lg:hidden">
-              <LocationOnIcon className="text-gray-200" />
+            <div className="lg:hidden text-gray-200 flex items-center  gap-1 justify-end"
+              onClick={toggleLocationSidebar}
+
+            >
+              <LocationOnIcon className=" text-lg" />
+              <p className="text-xs truncate w-24">
+                {/* {SearchText} */}
+                {
+                  client && storedLocation?.address
+                }
+              </p>
+
             </div>
           </div>
 
