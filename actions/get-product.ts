@@ -38,10 +38,10 @@ export const getProductbyLocationCategoryItem = async ({
 
   const products = await db.products.findMany({
     where: {
-      location: {
-        contains: location,
-        mode: "insensitive",
-      },
+      OR: [
+        { location: { contains: location || "" } },
+        { location: { startsWith: location || "" } },
+      ],
       category: {
         contains: category,
         mode: "insensitive",
