@@ -45,7 +45,7 @@ export default async function RootLayout({
             {/* </ThemeProvider> */}
           </div>
           <MobileFooter />
-          <DesktopFooter />
+          {/* <DesktopFooter /> */}
           <Script src="/service-worker.js" />
         </body>
       </html>

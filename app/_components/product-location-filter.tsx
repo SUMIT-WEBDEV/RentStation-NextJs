@@ -2,7 +2,7 @@
 import useStoreLocation from '@/store/user-location';
 import React, { useEffect, useState } from 'react'
 import { ProductCard } from './product-card';
-import { getProductbyLocationCategory } from '@/actions/get-product';
+import { getProductbyLocationItem } from '@/actions/get-product';
 
 type Product = {
     id: string;
@@ -16,32 +16,25 @@ type Product = {
     createdAt: Date;
 };
 
-const CategoryLocationProductFilter = ({ products, searchCategory }: any) => {
+const LocationProductFilter = ({ products, item }: any) => {
     const [productData, setProductData] = useState<Product[]>(products)
     const { storedLocation } = useStoreLocation();
 
+
+    // console.log("storedlocation on product category page", storedLocation)
+
     useEffect(() => {
 
+        // console.log("I called Immediatly")
         const fetchProductData = async () => {
             const locationToUse = storedLocation?.city;
-            const fetchedProducts = await getProductbyLocationCategory({ location: locationToUse, category: searchCategory });
+            const fetchedProducts = await getProductbyLocationItem({ location, title: item })
             setProductData(fetchedProducts);
         };
 
         fetchProductData();
-    }, [storedLocation, searchCategory]);
+    }, [storedLocation, item]);
 
-
-    // for changing the url without reloading the page
-    useEffect(() => {
-        if (storedLocation && storedLocation.city) {
-            let newUrl = `/${storedLocation.city}/${searchCategory}`;
-            // if (item) {
-            //     newUrl += `?item=${item}`;
-            // }
-            window.history.pushState({}, '', newUrl);
-        }
-    }, [storedLocation, searchCategory, location]);
 
     return (
         <div>
@@ -54,4 +47,4 @@ const CategoryLocationProductFilter = ({ products, searchCategory }: any) => {
     );
 }
 
-export default CategoryLocationProductFilter;
+export default LocationProductFilter;

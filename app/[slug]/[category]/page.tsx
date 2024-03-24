@@ -1,4 +1,4 @@
-import { getProductbyLocationCategoryItem } from "@/actions/get-product";
+import { getProductbyLocationCategory } from "@/actions/get-product";
 import { ProductCard } from "@/app/_components/product-card";
 import CategoryLocationProductFilter from "@/app/_components/product-category-location-filter";
 import ProductFilter from "@/app/_components/product-filter";
@@ -18,19 +18,23 @@ type Product = {
   createdAt: Date;
 };
 
+// location/?item=category
+
 async function page({ params, searchParams }: any) {
+
   console.log("params", params);
 
   const searchCategory = params.category.toLowerCase();
   const location = params.slug.toLowerCase();
-  const item = searchParams?.item
+  // const item = searchParams?.item
 
 
   // console.log("locatiom", location, "searchTitle")
-  console.log("searchParam is", searchParams)
+  console.log("searchCategory is", params.category.toLowerCase())
+  console.log("location is", params.slug.toLowerCase())
 
 
-  const products: Product[] = await getProductbyLocationCategoryItem({ location, category: searchCategory, title: item })
+  const products: Product[] = await getProductbyLocationCategory({ location, category: searchCategory, })
 
   if (products.length === 0) {
     return <div> No result found on this category</div>;
@@ -42,7 +46,7 @@ async function page({ params, searchParams }: any) {
     <div>
       <ProductFilter />
 
-      <CategoryLocationProductFilter products={products} searchCategory={searchCategory} location={location} item={item} />
+      <CategoryLocationProductFilter products={products} searchCategory={searchCategory} />
 
     </div>
   );

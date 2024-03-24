@@ -44,17 +44,14 @@ export function Products({ products, user }: ProductsProps) {
   console.log("storedLocation is", storedLocation)
   const isLocation = storedLocation?.city
 
+  console.log("isLocation", isLocation)
+
   // const isLocation = storedLocation?.city || ""
 
 
   useEffect(() => {
-    console.log("I called")
     const fetchInitialProduct = async () => {
-      console.log("clickedddddd")
-
       const products = await getProducts({ location: isLocation });
-      // setloadingproduct(false);
-      console.log("products are-", products)
       setProductData(products)
     }
     fetchInitialProduct()

@@ -135,20 +135,23 @@ function Navbar() {
 
 
   const handleSearch = () => {
-    // Check if the current pathname is the root URL
-    if (pathname === "/") {
-      // If storedLocation is null or empty, redirect to the default search page
-      if (!storedLocation || !storedLocation.city) {
-        router.push(`/items/?item=${query}`);
-      } else {
-        // If not, construct the dynamic location URL with the query
-        const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
-        router.push(`/${dynamicLocation}/?item=${query}`);
-      }
+    if (!storedLocation || !storedLocation.city) {
+      router.push(`/items/?item=${query}`);
     } else {
-      // If not on the root URL, append the query to the current pathname
-      router.push(pathname + `/?item=${query}`);
+      // If not, construct the dynamic location URL with the query
+      const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
+      router.push(`/${dynamicLocation}/?item=${query}`);
     }
+
+    // Check if the current pathname is the root URL
+    // if (pathname === "/") {
+    // If storedLocation is null or empty, redirect to the default search page
+
+    // }
+    // else {
+    //   // If not on the root URL, append the query to the current pathname
+    //   router.push(pathname + `/?item=${query}`);
+    // }
   };
 
 
@@ -184,10 +187,10 @@ function Navbar() {
 
             >
               <LocationOnIcon className=" text-lg" />
-              {storedLocation &&
+              {storedLocation && client &&
                 <p className="text-xs truncate w-24">
                   {
-                    client && storedLocation?.address
+                    storedLocation?.address
                   }
                 </p>
               }

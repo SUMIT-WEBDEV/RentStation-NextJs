@@ -3,8 +3,8 @@ import ProductFilter from "@/app/_components/product-filter";
 import { db } from "@/lib/db";
 import React from "react";
 import { cookies } from 'next/headers';
-import { getProductbyLocationCategoryItem } from "@/actions/get-product";
-import CategoryLocationProductFilter from "../_components/product-category-location-filter";
+import { getProductbyLocationItem } from "@/actions/get-product";
+import LocationProductFilter from "../_components/product-location-filter";
 
 
 type Product = {
@@ -19,6 +19,9 @@ type Product = {
     createdAt: Date;
 };
 
+
+// location/?item=itemsname
+
 async function page({ params, searchParams }: any) {
 
     //category
@@ -31,8 +34,9 @@ async function page({ params, searchParams }: any) {
     const location = nextCookies ? JSON.parse(nextCookies.value).city : "";
 
     console.log("searchParam is", searchParams)
+    console.log("location is", location)
 
-    const products: Product[] = await getProductbyLocationCategoryItem({ location, category, title: item })
+    const products: Product[] = await getProductbyLocationItem({ location, title: item })
 
     // const products = await db.products.findMany({
     //     where: {
@@ -57,7 +61,8 @@ async function page({ params, searchParams }: any) {
     return (
         <div>
             <ProductFilter />
-            <CategoryLocationProductFilter products={products} searchCategory={category} location={location} item={item} />
+            <LocationProductFilter products={products} item={item} />
+
 
         </div>
     );

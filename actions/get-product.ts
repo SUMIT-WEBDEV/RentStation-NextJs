@@ -29,21 +29,36 @@ export const getProducts = async ({ page, location }: productProps = {}) => {
   return products;
 };
 
-export const getProductbyLocationCategoryItem = async ({
+export const getProductbyLocationCategory = async ({
   location,
   category,
-  title,
 }: any) => {
-  console.log("in action get product", location, category, title);
+  console.log("in action get product", location, category);
 
   const products = await db.products.findMany({
     where: {
-      OR: [
-        { location: { contains: location || "" } },
-        { location: { startsWith: location || "" } },
-      ],
+      location: {
+        contains: location || "",
+        mode: "insensitive",
+      },
       category: {
-        contains: category,
+        contains: category || "",
+        mode: "insensitive",
+      },
+    },
+    // take: 1. TODO
+  });
+  // console.log("my products1 ", products);
+  return products;
+};
+
+export const getProductbyLocationItem = async ({ location, title }: any) => {
+  console.log("in action get product", location, title);
+
+  const products = await db.products.findMany({
+    where: {
+      location: {
+        contains: location || "",
         mode: "insensitive",
       },
       title: {
@@ -53,5 +68,28 @@ export const getProductbyLocationCategoryItem = async ({
     },
     // take: 1. TODO
   });
+  // console.log("my products2", products);
   return products;
 };
+
+// export const getProductbyLocationCategoryItem = async ({
+//   location,
+//   category,
+//   title,
+// }: any) => {
+//   console.log("in action get product", location, category, title);
+
+//   const products = await db.products.findMany({
+//     where: {
+//       OR: [
+//         { title: { contains: title || "", mode: "insensitive" } },
+//         { location: { contains: location || "" } },
+//         { location: { startsWith: location || "" } },
+//         { category: { contains: category || "", mode: "insensitive" } },
+//       ],
+//     },
+//     // take: 1. TODO
+//   });
+//   console.log("mera products", products);
+//   return products;
+// };
