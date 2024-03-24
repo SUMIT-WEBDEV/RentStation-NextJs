@@ -16,9 +16,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "RentStation",
   description: "A user to user rental platform",
-  icons: {
-    icon: "/rs.png",
-  },
 };
 
 export default async function RootLayout({
@@ -39,15 +36,16 @@ export default async function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        >
-            </ThemeProvider> */}
+        > */}
           <div className="pb-24 lg:pb-2 overflow-hidden bg-slate-50">
             <Navbar />
             <Sidebar />
             <LocationSidebar />
             {children}
+            {/* </ThemeProvider> */}
           </div>
           <MobileFooter />
+          <DesktopFooter />
           <Script src="/service-worker.js" />
         </body>
       </html>

@@ -7,6 +7,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { ADDRESS_API, SEARCH_LOCATION_API } from "@/lib/constant";
 import useStoreLocation from '@/store/user-location';
 import useLocationSidebarStore from '@/store/toggle-location-sidebar';
+import { Close } from '@mui/icons-material';
 
 
 const LocationSidebar = () => {
@@ -72,7 +73,7 @@ const LocationSidebar = () => {
 
             <div className="flex justify-start">
                 <button onClick={toggleLocationSidebar} className="text-white cursor-pointer">
-                    <ShieldCloseIcon className="text-3xl" />
+                    <Close className="text-3xl" />
                 </button>
             </div>
             <br />
