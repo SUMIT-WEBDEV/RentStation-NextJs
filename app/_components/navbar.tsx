@@ -179,17 +179,19 @@ function Navbar() {
             >
               RentStation
             </Link>
-            <div className="lg:hidden text-gray-200 flex items-center  gap-1 justify-end"
+            <div className="lg:hidden text-gray-200 flex items-center gap-1 justify-end"
               onClick={toggleLocationSidebar}
-
             >
               <LocationOnIcon className=" text-lg" />
-              <p className="text-xs truncate w-24">
-                {/* {SearchText} */}
-                {
-                  client && storedLocation?.address
-                }
-              </p>
+
+              {
+                client &&
+                <p className="text-xs truncate w-24">
+                  {
+                    storedLocation?.address
+                  }
+                </p>
+              }
 
             </div>
           </div>
