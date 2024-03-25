@@ -171,7 +171,7 @@ function Navbar() {
 
 
   return (
-    <div className="fixed top-0 left-0">
+    <div className="fixed top-0 left-0 z-20">
       <div className="lg:flex lg:flex-row justify-around items-center bg-black text-white p-4 w-screen">
         <div className="flex lg:items-center lg:flex-row flex-col">
 

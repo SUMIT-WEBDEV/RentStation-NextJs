@@ -33,8 +33,8 @@ type myAdProps = {
 
 const Myads = ({ myAds, favorites }: myAdProps) => {
     return (
-        <div className='flex justify-center items-center w-full border '>
-            <div className='lg:w-6/12 w-full lg:mx-28 lg:my-14 p-4 border-black'>
+        <div className='flex justify-center items-center w-full border z-10'>
+            <div className='lg:w-6/12 w-full lg:mx-28 lg:my-8 p-4 border-black'>
 
                 <Tabs defaultValue="myAds" className="w-full">
                     <TabsList className=''>
@@ -51,8 +51,6 @@ const Myads = ({ myAds, favorites }: myAdProps) => {
                         </div>
                     </TabsContent>
                     <TabsContent value="wishlist">
-
-
 
                         {/* {favorites && favorites.product && favorites?.product?.map((product: Product) => <ProductCard key={product.id} product={product} />)} */}
                         <div className="w-full lg:w-auto mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2">
