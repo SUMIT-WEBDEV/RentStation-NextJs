@@ -19,7 +19,6 @@ import { FormSuccess } from "@/components/form-success";
 import { createProduct } from "@/actions/create-product";
 import { ProductSchema } from "@/schemas";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { json } from "stream/consumers";
 // import { CldImage } from "next-cloudinary";
 
 function ProductForm() {
@@ -86,6 +85,11 @@ function ProductForm() {
       createProduct(serializableValues, user?.id).then((data) => {
         setError(data.error);
         setSuccess(data.success);
+
+        if (!data.error) {
+          form.reset(); // Reset the form values
+          setSelectedImage(undefined);
+        }
       });
     });
   };
