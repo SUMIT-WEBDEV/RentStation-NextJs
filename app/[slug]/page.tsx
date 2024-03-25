@@ -38,19 +38,6 @@ async function page({ params, searchParams, }: any) {
 
     const products: Product[] = await getProductbyLocationCategoryItem({ location, title: item, category })
 
-    // const products = await db.products.findMany({
-    //     where: {
-    //         location: {
-    //             contains: location,
-    //             mode: "insensitive",
-    //         },
-    //         category: {
-    //             contains: category,
-    //             mode: "insensitive",
-    //         }
-    //     },
-    //     // take: 1. TODO
-    // });
 
     if (products.length === 0) {
         return <div> No result found on this product category</div>;

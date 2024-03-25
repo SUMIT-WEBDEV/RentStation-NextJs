@@ -28,8 +28,8 @@ const LocationProductFilter = ({ products, item, category, location }: any) => {
         console.log("I called Immediatly")
         const fetchProductData = async () => {
             const locationToUse = storedLocation?.city;
-            const fetchedProducts = await getProductbyLocationCategoryItem({ location, title: item, category })
-            setProductData(fetchedProducts);
+            const products = await getProductbyLocationCategoryItem({ location, title: item, category })
+            setProductData(products);
         };
 
         fetchProductData();
