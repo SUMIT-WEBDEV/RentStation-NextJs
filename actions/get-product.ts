@@ -52,8 +52,12 @@ export const getProductbyLocationCategory = async ({
   return products;
 };
 
-export const getProductbyLocationItem = async ({ location, title }: any) => {
-  console.log("in action get product", location, title);
+export const getProductbyLocationCategoryItem = async ({
+  location,
+  title,
+  category,
+}: any) => {
+  console.log("in action get product", location, title, category);
 
   const products = await db.products.findMany({
     where: {
@@ -63,6 +67,10 @@ export const getProductbyLocationItem = async ({ location, title }: any) => {
       },
       title: {
         contains: title || "",
+        mode: "insensitive",
+      },
+      category: {
+        contains: category || "",
         mode: "insensitive",
       },
     },

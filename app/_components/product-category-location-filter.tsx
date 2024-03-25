@@ -32,8 +32,16 @@ const CategoryLocationProductFilter = ({ products, searchCategory }: any) => {
     }, [storedLocation, searchCategory]);
 
 
+    // useEffect(() => {
+    //     setProductData(products);
+    //     // setLoading(false);
+    // }, [products]);
+
+
+
     // for changing the url without reloading the page
     useEffect(() => {
+        console.log("I called Immediatly")
         if (storedLocation && storedLocation.city) {
             let newUrl = `/${storedLocation.city}/${searchCategory}`;
             // if (item) {
@@ -41,7 +49,7 @@ const CategoryLocationProductFilter = ({ products, searchCategory }: any) => {
             // }
             window.history.pushState({}, '', newUrl);
         }
-    }, [storedLocation, searchCategory, location]);
+    }, [storedLocation, searchCategory]);
 
     return (
         <div>

@@ -20,13 +20,12 @@ type Product = {
 
 // location/?item=category
 
-async function page({ params, searchParams }: any) {
+async function page({ params }: any) {
 
   console.log("params", params);
 
   const searchCategory = params.category.toLowerCase();
   const location = params.slug.toLowerCase();
-  // const item = searchParams?.item
 
 
   // console.log("locatiom", location, "searchTitle")

@@ -2,7 +2,7 @@
 import useStoreLocation from '@/store/user-location';
 import React, { useEffect, useState } from 'react'
 import { ProductCard } from './product-card';
-import { getProductbyLocationItem } from '@/actions/get-product';
+import { getProductbyLocationCategoryItem } from '@/actions/get-product';
 
 type Product = {
     id: string;
@@ -16,7 +16,7 @@ type Product = {
     createdAt: Date;
 };
 
-const LocationProductFilter = ({ products, item }: any) => {
+const LocationProductFilter = ({ products, item, category, location }: any) => {
     const [productData, setProductData] = useState<Product[]>(products)
     const { storedLocation } = useStoreLocation();
 
@@ -25,15 +25,22 @@ const LocationProductFilter = ({ products, item }: any) => {
 
     useEffect(() => {
 
-        // console.log("I called Immediatly")
+        console.log("I called Immediatly")
         const fetchProductData = async () => {
             const locationToUse = storedLocation?.city;
-            const fetchedProducts = await getProductbyLocationItem({ location, title: item })
+            const fetchedProducts = await getProductbyLocationCategoryItem({ location, title: item, category })
             setProductData(fetchedProducts);
         };
 
         fetchProductData();
-    }, [storedLocation, item]);
+    }, [storedLocation, item, category]);
+
+
+    // useEffect(() => {
+    //     setProductData(products);
+    //     // setLoading(false);
+    // }, [products]);
+
 
 
     return (

@@ -1,6 +1,5 @@
 
 import React from "react";
-import { db } from "@/lib/db";
 import Products from "./products";
 import { getProducts } from "@/actions/get-product";
 
@@ -19,30 +18,7 @@ type Product = {
 
 async function Home({ user, location }: any) {
 
-  // const [initialProducts, setInitialProducts] = useState<Product[]>([])
-  // const { storedLocation, storeLocation, setLocation } = useStoreLocation();
-  // const [loadingproduct, setloadingproduct] = useState(true)
-
-  // const isLocation = storedLocation?.city || ""
-
-
-  // useEffect(() => {
-  //   console.log("I called")
-  //   const fetchInitialProduct = async () => {
-  //     console.log("clickedddddd")
-
-  //     const products = await getProducts({ location: isLocation });
-  //     setloadingproduct(false);
-  //     console.log("products are-", products)
-  //     setInitialProducts(products)
-  //   }
-  //   fetchInitialProduct()
-  // }, [isLocation])
-
   const initialProducts = await getProducts({ location });
-
-  // console.log("initialProducts are", initialProducts)
-
 
   return (
     <div className="flex flex-col mt-5 w-full">
