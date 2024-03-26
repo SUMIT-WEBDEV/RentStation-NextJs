@@ -2,16 +2,25 @@ import { Suspense } from "react"
 import Products from "./products";
 import { getProducts } from "@/actions/get-product";
 import { ProductSkeleton } from "./product-skelton";
+import { cookies } from 'next/headers';
+import { currentUserDetails } from "@/lib/auth";
 
-async function HomeSuspense({ user, location }: any) {
-  const initialProducts = await getProducts({ location });
+
+async function HomeSuspense() {
+
+  const user = await currentUserDetails()
+  const nextCookies = cookies().get('userLocation');
+  const address = nextCookies ? JSON.parse(nextCookies.value).city : "";
+
+
+  const initialProducts = await getProducts({ location: address });
 
   return (
     <Products products={initialProducts} user={user} />
   );
 }
 
-const Home = ({ user, location }: any) => {
+const Home = () => {
   return (
     <div className="flex flex-col mt-5 w-full">
       <div className="mx-auto">
@@ -31,7 +40,7 @@ const Home = ({ user, location }: any) => {
             <ProductSkeleton />
           </div>
           }>
-            <HomeSuspense user={user} location={location} />
+            <HomeSuspense />
           </Suspense>
         </div>
       </div>
