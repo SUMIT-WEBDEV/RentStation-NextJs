@@ -27,7 +27,7 @@ const dummySuggestions = [
 ];
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { usePathname, useRouter } from "next/navigation";
+import { useSelectedLayoutSegment, useRouter } from "next/navigation";
 import { ADDRESS_API, SEARCH_LOCATION_API } from "@/lib/constant";
 import { Search } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -36,10 +36,31 @@ import useStoreLocation from "@/store/user-location";
 // import { updateUserLocation } from "@/actions/add-user-location";
 import { LocationSchema } from "@/schemas";
 import useLocationSidebarStore from "@/store/toggle-location-sidebar";
+import { cn } from "@/lib/utils";
+
+
+export const navItems = [
+  {
+    name: "Inbox",
+    slug: "chat",
+  },
+  {
+    name: "WishList",
+    slug: "my-ads",
+  },
+  {
+    name: "Rent+",
+    slug: "sell",
+  },
+
+];
+
 
 function Navbar() {
   const router = useRouter();
-  const pathname = usePathname()
+  const selectedLayout = useSelectedLayoutSegment()
+
+  console.log("segment is", selectedLayout)
 
   const [query, setQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -268,25 +289,23 @@ function Navbar() {
         </div>
 
         <div className="justify-between lg:flex space-x-6 font-courier hidden items-center">
-          <Link href="/chat" className="text-[#fff] ">
-            Inbox
-          </Link>
-          <Link href="/my-ads" className="text-[#fff]">
-            WishList
-          </Link>
-          <Link href="/sell" className="text-[#fff]">
-            Rent+
-          </Link>
-          {/* <Link href="/list-product" className="text-[#fff]"> */}
-          {/* <Image
-            src={profile}
-            alt=""
-            width="40"
-            height="40"
-            className="rounded-full cursor-pointer"
-            onClick={() => setAccountSidebar(true)}
-          /> */}
 
+          {
+            navItems.map(({ name, slug }) => (
+              <Link
+                href={`/${slug}`}
+                key={slug}
+                className={cn(
+                  "text-sm font-medium text-[#fff] transition-colors ease-out group-hover:text-black",
+                  {
+                    "text-yellow-500": selectedLayout === slug,
+                  },
+                )}
+              >
+                {name}
+              </Link>
+            ))
+          }
           <div
             className="cursor-pointer"
             // onClick={() => setAccountSidebar(true)}
