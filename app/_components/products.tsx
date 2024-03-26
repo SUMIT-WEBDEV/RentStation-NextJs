@@ -31,8 +31,7 @@ type ProductsProps = {
 
 export function Products({ products, user }: ProductsProps) {
   const [page, setPage] = useState<number>(1);
-  const router = useRouter();
-  const [productData, setProductData] = useState<Product[]>([])
+  const [productData, setProductData] = useState<Product[]>(products)
   // const [loading, setLoading] = useState<boolean>(loadingproduct);
   // const { storedLocation, storeLocation, setLocation } = useStoreLocation();
   // const [initialProducts, setInitialProducts] = useState<Product[]>([])
@@ -40,16 +39,11 @@ export function Products({ products, user }: ProductsProps) {
 
 
   const { storedLocation, storeLocation, setLocation } = useStoreLocation();
-
-  console.log("storedLocation is", storedLocation)
   const isLocation = storedLocation?.city
-
-  console.log("isLocation", isLocation)
-
-  // const isLocation = storedLocation?.city || ""
 
 
   useEffect(() => {
+    // console.log("I rendered on feed")
     const fetchInitialProduct = async () => {
       const products = await getProducts({ location: isLocation });
       setProductData(products)
@@ -109,7 +103,4 @@ export default Products;
 
 
 
-//  const handleNext = () => {
-//     router.push(`/?page=${page}`);
-//   };
 
