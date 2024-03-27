@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { ProductCard } from "./product-card";
 import { ProductSkeleton } from "./product-skelton";
-import { getProducts } from "@/actions/get-product";
+import { getProductbyLocationCategory, getProducts } from "@/actions/get-product";
 import useStoreLocation from "@/store/user-location";
 
 
@@ -38,18 +38,20 @@ export function Products({ products, user }: ProductsProps) {
   // const [loadingproduct, setloadingproduct] = useState(true)
 
 
-  const { storedLocation, storeLocation, setLocation } = useStoreLocation();
+  const { storedLocation } = useStoreLocation();
   const isLocation = storedLocation?.city
 
+
+  console.log("isLocation hai", isLocation)
 
   useEffect(() => {
     // console.log("I rendered on feed")
     const fetchInitialProduct = async () => {
-      const products = await getProducts({ location: isLocation });
+      const products = await getProductbyLocationCategory({ location: isLocation });
       setProductData(products)
     }
     fetchInitialProduct()
-  }, [isLocation])
+  }, [storedLocation])
 
 
 
@@ -75,13 +77,13 @@ export function Products({ products, user }: ProductsProps) {
           {loading
             ?
             Array.from({ length: 8 }).map((_, index) => <ProductSkeleton key={index} />)
-            : products.length === 0 ? <div>No products found</div> : (
+            : productData.length === 0 ? <div>No products found</div> : (
+
+
               productData.map((product: Product) => {
 
 
                 const isFavorite = user && user?.favorites && user?.favorites.some((fav: any) => fav.productId === product.id) || false
-
-                // console.log("isFavorite is", isFavorite)
 
                 return (
                   <ProductCard key={product.id} product={product} isFavorite={isFavorite} />)
