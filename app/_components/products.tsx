@@ -42,14 +42,14 @@ export function Products({ products, user }: ProductsProps) {
   const isLocation = storedLocation?.city
 
 
-  useEffect(() => {
-    // console.log("I rendered on feed")
-    const fetchInitialProduct = async () => {
-      const products = await getProducts({ location: isLocation });
-      setProductData(products)
-    }
-    fetchInitialProduct()
-  }, [isLocation])
+  // useEffect(() => {
+  //   // console.log("I rendered on feed")
+  //   const fetchInitialProduct = async () => {
+  //     const products = await getProducts({ location: isLocation });
+  //     setProductData(products)
+  //   }
+  //   fetchInitialProduct()
+  // }, [isLocation])
 
 
 
