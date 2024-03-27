@@ -1,7 +1,4 @@
-import { ProductCard } from "@/app/_components/product-card";
 import ProductFilter from "@/app/_components/product-filter";
-import { db } from "@/lib/db";
-import React from "react";
 import { cookies } from 'next/headers';
 import { getProductbyLocationCategoryItem } from "@/actions/get-product";
 import LocationProductFilter from "../_components/product-location-filter";
@@ -19,10 +16,15 @@ type Product = {
     createdAt: Date;
 };
 
+type paramProps = {
+    params: { slug: string };
+    searchParams?: { [key: string]: string | string[] | undefined };
+}
 
-// location/?item=itemsname
+// /location/?item=itemsname
+// /category
 
-async function page({ params, searchParams, }: any) {
+async function page({ params, searchParams, }: paramProps) {
 
     //category
     const category = params.slug.toLowerCase();
@@ -33,23 +35,30 @@ async function page({ params, searchParams, }: any) {
     const nextCookies = cookies().get('userLocation');
     const location = nextCookies ? JSON.parse(nextCookies.value).city : "";
 
-    console.log("searchParam is", searchParams)
-    console.log("location is", location)
+    // console.log("searchParam is", searchParams)
+    // console.log("location is", location)
+    // console.log("category is", category)
 
-    const products: Product[] = await getProductbyLocationCategoryItem({ location, title: item, category })
+    // const products: Product[] = await getProductbyLocationCategoryItem({ location, title: item, category })
+
+    let products: Product[];
+
+    if (location) {
+        products = await getProductbyLocationCategoryItem({ location, title: item });
+    } else {
+        products = await getProductbyLocationCategoryItem({ category })
+    }
+
 
 
     if (products.length === 0) {
-        return <div> No result found on this product category</div>;
+        return <div className="w-screen h-screen"> No result found on this product category</div>;
     }
 
-    console.log("products in the category", products)
-
     return (
-        <div>
+        <div className="w-full h-full">
             <ProductFilter />
             <LocationProductFilter products={products} item={item} category={category} location={location} />
-
         </div>
     );
 }
