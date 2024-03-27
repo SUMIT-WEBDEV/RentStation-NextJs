@@ -16,15 +16,15 @@ import {
 import { Button } from "@/components/ui/button";
 import nullProfile from "@/app/assets/nullProfile.png"
 
-const dummySuggestions = [
-  "Laptop",
-  "Mobile Phone",
-  "Headphones",
-  "Camera",
-  "Smartwatch",
-  "Boatwatch",
-  "Gaming Console",
-];
+// const dummySuggestions = [
+//   "Laptop",
+//   "Mobile Phone",
+//   "Headphones",
+//   "Camera",
+//   "Smartwatch",
+//   "Boatwatch",
+//   "Gaming Console",
+// ];
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useSelectedLayoutSegment, useRouter } from "next/navigation";
@@ -60,11 +60,8 @@ function Navbar() {
   const router = useRouter();
   const selectedLayout = useSelectedLayoutSegment()
 
-  console.log("segment is", selectedLayout)
-
   const [query, setQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [accountSidebar, setAccountSidebar] = useState(false);
   const [locations, setLocations] = useState([])
 
 
@@ -78,13 +75,13 @@ function Navbar() {
     setClient(true)
   }, [])
 
-  useEffect(() => {
-    const filteredSuggestions = dummySuggestions.filter((suggestion) =>
-      suggestion.toLowerCase().includes(query.toLowerCase())
-    );
+  // useEffect(() => {
+  //   const filteredSuggestions = dummySuggestions.filter((suggestion) =>
+  //     suggestion.toLowerCase().includes(query.toLowerCase())
+  //   );
 
-    setSuggestions(filteredSuggestions);
-  }, [query]);
+  //   setSuggestions(filteredSuggestions);
+  // }, [query]);
 
 
   const user = useCurrentUser()
@@ -138,6 +135,8 @@ function Navbar() {
         })
         setSearchText(data[0]?.formatted_address)
         setShowSuggestion(false)
+
+        console.log("location data is ", data)
       }
     } catch (err) {
       console.log(err)
@@ -271,7 +270,7 @@ function Navbar() {
                 onClick={handleSearch}
               />
 
-              {query.length > 0 && suggestions.length > 0 && (
+              {/* {query.length > 0 && suggestions.length > 0 && (
                 <ul className="absolute z-50 top-full w-full bg-slate-50 border-gray-300 border text-black rounded-md py-2 mt-2 shadow-lg">
                   {suggestions.map((suggestion, index) => (
                     <li key={index} className="px-4 border-gray-400 text-sm">
@@ -281,7 +280,7 @@ function Navbar() {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
 
             </div>
 

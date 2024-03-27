@@ -21,23 +21,23 @@ import {
 const frameworks = [
   {
     value: "next.js",
-    label: "Next.js",
+    label: "₹ 500-1000",
   },
   {
     value: "sveltekit",
-    label: "SvelteKit",
+    label: "₹ 1000-5000",
   },
   {
     value: "nuxt.js",
-    label: "Nuxt.js",
+    label: "₹ 5000-10000",
   },
   {
     value: "remix",
-    label: "Remix",
+    label: "₹ 10000-50000",
   },
   {
     value: "astro",
-    label: "Astro",
+    label: "₹ 50000-100000",
   },
 ];
 
@@ -56,7 +56,7 @@ function ProductFilter() {
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            : "Select your budget..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

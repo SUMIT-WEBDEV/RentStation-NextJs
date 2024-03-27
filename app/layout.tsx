@@ -37,15 +37,19 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         > */}
-          <div className="pb-24 lg:pb-2 overflow-hidden bg-slate-50">
-            <Navbar />
-            <Sidebar />
-            <LocationSidebar />
-            {children}
-            {/* </ThemeProvider> */}
+          <div className="flex flex-col min-h-full">
+            <div className="pb-24 lg:pb-2 overflow-hidden">
+              <Navbar />
+              <Sidebar />
+              <LocationSidebar />
+              {children}
+              {/* </ThemeProvider> */}
+            </div>
+            <MobileFooter />
+            <div className="mt-auto">
+              <DesktopFooter />
+            </div>
           </div>
-          <MobileFooter />
-          <DesktopFooter />
           <Script src="/service-worker.js" />
         </body>
       </html>

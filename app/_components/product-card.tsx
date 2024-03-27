@@ -75,7 +75,7 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
                 <div className="h-16">
                     <div className="flex justify-between items-center">
 
-                        <p className="font-bold text-lg lg:text-xl">${product.price}/{product.duration}</p>
+                        <p className="font-bold text-lg lg:text-xl">₹{product.price}/{product.duration}</p>
 
 
                         <p className="cursor-pointer" onClick={(e) => handleFavorite(e, product.id)}>

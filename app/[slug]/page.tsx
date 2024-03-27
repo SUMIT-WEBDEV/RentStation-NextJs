@@ -56,9 +56,13 @@ async function page({ params, searchParams, }: paramProps) {
     }
 
     return (
-        <div className="w-full h-full">
-            <ProductFilter />
-            <LocationProductFilter products={products} item={item} category={category} location={location} />
+        <div className="flex flex-col w-full">
+            <div className="mx-auto">
+                <ProductFilter />
+                <div className="flex justify-center items-center">
+                    <LocationProductFilter products={products} item={item} category={category} location={location} />
+                </div>
+            </div>
         </div>
     );
 }

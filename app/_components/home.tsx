@@ -1,5 +1,3 @@
-
-
 import { Suspense } from "react"
 import Products from "./products";
 import { getProducts } from "@/actions/get-product";
@@ -13,9 +11,6 @@ async function HomeSuspense() {
   const user = await currentUserDetails()
   const nextCookies = cookies().get('userLocation');
   const address = nextCookies ? JSON.parse(nextCookies.value).city : "";
-
-  console.log("address hai", address)
-
 
   const initialProducts = await getProducts({ location: address });
 
@@ -53,6 +48,5 @@ const Home = () => {
 }
 
 export default Home
-
 
 

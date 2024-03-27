@@ -42,16 +42,19 @@ async function page({ params }: any) {
   console.log("products in the category", products)
 
   return (
-    <div>
-      <ProductFilter />
-
-      <CategoryLocationProductFilter products={products} searchCategory={searchCategory} />
-
+    <div className="flex flex-col w-full">
+      <div className="mx-auto">
+        <ProductFilter />
+        <div className="flex justify-center items-center">
+          <CategoryLocationProductFilter products={products} searchCategory={searchCategory} />
+        </div>
+      </div>
     </div>
   );
 }
 
 export default page;
+
 
 
 

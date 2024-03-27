@@ -36,19 +36,30 @@ async function page({ searchParams }: any) {
     // console.log("products in the category", products)
 
     return (
-        <div>
-            <ProductFilter />
-            {
 
-                products.map((product: Product) => {
+        <div className="flex flex-col w-full">
+            <div className="mx-auto">
+                <ProductFilter />
+                <div className="flex justify-center items-center">
+                    <div className="lg:m-3 w-full">
+                        <div className="flex justify-center w-full">
+                            <div className="w-full lg:w-auto mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                {
 
-                    return (
-                        <ProductCard key={product.id} product={product} isFavorite={false} />
+                                    products.map((product: Product) => {
 
-                    )
-                }
-                )}
+                                        return (
+                                            <ProductCard key={product.id} product={product} isFavorite={false} />
 
+                                        )
+                                    }
+                                    )}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
