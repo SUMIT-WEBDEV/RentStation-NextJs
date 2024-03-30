@@ -8,9 +8,12 @@ import { ADDRESS_API, SEARCH_LOCATION_API } from "@/lib/constant";
 import useStoreLocation from '@/store/user-location';
 import useLocationSidebarStore from '@/store/toggle-location-sidebar';
 import { Close } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
 
 
 const LocationSidebar = () => {
+    const router = useRouter();
+
 
     const [SearchText, setSearchText] = useState<string>("")
     const [locations, setLocations] = useState([])
@@ -18,8 +21,6 @@ const LocationSidebar = () => {
 
 
     const { isLocationSidebarOpen, toggleLocationSidebar } = useLocationSidebarStore();
-
-
 
     const CORSPROXY = process.env.NEXT_PUBLIC_CORSPROXY
 
@@ -62,6 +63,7 @@ const LocationSidebar = () => {
                 setSearchText(data[0]?.formatted_address)
                 toggleLocationSidebar()
                 setSearchText("")
+                router.refresh()
             }
         } catch (err) {
             console.log(err)
