@@ -1,9 +1,6 @@
 import { getProductbyLocationCategory } from "@/actions/get-product";
-import { ProductCard } from "@/app/_components/product-card";
 import CategoryLocationProductFilter from "@/app/_components/product-category-location-filter";
 import ProductFilter from "@/app/_components/product-filter";
-import Products from "@/app/_components/products";
-import { db } from "@/lib/db";
 import React from "react";
 
 type Product = {

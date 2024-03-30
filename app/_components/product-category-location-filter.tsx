@@ -20,16 +20,16 @@ const CategoryLocationProductFilter = ({ products, searchCategory }: any) => {
     const [productData, setProductData] = useState<Product[]>(products)
     const { storedLocation } = useStoreLocation();
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const fetchProductData = async () => {
-            const locationToUse = storedLocation?.city;
-            const fetchedProducts = await getProductbyLocationCategory({ location: locationToUse, category: searchCategory });
-            setProductData(fetchedProducts);
-        };
+    //     const fetchProductData = async () => {
+    //         const locationToUse = storedLocation?.city;
+    //         const fetchedProducts = await getProductbyLocationCategory({ location: locationToUse, category: searchCategory });
+    //         setProductData(fetchedProducts);
+    //     };
 
-        fetchProductData();
-    }, [storedLocation, searchCategory]);
+    //     fetchProductData();
+    // }, [storedLocation, searchCategory]);
 
 
     // useEffect(() => {

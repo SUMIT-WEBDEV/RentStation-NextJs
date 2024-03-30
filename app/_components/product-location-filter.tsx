@@ -16,32 +16,8 @@ type Product = {
     createdAt: Date;
 };
 
-const LocationProductFilter = ({ products, item, category, location }: any) => {
+const LocationProductFilter = ({ products }: any) => {
     const [productData, setProductData] = useState<Product[]>(products)
-    const { storedLocation } = useStoreLocation();
-
-
-
-    useEffect(() => {
-        console.log("I called Immediatly")
-        const locationToUse = storedLocation?.city;
-
-        let products;
-
-        const fetchProductData = async () => {
-            if (storedLocation) {
-                products = await getProductbyLocationCategoryItem({ location: locationToUse, title: item })
-                setProductData(products);
-            } else {
-                products = await getProductbyLocationCategoryItem({ category })
-                setProductData(products);
-            }
-        };
-
-        fetchProductData();
-
-    }, [storedLocation, item, category]);
-
 
     return (
         <div className="lg:m-3 w-full">
