@@ -27,7 +27,7 @@ import nullProfile from "@/app/assets/nullProfile.png"
 // ];
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useSelectedLayoutSegment, useRouter } from "next/navigation";
+import { useSelectedLayoutSegment, useRouter, usePathname } from "next/navigation";
 import { ADDRESS_API, SEARCH_LOCATION_API } from "@/lib/constant";
 import { Search } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -58,6 +58,7 @@ export const navItems = [
 
 function Navbar() {
   const router = useRouter();
+  const pathName = usePathname()
   const selectedLayout = useSelectedLayoutSegment()
 
   const [query, setQuery] = useState<string>("");
@@ -133,9 +134,13 @@ function Navbar() {
           lng: data[0]?.geometry?.location?.lng,
           address: data[0]?.formatted_address
         })
+        // router.replace(pathName)
+        router.refresh()
         setSearchText(data[0]?.formatted_address)
         setShowSuggestion(false)
 
+
+        console.log("Pathname is", pathName)
         console.log("location data is ", data)
       }
     } catch (err) {
@@ -154,10 +159,38 @@ function Navbar() {
 
 
 
+  // useEffect(() => {
+  //   if (!storedLocation || !storedLocation.city) {
+  //     router.push(`/`);
+  //   } else {
+  //     // If not, construct the dynamic location URL with the query
+  //     console.log("I am triggered to push")
+  //     const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
+  //     router.push(`/${dynamicLocation}/`);
+  //   }
+  // }, [storedLocation])
+
+  // useEffect(() => {
+  //   if (storedLocation && storedLocation.city) {
+  //     // If storedLocation is available, construct the dynamic location URL
+  //     const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
+  //     router.push(`/${dynamicLocation}`);
+  //   } else {
+  //     console.log("hello")
+  //     // If storedLocation is not available, wait until it's set
+  //     // setIsReady(true);
+  //   }
+  // }, [storedLocation]);
+
+
+
+
   const handleSearch = () => {
     if (!storedLocation || !storedLocation.city) {
       router.push(`/items/?item=${query}`);
     } else {
+
+      console.log("push the route")
       // If not, construct the dynamic location URL with the query
       const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
       router.push(`/${dynamicLocation}/?item=${query}`);

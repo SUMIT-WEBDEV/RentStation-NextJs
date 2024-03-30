@@ -25,48 +25,26 @@ type Product = {
 type ProductsProps = {
   products: Product[];
   user: any
-  // loadingproduct: boolean
-  // isLocation: string
 };
 
 export function Products({ products, user }: ProductsProps) {
   const [page, setPage] = useState<number>(1);
-  const [productData, setProductData] = useState<Product[]>(products)
-  // const [loading, setLoading] = useState<boolean>(loadingproduct);
-  // const { storedLocation, storeLocation, setLocation } = useStoreLocation();
-  // const [initialProducts, setInitialProducts] = useState<Product[]>([])
-  // const [loadingproduct, setloadingproduct] = useState(true)
+  const [productData, setProductData] = useState<Product[]>(products || [])
+  const [loading, setLoading] = useState<boolean>();
 
-
-  const { storedLocation } = useStoreLocation();
-  const isLocation = storedLocation?.city
-
-
-  console.log("isLocation hai", isLocation)
 
   useEffect(() => {
-    // console.log("I rendered on feed")
-    const fetchInitialProduct = async () => {
-      const products = await getProductbyLocationCategory({ location: isLocation });
-      setProductData(products)
-    }
-    fetchInitialProduct()
-  }, [storedLocation])
-
-  // useEffect(() => {
-  //   setProductData(products);
-  //   // setLoading(false);
-  // }, [products]);
+    setProductData(products);
+    setLoading(false);
+  }, [products]);
 
 
   const loadMoreProducts = async () => {
     const next: number = page + 1;
-    const products = await getProducts({ page: next, location: isLocation });
+    const products = await getProducts({ page: next });
     setPage(next)
     setProductData([...productData, ...products])
   }
-
-  const loading = false
 
   return (
     <div className="lg:m-3 w-full">
@@ -76,7 +54,6 @@ export function Products({ products, user }: ProductsProps) {
             ?
             Array.from({ length: 8 }).map((_, index) => <ProductSkeleton key={index} />)
             : productData.length === 0 ? <div>No products found</div> : (
-
 
               productData.map((product: Product) => {
 
