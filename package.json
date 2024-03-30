@@ -37,6 +37,7 @@
     "next-auth": "^5.0.0-beta.4",
     "next-cloudinary": "^5.20.0",
     "next-themes": "^0.2.1",
+    "next13-progressbar": "^1.2.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.49.2",
