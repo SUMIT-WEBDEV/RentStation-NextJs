@@ -19,6 +19,10 @@ type Product = {
 const LocationProductFilter = ({ products }: any) => {
     const [productData, setProductData] = useState<Product[]>(products)
 
+    useEffect(() => {
+        setProductData(products);
+    }, [products]);
+
     return (
         <div className="lg:m-3 w-full">
 

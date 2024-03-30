@@ -20,6 +20,11 @@ const CategoryLocationProductFilter = ({ products, searchCategory }: any) => {
     const [productData, setProductData] = useState<Product[]>(products)
     const { storedLocation } = useStoreLocation();
 
+    useEffect(() => {
+        setProductData(products);
+    }, [products]);
+
+
     // useEffect(() => {
 
     //     const fetchProductData = async () => {
@@ -30,14 +35,6 @@ const CategoryLocationProductFilter = ({ products, searchCategory }: any) => {
 
     //     fetchProductData();
     // }, [storedLocation, searchCategory]);
-
-
-    // useEffect(() => {
-    //     setProductData(products);
-    //     // setLoading(false);
-    // }, [products]);
-
-
 
     // for changing the url without reloading the page
     useEffect(() => {
