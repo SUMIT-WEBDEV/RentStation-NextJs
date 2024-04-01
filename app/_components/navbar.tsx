@@ -139,9 +139,6 @@ function Navbar() {
         setSearchText(data[0]?.formatted_address)
         setShowSuggestion(false)
 
-
-        console.log("Pathname is", pathName)
-        console.log("location data is ", data)
       }
     } catch (err) {
       console.log(err)
@@ -158,33 +155,6 @@ function Navbar() {
   }
 
 
-
-  // useEffect(() => {
-  //   if (!storedLocation || !storedLocation.city) {
-  //     router.push(`/`);
-  //   } else {
-  //     // If not, construct the dynamic location URL with the query
-  //     console.log("I am triggered to push")
-  //     const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
-  //     router.push(`/${dynamicLocation}/`);
-  //   }
-  // }, [storedLocation])
-
-  // useEffect(() => {
-  //   if (storedLocation && storedLocation.city) {
-  //     // If storedLocation is available, construct the dynamic location URL
-  //     const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
-  //     router.push(`/${dynamicLocation}`);
-  //   } else {
-  //     console.log("hello")
-  //     // If storedLocation is not available, wait until it's set
-  //     // setIsReady(true);
-  //   }
-  // }, [storedLocation]);
-
-
-
-
   const handleSearch = () => {
     if (!storedLocation || !storedLocation.city) {
       router.push(`/items/?item=${query}`);
@@ -193,18 +163,11 @@ function Navbar() {
       console.log("push the route")
       // If not, construct the dynamic location URL with the query
       const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
-      router.push(`/${dynamicLocation}/?item=${query}`);
+
+      router.push(`/${dynamicLocation}/search/?item=${query}`);
+      router.refresh()
     }
 
-    // Check if the current pathname is the root URL
-    // if (pathname === "/") {
-    // If storedLocation is null or empty, redirect to the default search page
-
-    // }
-    // else {
-    //   // If not on the root URL, append the query to the current pathname
-    //   router.push(pathname + `/?item=${query}`);
-    // }
   };
 
 
@@ -219,9 +182,6 @@ function Navbar() {
   const handleFocus = () => {
     setSearchText('')
   }
-
-
-
 
   return (
     <div className="fixed top-0 left-0 z-20">

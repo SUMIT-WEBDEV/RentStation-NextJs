@@ -2,6 +2,8 @@ import { ProductCard } from "@/app/_components/product-card";
 import ProductFilter from "@/app/_components/product-filter";
 import { db } from "@/lib/db";
 import React from "react";
+import { BreadcrumbWithCustomSeparator } from "../_components/breadcrumb";
+
 
 type Product = {
     id: string;
@@ -16,6 +18,12 @@ type Product = {
 };
 
 async function page({ searchParams }: any) {
+
+    const breadcrumbItems = [
+        { label: "Home", url: "/" },
+        { label: searchParams?.item, url: `/` },
+    ];
+
 
     console.log("searchParam is", searchParams)
 
@@ -38,6 +46,8 @@ async function page({ searchParams }: any) {
     return (
 
         <div className="flex flex-col w-full">
+            <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
+
             <div className="mx-auto">
                 <ProductFilter />
                 <div className="flex justify-center items-center">

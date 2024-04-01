@@ -3,6 +3,7 @@ import useStoreLocation from '@/store/user-location';
 import React, { useEffect, useState } from 'react'
 import { ProductCard } from './product-card';
 import { getProductbyLocationCategory } from '@/actions/get-product';
+import { usePathname } from 'next/navigation';
 
 type Product = {
     id: string;
@@ -16,37 +17,30 @@ type Product = {
     createdAt: Date;
 };
 
-const CategoryLocationProductFilter = ({ products, searchCategory }: any) => {
+const CategoryLocationProductFilter = ({ products }: any) => {
     const [productData, setProductData] = useState<Product[]>(products)
     const { storedLocation } = useStoreLocation();
+    const pathName = usePathname()
+
 
     useEffect(() => {
         setProductData(products);
     }, [products]);
 
 
-    // useEffect(() => {
-
-    //     const fetchProductData = async () => {
-    //         const locationToUse = storedLocation?.city;
-    //         const fetchedProducts = await getProductbyLocationCategory({ location: locationToUse, category: searchCategory });
-    //         setProductData(fetchedProducts);
-    //     };
-
-    //     fetchProductData();
-    // }, [storedLocation, searchCategory]);
+    // TODO: location change in url when change in category search page
 
     // for changing the url without reloading the page
-    useEffect(() => {
-        console.log("I called Immediatly")
-        if (storedLocation && storedLocation.city) {
-            let newUrl = `/${storedLocation.city}/${searchCategory}`;
-            // if (item) {
-            //     newUrl += `?item=${item}`;
-            // }
-            window.history.pushState({}, '', newUrl);
-        }
-    }, [storedLocation, searchCategory]);
+    // useEffect(() => {
+    //     console.log("I called Immediatly")
+    //     if (storedLocation && storedLocation.city) {
+    //         let newUrl = `/${storedLocation.city}` + pathName;
+    //         // if (item) {
+    //         //     newUrl += `?item=${item}`;
+    //         // }
+    //         window.history.pushState({}, '', newUrl);
+    //     }
+    // }, [storedLocation]);
 
     return (
         <div className="lg:m-3 w-full">

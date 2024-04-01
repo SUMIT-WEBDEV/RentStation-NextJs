@@ -1,13 +1,18 @@
-"use client"
+// "use client"
 
 import React from "react";
 import Link from "next/link";
 import useStoreLocation from "@/store/user-location";
 import { iconData } from "./category-data";
+import { cookies } from "next/headers";
 
 function CategoryCard() {
-  const { storedLocation } = useStoreLocation();
-  const userLocation = storedLocation?.city
+  // const { storedLocation } = useStoreLocation();
+  // const userLocation = storedLocation?.city
+  const nextCookies = cookies().get('userLocation');
+  const location = nextCookies ? JSON.parse(nextCookies.value).city : "";
+
+
 
 
   return (
@@ -17,7 +22,7 @@ function CategoryCard() {
           <Link
             key={index}
             // onClick={() => handleItemClick(item.text)}
-            href={userLocation ? `/${userLocation}/${item.text}` : `/${item.text}`}
+            href={location ? `/${location}/${item.text}` : `/${item.text}`}
             className="lg:w-32 min-w-16 w-auto flex flex-col lg:p-3 lg:border lg:border-gray-300 rounded-md justify-between cursor-pointer lg:hover:shadow-md"
           >
             <div className="text-center">{item.icon}</div>
