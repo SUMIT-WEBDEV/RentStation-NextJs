@@ -30,7 +30,7 @@ type ProductsProps = {
 export function Products({ products, user }: ProductsProps) {
   const [page, setPage] = useState<number>(1);
   const [productData, setProductData] = useState<Product[]>(products || [])
-  const [loading, setLoading] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(true);
 
 
   useEffect(() => {
