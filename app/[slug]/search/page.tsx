@@ -47,9 +47,7 @@ async function page({ searchParams }: any) {
 
         <div className="flex flex-col space-y-8">
             <div className="w-full bg-gray-100">
-                <div className="h-5 p-5 px-24 flex flex-col justify-center w-4/12 items-center">
-                    <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
-                </div>
+                <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
             </div>
             <div className="flex flex-col w-full ">
                 <div className="mx-auto">

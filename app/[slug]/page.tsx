@@ -31,11 +31,7 @@ async function page({ params }: { params: { slug: string } }) {
 
     return (
         <div className="flex flex-col space-y-8">
-            <div className="w-full bg-gray-100">
-                <div className="h-5 p-5 px-24 flex flex-col justify-center w-4/12 items-center">
-                    <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
-                </div>
-            </div>
+            <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
             <h1>{category} {location && `on ${location}`}</h1>
             <div className="flex flex-col w-full ">
                 <div className="mx-auto">

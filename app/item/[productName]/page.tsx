@@ -29,16 +29,16 @@ async function page({ params }: any) {
   console.log("productDetails---->", product);
 
   return (
-
-    <div className="flex flex-col space-y-8">
-      <div className="w-full bg-gray-100">
-        <div className="h-5 p-5 px-24 flex flex-col justify-center w-4/12 items-center">
-          <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
+    <>
+      <h1>hello</h1>
+      <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
+      <div className="flex flex-col space-y-8">
+        <div className="w-full bg-gray-100">
         </div>
-      </div>
-      {product && <ProductDetails product={product} />}
+        {product && <ProductDetails product={product} />}
 
-    </div>
+      </div>
+    </>
 
   );
 }

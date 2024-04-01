@@ -30,34 +30,37 @@ export function BreadcrumbWithCustomSeparator({ paths }: BreadcrumbProps) {
     }, [])
 
     return (
-        <div className="hidden lg:block">
-            {
-                mount &&
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        {
-                            paths.slice(0, -1).map((path, index) => (
-                                <>
-                                    <BreadcrumbItem>
-                                        <BreadcrumbLink>
-                                            <Link href={path.url}>{path.label}</Link>
-                                        </BreadcrumbLink>
-                                    </BreadcrumbItem>
+        <div className="w-full bg-gray-100">
 
-                                    {
-                                        path.label ?
-                                            <BreadcrumbSeparator /> : null
-                                    }
-                                </>
-                            ))}
+            <div className="h-5 p-5 px-24 lg:flex lg:flex-col justify-center w-4/12 items-center hidden m-0">
+                {
+                    mount &&
+                    <Breadcrumb>
+                        <BreadcrumbList>
+                            {
+                                paths.slice(0, -1).map((path, index) => (
+                                    <>
+                                        <BreadcrumbItem>
+                                            <BreadcrumbLink>
+                                                <Link href={path.url}>{path.label}</Link>
+                                            </BreadcrumbLink>
+                                        </BreadcrumbItem>
 
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>{paths[paths.length - 1].label}</BreadcrumbPage>
-                        </BreadcrumbItem>
+                                        {
+                                            path.label ?
+                                                <BreadcrumbSeparator /> : null
+                                        }
+                                    </>
+                                ))}
 
-                    </BreadcrumbList>
-                </Breadcrumb>
-            }
+                            <BreadcrumbItem>
+                                <BreadcrumbPage>{paths[paths.length - 1].label}</BreadcrumbPage>
+                            </BreadcrumbItem>
+
+                        </BreadcrumbList>
+                    </Breadcrumb>
+                }
+            </div>
         </div>
 
 
