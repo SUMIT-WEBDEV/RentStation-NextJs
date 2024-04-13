@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   description: "A user to user rental platform",
 };
 
+
+
+
 export default async function RootLayout({
   children,
 }: {
@@ -32,6 +35,8 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en">
         <body className={inter.className} >
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
           {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
