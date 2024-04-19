@@ -30,4 +30,13 @@ const page = async () => {
     )
 }
 
+export const generateMetadata = async () => {
+
+    return {
+        title: "Manage Ads and Wishlist - Your Hub for Rental Listings and Saved Items",
+        description: "Manage your ads and wishlist effortlessly. List items for rent or save them for later with ease. Start organizing today!"
+    }
+}
+
+
 export default page

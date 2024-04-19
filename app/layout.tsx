@@ -15,11 +15,9 @@ import ProgressBar from "./_components/progress-bar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RentStation",
-  description: "A user to user rental platform",
+  title: "RentStation - Local Rental Marketplace",
+  description: "RentStation is a user-to-user rental platform where you can rent and list items within your locality.",
 };
-
-
 
 
 export default async function RootLayout({
