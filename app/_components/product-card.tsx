@@ -60,10 +60,11 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
     }
 
 
+
     return (
         <Link
             className="border border-gray rounded-md lg:p-3 p-2 h-fit w-full "
-            href={`/item/${product.title}-${product.id}`}
+            href={`/item/${product.title.split(' ').join('+').toLowerCase()}-${product.id}`}
         >
             {/* <div className="w-auto h-40 lg:h-60 z-10 bg-red-200 aspect-square"> */}
             <div className="w-full z-10 ">

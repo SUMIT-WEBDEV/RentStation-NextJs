@@ -6,9 +6,11 @@ import React from "react";
 async function page({ params }: any) {
   const productId = params.productName.split("-")[1];
 
+  const paramslabel = decodeURIComponent(params.productName).split("-")[0].replace(/\+/g, " ")
+
   const breadcrumbItems = [
     { label: "Home", url: "/" },
-    { label: params.productName.split("-")[0], url: `/` },
+    { label: paramslabel, url: `/` },
   ];
 
 
