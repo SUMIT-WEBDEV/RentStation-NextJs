@@ -26,11 +26,10 @@ async function page({ params }: any) {
     },
   });
 
-  console.log("productDetails---->", product);
+  // console.log("productDetails---->", product);
 
   return (
     <>
-      <h1>hello</h1>
       <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
       <div className="flex flex-col space-y-8">
         <div className="w-full bg-gray-100">
