@@ -105,7 +105,7 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
     return (
 
         // <div className="h-full flex flex-col lg:static lg:w-auto fixed w-full right-0 top-0">
-        <div className={`h-full flex flex-col lg:static lg:w-auto fixed w-full  right-0 top-0 transform translate-x-0 transition-transform duration-200 ease-in-out ${toggleChat ? "-translate-x-0" : "translate-x-full lg:transition-none"}`}>
+        <div className={`h-full flex flex-col lg:static lg:w-auto fixed w-full z-50 right-0 top-0 transform translate-x-0 transition-transform duration-200 ease-in-out ${toggleChat ? "-translate-x-0" : "translate-x-full lg:transition-none"}`}>
             <div className="w-full h-15 p-1 bg-purple-600 dark:bg-gray-800 shadow-md lg:rounded-xl rounded-bl-none rounded-br-none">
                 <div className="flex p-2 align-middle items-center">
 
