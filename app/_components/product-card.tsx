@@ -8,6 +8,9 @@ import { currentUser } from "@/lib/auth";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { Heart } from "lucide-react";
 import useStoreLocation from "@/hooks/use-location";
+import dayjs from 'dayjs';
+import { Skeleton } from "@/components/ui/skeleton";
+
 
 type Favorite = {
     id: string;
@@ -22,6 +25,7 @@ type Product = {
     title: string;
     duration: string;
     image?: string | null;
+    createdAt: Date
 };
 
 type ProductCardProps = {
@@ -45,7 +49,7 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
     });
 
     // console.log("storedLocation in product page", storedLocation?.address)
-    // console.log("user", user)
+    console.log("product is", product)
 
     const handleFavorite = (e: React.MouseEvent<HTMLParagraphElement>, productId: string) => {
         e.preventDefault();
@@ -59,6 +63,11 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
         }
     }
 
+    const createdAtDate = dayjs(product.createdAt);
+    const formattedDate = createdAtDate.format('MMMM D');
+
+
+
 
 
     return (
@@ -68,9 +77,11 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
         >
             {/* <div className="w-auto h-40 lg:h-60 z-10 bg-red-200 aspect-square"> */}
             <div className="w-full z-10 ">
-                {product.image && (
+                {product.image ? (
                     <Image src={product.image} width={250} height={250} alt="Picture" className="object-cover aspect-square" />
-                )}
+                ) :
+                    <Skeleton className="h-40 lg:h-60  lg:w-64 w-auto" />
+                }
             </div>
             <div className="flex flex-col h-full justify-between space-y-3 pt-5 ">
                 <div className="h-16">
@@ -91,7 +102,7 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
                 </div>
                 <div className="flex">
                     <p className="text-xs truncate flex-1">{product.location}</p>
-                    <p className="text-xs flex-[0.4] text-end">10 JAN</p>
+                    <p className="text-xs flex-[0.4] text-end">{formattedDate}</p>
                 </div>
             </div>
 
