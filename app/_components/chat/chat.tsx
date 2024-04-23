@@ -105,12 +105,12 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
     return (
 
         // <div className="h-full flex flex-col lg:static lg:w-auto fixed w-full right-0 top-0">
-        <div className={`h-full flex flex-col lg:static lg:w-auto fixed w-full z-50 right-0 top-0 transform translate-x-0 transition-transform duration-200 ease-in-out ${toggleChat ? "-translate-x-0" : "translate-x-full lg:transition-none"}`}>
-            <div className="w-full h-15 p-1 bg-purple-600 dark:bg-gray-800 shadow-md lg:rounded-xl rounded-bl-none rounded-br-none">
+        <div className={`h-full flex flex-col lg:static lg:w-auto fixed w-full z-50 right-0 top-0 sm:transform sm:translate-x-0 sm:transition-transform duration-200 ease-in-out ${toggleChat ? "-translate-x-0" : "translate-x-full lg:transition-none"}`}>
+            <div className="w-full h-15 p-1 bg-[#495E57]  shadow-md lg:rounded-xl rounded-bl-none rounded-br-none">
                 <div className="flex p-2 align-middle items-center">
 
 
-                    <div className="p-2 md:hidden rounded-full mr-1 hover:bg-purple-500 text-white" onClick={handleCloseChat} >
+                    <div className="p-2 md:hidden rounded-full mr-1 hover:bg-[#495E57]  text-white" onClick={handleCloseChat} >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
