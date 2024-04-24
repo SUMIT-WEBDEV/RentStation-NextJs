@@ -5,26 +5,26 @@ import { FaFacebook } from 'react-icons/fa'
 
 const DesktopFooter = () => {
     return (
-        <footer className="p-4 bg-black text-white sm:p-6 dark:bg-gray-800 lg:block hidden relative bottom-0 w-full">
+        <footer className="p-4 bg-black text-white sm:p-6 dark:bg-gray-800 lg:block hidden w-full mt-auto">
             <div className="mx-auto max-w-screen-xl">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0 space-y-3">
-                        <a href="/" className="flex items-center">
+                        <Link href="/" className="flex items-center">
                             {/* <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-8" alt="FlowBite Logo" /> */}
                             <span className="text-xl text-yellow-500 font-extrabold tracking-normal lg:tracking-wider"
                             >RentStation</span>
-                        </a>
+                        </Link>
                         <p className='w-96 text-gray-600 dark:text-gray-400 text-base'>RentStation is a user-to-user platform designed to streamline product rentals within local their localities.</p>
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold uppercase text-white">Resources</h2>
+                            <h2 className="mb-6 text-sm font-semibold uppercase text-white">Quick Links</h2>
                             <ul className="text-gray-600 dark:text-gray-400">
                                 <li className="mb-4">
-                                    <a href="/" className="hover:underline">RentStation</a>
+                                    <Link href="/" className="hover:underline">help</Link>
                                 </li>
                                 <li>
-                                    <a href="/" className="hover:underline">Tailwind CSS</a>
+                                    <Link href="/" className="hover:underline">blog</Link>
                                 </li>
                             </ul>
                         </div>
