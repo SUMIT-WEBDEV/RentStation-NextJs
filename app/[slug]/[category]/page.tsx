@@ -1,5 +1,6 @@
 import { getProductbyLocationCategory } from "@/actions/get-product";
 import { BreadcrumbWithCustomSeparator } from "@/app/_components/breadcrumb";
+import NotFound from "@/app/_components/not-found-product";
 import CategoryLocationProductFilter from "@/app/_components/product-category-location-filter";
 import ProductFilter from "@/app/_components/product-filter";
 import React from "react";
@@ -35,7 +36,8 @@ async function page({ params }: any) {
 
 
   if (products.length === 0) {
-    return <div> No result found on this category</div>;
+    return <NotFound />
+
   }
 
   return (

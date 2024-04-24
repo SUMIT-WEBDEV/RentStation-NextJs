@@ -17,7 +17,7 @@ async function page() {
         options={{ showSpinner: false }}
         shallowRouting
       /> */}
-      <div className=" w-full items-center flex justify-center bg-slate-50 flex-col">
+      <div className="h-full w-full items-center flex justify-center bg-slate-50 flex-col">
         <div className="lg:w-11/12 w-full">
           <CategoryCard />
           <Home />
@@ -39,3 +39,10 @@ export default page;
 
 
 
+// https://github.com/SUMIT-WEBDEV/RentStation-NextJs
+// https://github.com/settings/applications/2433325
+// https://console.cloud.google.com/apis/credentials?project=next-auth-410307
+// https://rent-station-next-js.vercel.app
+
+// TODO:
+// - wishlist check login or not

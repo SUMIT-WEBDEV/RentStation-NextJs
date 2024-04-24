@@ -1,10 +1,12 @@
 import { getProductbyLocationCategoryItem } from "@/actions/get-product";
 import { BreadcrumbWithCustomSeparator } from "@/app/_components/breadcrumb";
+import NotFound from "@/app/_components/not-found-product";
 import { ProductCard } from "@/app/_components/product-card";
 import CategoryLocationProductFilter from "@/app/_components/product-category-location-filter";
 import ProductFilter from "@/app/_components/product-filter";
 import { db } from "@/lib/db";
 import { cookies } from "next/headers";
+import Image from "next/image";
 import React from "react";
 // import { BreadcrumbWithCustomSeparator } from "../_components/breadcrumb";
 
@@ -38,14 +40,16 @@ async function page({ searchParams }: any) {
     const products = await getProductbyLocationCategoryItem({ location, title: item });
 
     if (products.length === 0) {
-        return <div> No result found on this product name</div>;
+        return (
+            <NotFound />
+        )
     }
 
     // console.log("products in the category", products)
 
     return (
 
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col space-y-8 bg-yellow-400">
             <div className="w-full bg-gray-100">
                 <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
             </div>
