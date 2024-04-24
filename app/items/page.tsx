@@ -3,6 +3,9 @@ import ProductFilter from "@/app/_components/product-filter";
 import { db } from "@/lib/db";
 import React from "react";
 import { BreadcrumbWithCustomSeparator } from "../_components/breadcrumb";
+import Image from "next/image";
+import NotFound from "@/app/_components/not-found-product";
+
 
 
 type Product = {
@@ -38,7 +41,9 @@ async function page({ searchParams }: any) {
     });
 
     if (products.length === 0) {
-        return <div> No result found on this product name</div>;
+        return <div>
+            <NotFound />
+        </div>;
     }
 
     // console.log("products in the category", products)
