@@ -141,7 +141,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 user?.id === product.userId ? (
                   <Link
                     href="/my-ads"
-                    className="p-5 flex items-center gap-2 rounded-lg bg-[#0F172A] text-white"
+                    className="p-5 flex items-center gap-2 rounded-lg text-center bg-[#0F172A] text-white"
                   >
                     <Edit3Icon />
                     Edit your product
