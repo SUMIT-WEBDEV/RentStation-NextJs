@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -23,6 +23,7 @@ import { User } from "lucide-react";
 import { MessageSquareMore } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ProductShareDialog from "./product-share-dialog";
+import { addToFavorite } from "@/actions/add-to-favorite";
 
 
 const review = [1, 2, 3, 4, 5];
@@ -52,7 +53,7 @@ interface ProductDetailsProps {
 
 const ProductDetails = ({ product, user }: ProductDetailsProps) => {
   // const user = useCurrentUser();
-  console.log("user is", user);
+  // console.log("user is", user);
   const Router = useRouter();
   const currentPage = usePathname();
 
@@ -77,7 +78,24 @@ const ProductDetails = ({ product, user }: ProductDetailsProps) => {
     setCopy(false);
   };
 
-  const isFav = user
+  const isProductFavorited = useMemo(() => {
+    if (!user) return false;
+    return user.favorites.some((favorite: any) => favorite.productId === product.id);
+  }, [user, product.id]);
+
+
+  const handleFavorite = (e: React.MouseEvent<HTMLParagraphElement>, productId: string) => {
+    e.preventDefault();
+    e.stopPropagation()
+    if (user) {
+      const values = {
+        userId: user.id,
+        productId,
+      }
+      addToFavorite(values).then((data) => console.log("data-----> ", data))
+    }
+  }
+
 
   return (
     <div className="">
@@ -162,8 +180,8 @@ const ProductDetails = ({ product, user }: ProductDetailsProps) => {
 
               <div className="flex gap-16 items-center justify-center">
 
-                <div className="flex flex-col items-center gap-2 cursor-pointer">
-                  <Heart />
+                <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={(e) => handleFavorite(e, product.id)}>
+                  {isProductFavorited ? <Heart fill="black" /> : <Heart />}
                   <p className="text-sm">Shortlist</p>
                 </div>
 
