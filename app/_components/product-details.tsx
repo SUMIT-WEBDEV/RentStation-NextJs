@@ -139,13 +139,16 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
               {
                 user?.id === product.userId ? (
-                  <Link
-                    href="/my-ads"
-                    className="p-5 flex items-center gap-2 rounded-lg text-center bg-[#0F172A] text-white"
+                  <Button
                   >
-                    <Edit3Icon />
-                    Edit your product
-                  </Link>
+                    <Link
+                      href="/my-ads"
+                      className="p-5 flex items-center gap-2 rounded-lg"
+                    >
+                      <Edit3Icon />
+                      Edit your product
+                    </Link>
+                  </Button>
                 ) : (
                   <Button
                     className="p-5 flex items-center gap-2 rounded-lg"
