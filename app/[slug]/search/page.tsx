@@ -49,7 +49,7 @@ async function page({ searchParams }: any) {
 
     return (
 
-        <div className="flex flex-col space-y-8 bg-yellow-400">
+        <div className="flex flex-col space-y-8">
             <div className="w-full bg-gray-100">
                 <BreadcrumbWithCustomSeparator paths={breadcrumbItems} />
             </div>
