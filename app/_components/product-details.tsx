@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -14,13 +14,16 @@ import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { usePathname, useRouter } from "next/navigation";
 import { createConversationId } from "@/actions/create-conversationId";
-import { Edit2, Edit3Icon, Star } from "lucide-react";
+import { Copy, Edit2, Edit3Icon, Facebook, Star } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Heart } from "lucide-react";
 import { Share2 } from "lucide-react";
 import { CalendarDays } from "lucide-react";
 import { User } from "lucide-react";
 import { MessageSquareMore } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ProductShareDialog from "./product-share-dialog";
+
 
 const review = [1, 2, 3, 4, 5];
 
@@ -66,6 +69,16 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       Router.push(`/auth/login?callbackUrl=${encodeURIComponent(currentPage)}`);
     }
   };
+
+
+  const [copy, setCopy] = useState(false)
+
+
+  const handleCloseDialog = () => {
+    setCopy(false);
+    console.log("I am closed")
+  };
+
 
   return (
     <div className="">
@@ -128,7 +141,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 user?.id === product.userId ? (
                   <Link
                     href="/my-ads"
-                    className="p-5 flex items-center gap-2 rounded-lg"
+                    className="p-5 flex items-center gap-2 rounded-lg bg-[#0F172A]"
                   >
                     <Edit3Icon />
                     Edit your product
@@ -154,10 +167,23 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   <Star />
                   <p className="text-sm">Review</p>
                 </div>
-                <div className="flex flex-col items-center gap-2 cursor-pointer">
-                  <Share2 />
-                  <p className="text-sm">Share</p>
-                </div>
+                <Dialog >
+                  <DialogTrigger asChild>
+                    <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={handleCloseDialog}>
+                      <Share2 />
+                      <p className="text-sm">Share</p>
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="p-0 bg-transparent border-none max-w-[480px]" >
+
+                    <ProductShareDialog
+                      setCopy={setCopy}
+                      copy={copy}
+                      productTitle={product.title}
+                    />
+
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </div>
