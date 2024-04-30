@@ -47,14 +47,16 @@ interface Products {
 
 interface ProductDetailsProps {
   product: Products;
+  user: any
 }
 
-const ProductDetails = ({ product }: ProductDetailsProps) => {
-  const user = useCurrentUser();
-  // console.log("user is", user);
+const ProductDetails = ({ product, user }: ProductDetailsProps) => {
+  // const user = useCurrentUser();
+  console.log("user is", user);
   const Router = useRouter();
   const currentPage = usePathname();
 
+  const [copy, setCopy] = useState(false)
 
 
   const handleChat = (id: string) => {
@@ -71,14 +73,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   };
 
 
-  const [copy, setCopy] = useState(false)
-
-
   const handleCloseDialog = () => {
     setCopy(false);
-    console.log("I am closed")
   };
 
+  const isFav = user
 
   return (
     <div className="">
@@ -140,10 +139,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               {
                 user?.id === product.userId ? (
                   <Button
+                    className="p-5"
                   >
                     <Link
                       href="/my-ads"
-                      className="p-5 flex items-center gap-2 rounded-lg"
+                      className="flex items-center gap-2 rounded-lg"
                     >
                       <Edit3Icon />
                       Edit your product
@@ -159,7 +159,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   </Button>
                 )
               }
-
 
               <div className="flex gap-16 items-center justify-center">
 
@@ -186,7 +185,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                       copy={copy}
                       productTitle={product.title}
                     />
-
                   </DialogContent>
                 </Dialog>
               </div>
