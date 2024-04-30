@@ -18,7 +18,7 @@ async function HomeSuspense() {
   return (
     <div>
       {
-        initialProducts.length === 0 ? <div><NotFound /></div> : <Products products={initialProducts} user={user} />
+        initialProducts.length === 0 ? <div><NotFound /></div> : <Products products={initialProducts} user={user} location={address} />
       }
     </div>
   );

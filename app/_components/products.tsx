@@ -24,10 +24,11 @@ type Product = {
 
 type ProductsProps = {
   products: Product[];
-  user: any
+  user: any,
+  location: any
 };
 
-export function Products({ products, user }: ProductsProps) {
+export function Products({ products, user, location }: ProductsProps) {
   const [page, setPage] = useState<number>(1);
   const [productData, setProductData] = useState<Product[]>(products)
   const [loading, setLoading] = useState<boolean>(true);
@@ -41,7 +42,7 @@ export function Products({ products, user }: ProductsProps) {
 
   const loadMoreProducts = async () => {
     const next: number = page + 1;
-    const products = await getProducts({ page: next });
+    const products = await getProducts({ page: next, location: location });
     setPage(next)
     setProductData([...productData, ...products])
   }
