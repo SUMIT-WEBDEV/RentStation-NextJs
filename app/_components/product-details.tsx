@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { usePathname, useRouter } from "next/navigation";
 import { createConversationId } from "@/actions/create-conversationId";
-import { Star } from "lucide-react";
+import { Edit2, Edit3Icon, Star } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Heart } from "lucide-react";
 import { Share2 } from "lucide-react";
@@ -51,6 +51,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   // console.log("user is", user);
   const Router = useRouter();
   const currentPage = usePathname();
+
+
 
   const handleChat = (id: string) => {
     if (user) {
@@ -122,13 +124,27 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 </div>
               </div>
 
-              <Button
-                className="p-5 flex items-center gap-2 rounded-lg"
-                onClick={() => handleChat(product.userId)}
-              >
-                <MessageSquareMore />
-                Chat with Seller
-              </Button>
+              {
+                user?.id === product.userId ? (
+                  <Link
+                    href="/my-ads"
+                    className="p-5 flex items-center gap-2 rounded-lg"
+                  >
+                    <Edit3Icon />
+                    Edit your product
+                  </Link>
+                ) : (
+                  <Button
+                    className="p-5 flex items-center gap-2 rounded-lg"
+                    onClick={() => handleChat(product.userId)}
+                  >
+                    <MessageSquareMore />
+                    Chat with Renter
+                  </Button>
+                )
+              }
+
+
               <div className="flex gap-16">
                 <div className="flex flex-col items-center gap-2 cursor-pointer">
                   <Heart />
