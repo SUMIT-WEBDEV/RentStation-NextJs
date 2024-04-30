@@ -141,7 +141,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 user?.id === product.userId ? (
                   <Link
                     href="/my-ads"
-                    className="p-5 flex items-center gap-2 rounded-lg bg-[#0F172A]"
+                    className="p-5 flex items-center gap-2 rounded-lg bg-[#0F172A] text-white"
                   >
                     <Edit3Icon />
                     Edit your product
@@ -158,15 +158,18 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               }
 
 
-              <div className="flex gap-16">
+              <div className="flex gap-16 items-center justify-center">
+
                 <div className="flex flex-col items-center gap-2 cursor-pointer">
                   <Heart />
                   <p className="text-sm">Shortlist</p>
                 </div>
+
                 <div className="flex flex-col items-center gap-2 cursor-pointer">
                   <Star />
                   <p className="text-sm">Review</p>
                 </div>
+
                 <Dialog >
                   <DialogTrigger asChild>
                     <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={handleCloseDialog}>
@@ -174,8 +177,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                       <p className="text-sm">Share</p>
                     </div>
                   </DialogTrigger>
-                  <DialogContent className="p-0 bg-transparent border-none max-w-[480px]" >
-
+                  <DialogContent className="p-0 bg-transparent border-none max-w-[480px]">
                     <ProductShareDialog
                       setCopy={setCopy}
                       copy={copy}
