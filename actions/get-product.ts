@@ -1,9 +1,5 @@
 "use server";
-
-import * as z from "zod";
-import { ProductSchema } from "@/schemas";
 import { db } from "@/lib/db";
-import { revalidatePath } from "next/cache";
 
 interface productProps {
   page?: number;
@@ -16,13 +12,9 @@ export const getProducts = async ({ page, location }: productProps = {}) => {
 
   const products = await db.products.findMany({
     where: {
-      OR: [
-        { location: { contains: location || "" } },
-        { location: { startsWith: location || "" } },
-      ],
+      OR: [{ location: { contains: location } }],
     },
     skip: (pageNum - 1) * limit,
-    // skip: page! - 1 || 0 * limit,
     take: limit,
   });
 
@@ -33,14 +25,24 @@ export const getProductbyLocationCategory = async ({
   location,
   category,
 }: any) => {
-  console.log("in action get product", location, category);
+  // console.log("in action get product", location, category);
 
   const products = await db.products.findMany({
     where: {
-      location: {
-        contains: location || "",
-        mode: "insensitive",
-      },
+      OR: [
+        {
+          location: {
+            contains: (location || "").toLowerCase(),
+            mode: "insensitive",
+          },
+        },
+        {
+          location: {
+            startsWith: (location || "").toLowerCase(),
+            mode: "insensitive",
+          },
+        },
+      ],
       category: {
         contains: category || "",
         mode: "insensitive",
@@ -57,14 +59,24 @@ export const getProductbyLocationCategoryItem = async ({
   title,
   category,
 }: any) => {
-  console.log("in action get product", location, title, category);
+  // console.log("in action get product", location, title, category);
 
   const products = await db.products.findMany({
     where: {
-      location: {
-        contains: location || "",
-        mode: "insensitive",
-      },
+      OR: [
+        {
+          location: {
+            contains: (location || "").toLowerCase(),
+            mode: "insensitive",
+          },
+        },
+        {
+          location: {
+            startsWith: (location || "").toLowerCase(),
+            mode: "insensitive",
+          },
+        },
+      ],
       title: {
         contains: title || "",
         mode: "insensitive",
