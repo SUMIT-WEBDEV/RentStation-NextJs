@@ -11,7 +11,7 @@ async function HomeSuspense() {
 
   const user = await currentUserDetails()
   const nextCookies = cookies().get('userLocation');
-  const address = nextCookies ? JSON.parse(nextCookies.value).city : "";
+  const address = nextCookies ? JSON.parse(nextCookies.value).address : "";
 
   const initialProducts = await getProducts({ location: address });
 
