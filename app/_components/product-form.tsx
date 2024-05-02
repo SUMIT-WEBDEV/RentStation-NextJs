@@ -13,6 +13,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+import { Check, ChevronsUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
@@ -22,6 +31,9 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { ADDRESS_API, SEARCH_LOCATION_API } from "@/lib/constant";
 import { useRouter } from "next/navigation";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { categoryData } from "./category/category-data";
+import { cn } from "@/lib/utils";
+
 
 // import { CldImage } from "next-cloudinary";
 
@@ -32,17 +44,23 @@ function ProductForm() {
   const [isPending, startTransition] = useTransition();
 
 
+
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [selectedImage, setSelectedImage] = useState<File | undefined>(
     undefined
   );
 
+  // location functionality states
   const CORSPROXY = process.env.NEXT_PUBLIC_CORSPROXY
   const [showSuggestion, setShowSuggestion] = useState(false)
   const [locations, setLocations] = useState([])
   const [sellerLocation, setSellerLocation] = useState<string>("")
   const [SearchText, setSearchText] = useState<string>(sellerLocation || "")
+
+  //category states
+  const [open, setOpen] = React.useState(false)
+  const [value, setValue] = React.useState("")
 
 
   const form = useForm<z.infer<typeof ProductSchema>>({
@@ -182,6 +200,7 @@ function ProductForm() {
                             onFocus={() => setSearchText('')}
                             onBlur={handleCloseLocationBar}
                             placeholder="Select Location"
+                            autoComplete="off"
                           />
                         </FormControl>
                         <FormMessage />
@@ -282,7 +301,38 @@ function ProductForm() {
                       </FormItem>
                     )}
                   />
+
+
+
+
+
                   <FormField
+                    control={form.control}
+                    name="category"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Category</FormLabel>
+                        <FormControl>
+                          <Select {...field} onValueChange={field.onChange}>
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {
+                                categoryData.map((item, key) => (
+                                  <SelectItem value={item.text} className="border border-b border-gray-100">{item.text}</SelectItem>
+                                ))
+                              }
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+
+                  {/* <FormField
                     control={form.control}
                     name="category"
                     render={({ field }) => (
@@ -299,7 +349,10 @@ function ProductForm() {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  /> */}
+
+
+
                   <FormField
                     control={form.control}
                     name="image"
@@ -331,21 +384,7 @@ function ProductForm() {
         </div>
       </div>
 
-      {showSuggestion && locations.length > 0 && (
-        <ul className="absolute text-xs top-full w-full bg-slate-50 text-black rounded-md mt-2 shadow-lg border-gray-300 border" id="badButton"
-          onMouseDown={(e) => e.preventDefault()}
-        >
-          {
-            locations?.map((item: any) => (
-              <div className="text-xs p-2 cursor-pointer" key={item?.place_id} onClick={() => handleUserLocation(item?.place_id)}>
-                {/* <LocationOnIcon className="text-gray-500" /> */}
-                <p className='font-ProximaNovaMed text-color-1'>{item?.structured_formatting?.main_text}</p>
-                <p className='text-color-5 leading-5 font-ProximaNovaThin'>{item?.structured_formatting?.secondary_text}</p>
-              </div>
-            ))
-          }
-        </ul>
-      )}
+
 
 
     </div>

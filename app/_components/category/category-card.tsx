@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import useStoreLocation from "@/store/user-location";
-import { iconData } from "./category-data";
+import { categoryData } from "./category-data";
 import { cookies } from "next/headers";
 
 function CategoryCard() {
@@ -18,7 +18,7 @@ function CategoryCard() {
   return (
     <div className="flex justify-center items-center h-full">
       <div className="grid grid-cols-4 lg:grid-cols-8 gap-2 justify-center py-3 lg:w-auto w-full px-2">
-        {iconData.map((item, index) => (
+        {categoryData.map((item, index) => (
           <Link
             key={index}
             // onClick={() => handleItemClick(item.text)}

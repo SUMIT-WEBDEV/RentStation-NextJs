@@ -20,7 +20,7 @@ import {
 } from "@mui/icons-material";
 
 
-export const iconData = [
+export const categoryData = [
     {
         icon: <AccessTime className="lg:text-4xl text-2xl text-orange-500" />,
         text: "Watches",
