@@ -320,7 +320,7 @@ function ProductForm() {
                             <SelectContent>
                               {
                                 categoryData.map((item, key) => (
-                                  <SelectItem value={item.text} className="border border-b border-gray-100">{item.text}</SelectItem>
+                                  <SelectItem value={item.text} key={item.text} className="border border-b border-gray-100">{item.text}</SelectItem>
                                 ))
                               }
                             </SelectContent>
