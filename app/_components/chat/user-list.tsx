@@ -62,7 +62,7 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
 
                         if (lastMessage) {
                             return (
-                                <div key={index} className={cn('m-4 p-2 cursor-pointer rounded-md flex space-x-3 items-center', userId === dynamicSellerId ? "bg-blue-400" : "bg-blue-200")} onClick={() => handleInboxChat(otherMember)}>
+                                <div key={index} className={cn('mx-3 my-2 p-2 cursor-pointer rounded-md flex space-x-3 items-center', userId === dynamicSellerId ? "bg-blue-400" : "bg-blue-200")} onClick={() => handleInboxChat(otherMember)}>
                                     <div className=''>
                                         {userProfile ? (
                                             <Image src={userProfile} width={40} height={40} alt="userImage" className='rounded-full' />

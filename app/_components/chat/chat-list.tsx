@@ -61,7 +61,7 @@ const ChatList = ({ conversationId, sellerId, sellerName, user }: IChatProps) =>
     return (
         <div className="h-screen w-screen ">
             {/* <div className="flex flex-col h-[calc(100%-70px)]  md:flex-row mx-auto bg-gray-100 dark:bg-gray-900 max-w-5xl"> */}
-            <div className="flex flex-col h-[calc(100%-75px)] border border-gray-200 md:flex-row mx-auto bg-gray-100 dark:bg-gray-900 max-w-5xl">
+            <div className="flex flex-col h-[calc(100%-100px)] border border-gray-200 md:flex-row mx-auto bg-gray-100 dark:bg-gray-900 max-w-5xl">
 
                 <div className="w-full md:w-80 h-full dark:bg-gray-800 p-2 border border-gray-200">
                     <div className="h-full">
