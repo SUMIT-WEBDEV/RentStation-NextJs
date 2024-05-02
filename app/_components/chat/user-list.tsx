@@ -33,11 +33,10 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
     //     return <div>Something went wrong</div>;
     // }
 
-
     console.log("userData is", userData)
 
     return (
-        <div>
+        <div className="overflow-y-auto h-full">
 
             {userData && userData.conversations && userData.conversations.length > 0 ? (
 
