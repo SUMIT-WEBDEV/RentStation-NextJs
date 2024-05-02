@@ -14,6 +14,9 @@ export const getProducts = async ({ page, location }: productProps = {}) => {
     where: {
       OR: [{ location: { contains: location } }],
     },
+    orderBy: {
+      id: "desc", // Order by ID in descending order
+    },
     skip: (pageNum - 1) * limit,
     take: limit,
   });
@@ -47,6 +50,9 @@ export const getProductbyLocationCategory = async ({
         contains: category || "",
         mode: "insensitive",
       },
+    },
+    orderBy: {
+      id: "desc", // Order by ID in descending order
     },
     // take: 1. TODO
   });
@@ -85,6 +91,9 @@ export const getProductbyLocationCategoryItem = async ({
         contains: category || "",
         mode: "insensitive",
       },
+    },
+    orderBy: {
+      id: "desc", // Order by ID in descending order
     },
     // take: 1. TODO
   });
