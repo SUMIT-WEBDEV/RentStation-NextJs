@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -15,16 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import nullProfile from "@/app/assets/nullProfile.png"
-
-// const dummySuggestions = [
-//   "Laptop",
-//   "Mobile Phone",
-//   "Headphones",
-//   "Camera",
-//   "Smartwatch",
-//   "Boatwatch",
-//   "Gaming Console",
-// ];
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useSelectedLayoutSegment, useRouter, usePathname } from "next/navigation";
@@ -33,11 +22,9 @@ import { Search } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import useSidebarStore from "@/store/toggle-sidebar";
 import useStoreLocation from "@/store/user-location";
-// import { updateUserLocation } from "@/actions/add-user-location";
-import { LocationSchema } from "@/schemas";
 import useLocationSidebarStore from "@/store/toggle-location-sidebar";
 import { cn } from "@/lib/utils";
-
+import useClient from "@/hooks/use-client";
 
 export const navItems = [
   {
@@ -52,7 +39,6 @@ export const navItems = [
     name: "Rent+",
     slug: "sell",
   },
-
 ];
 
 
@@ -60,21 +46,17 @@ function Navbar() {
   const router = useRouter();
   const pathName = usePathname()
   const selectedLayout = useSelectedLayoutSegment()
+  const CORSPROXY = process.env.NEXT_PUBLIC_CORSPROXY
 
   const [query, setQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [locations, setLocations] = useState([])
 
-
   const { setTheme } = useTheme();
   const { isSidebarOpen, toggleSidebar } = useSidebarStore();
   const { isLocationSidebarOpen, toggleLocationSidebar } = useLocationSidebarStore();
 
-  const [client, setClient] = useState(false)
-
-  useEffect(() => {
-    setClient(true)
-  }, [])
+  const client = useClient()
 
   // useEffect(() => {
   //   const filteredSuggestions = dummySuggestions.filter((suggestion) =>
@@ -84,17 +66,14 @@ function Navbar() {
   //   setSuggestions(filteredSuggestions);
   // }, [query]);
 
-
   const user = useCurrentUser()
   const userImage = user?.image
 
   const { storedLocation, storeLocation, setLocation } = useStoreLocation();
 
-
   const [SearchText, setSearchText] = useState<string>(storedLocation?.address || "")
   const [showSuggestion, setShowSuggestion] = useState(false)
 
-  const CORSPROXY = process.env.NEXT_PUBLIC_CORSPROXY
 
   const handleSearchLocation = async (e: any) => {
     try {
@@ -109,7 +88,6 @@ function Navbar() {
         }
         else {
           const res = await response.json();
-          // console.log("location", res)
           setLocations(res?.data)
           // router.replace("/")
         }
@@ -160,7 +138,7 @@ function Navbar() {
       router.push(`/items/?item=${query}`);
     } else {
 
-      console.log("push the route")
+      // console.log("push the route")
       // If not, construct the dynamic location URL with the query
       const dynamicLocation = storedLocation.city.toLowerCase().replace(/\s+/g, '-');
 
@@ -195,6 +173,8 @@ function Navbar() {
             >
               RentStation
             </Link>
+
+
             <div className="lg:hidden text-gray-200 flex items-center  gap-1 justify-end"
               onClick={toggleLocationSidebar}
 
@@ -214,9 +194,7 @@ function Navbar() {
           <div className="flex items-center lg:space-x-2">
 
 
-            {/* <div className="lg:block hidden relative w-52 bg-slate-50 border rounded-md"> */}
             <div className=" lg:flex items-center hidden relative w-60 min-w-auto  rounded-md focus:border-gray-700 lg:border-none justify-between bg-slate-50"
-            // onBlur={handleCloseLocationBar}
             >
 
               <input
@@ -263,21 +241,10 @@ function Navbar() {
                 onClick={handleSearch}
               />
 
-              {/* {query.length > 0 && suggestions.length > 0 && (
-                <ul className="absolute z-50 top-full w-full bg-slate-50 border-gray-300 border text-black rounded-md py-2 mt-2 shadow-lg">
-                  {suggestions.map((suggestion, index) => (
-                    <li key={index} className="px-4 border-gray-400 text-sm">
-                      <p className="pt-2">
-                        {suggestion}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              )} */}
-
             </div>
-
           </div>
+
+
         </div>
 
         <div className="justify-between lg:flex space-x-6 font-courier hidden items-center">
