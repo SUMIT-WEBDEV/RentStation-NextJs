@@ -1,5 +1,6 @@
 "use client";
 
+// for hydration
 import { useEffect, useState } from "react";
 
 export default function useClient() {

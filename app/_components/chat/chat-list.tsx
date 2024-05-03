@@ -1,14 +1,10 @@
 "use client"
 
-import React, { memo, useEffect, useMemo, useState } from 'react'
 import Chat from './chat'
-import { createConversationId } from '@/actions/create-conversationId'
-import Image from 'next/image'
-import { Skeleton } from '@/components/ui/skeleton'
 import { Search } from 'lucide-react'
 import { UserList } from './user-list'
 import NoChat from './no-chat'
-
+import { useConversation } from '@/hooks/use-conversation'
 
 interface IChatProps {
     conversationId?: string,
@@ -18,49 +14,19 @@ interface IChatProps {
 }
 
 const ChatList = ({ conversationId, sellerId, sellerName, user }: IChatProps) => {
-    // const [receiverId, setReceiverId] = useState<string>("")
-    // const [inboxUsers, setInboxUsers] = useState<any>([]);
-    const [dynamicConversationId, setDynamicConversationId] = useState<any>(conversationId)
-    const [dynamicSellerId, setDynamicSellerId] = useState<any>(sellerId)
-    const [dynamicSellerName, setDynamicSellerName] = useState<any>(sellerName)
-    const [userLoading, setUserLoading] = useState(false)
-
-    if (user === undefined) {
-        setUserLoading(true)
-    }
-
-    const loading = false
-
-    useEffect(() => {
-        // Add overflow hidden to body on mount
-        document.body.style.overflowY = 'hidden';
-
-        // Remove overflow hidden from body on unmount
-        return () => {
-            document.body.style.overflowY = 'unset';
-        };
-    }, []);
-
-
-    const handleInboxChat = (selectedUser: any) => {
-        if (user) {
-            createConversationId(user?.id, selectedUser.id).then((data) => {
-                // console.log("data is conversationId-----", data);
-                setDynamicConversationId(data.conversationId)
-                setDynamicSellerName(selectedUser.name)
-                setDynamicSellerId(selectedUser.id)
-
-                window.history.pushState({}, '', `/chat/new/${data.conversationId}/${selectedUser.id}`);
-            }).catch(err => console.error(err))
-        }
-    }
-
-    const [searchChatText, setSearchChatText] = useState<string>("")
+    const {
+        dynamicConversationId,
+        dynamicSellerId,
+        dynamicSellerName,
+        userLoading,
+        searchChatText,
+        setSearchChatText,
+        handleInboxChat
+    } = useConversation({ conversationId, sellerId, sellerName, user });
 
 
     return (
         <div className="h-screen w-screen ">
-            {/* <div className="flex flex-col h-[calc(100%-70px)]  md:flex-row mx-auto bg-gray-100 dark:bg-gray-900 max-w-5xl"> */}
             <div className="flex flex-col h-[calc(100%-100px)] border border-gray-200 md:flex-row mx-auto bg-gray-100 dark:bg-gray-900 max-w-5xl">
 
                 <div className="w-full md:w-80 h-full dark:bg-gray-800 p-2 border border-gray-200">
