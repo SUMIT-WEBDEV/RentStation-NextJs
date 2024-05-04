@@ -7,6 +7,7 @@ import { io } from "socket.io-client";
 import { Loader, Loader2Icon, SendHorizontal, Smile } from 'lucide-react';
 import Image from 'next/image'
 import { ClipLoader } from 'react-spinners';
+import { useRouter } from 'next/navigation';
 
 
 interface IChat {
@@ -23,6 +24,8 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
 
     const user = useCurrentUser()
     const socket = useRef<any>();
+
+    const router = useRouter()
 
 
     const [toggleChat, setToggleChat] = useState(false)
@@ -69,6 +72,7 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
                 const data = await postMessage(payload);
                 setMessages([...messages, data]);
                 setMessage('');
+                router.refresh()
 
                 await socket.current.emit("sendMessage", {
                     senderId: user?.id,
@@ -185,12 +189,8 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
                             </div>
                         ))
                     )
-
                 }
-
             </div>
-
-
 
 
             <div className="h-15 p-1 rounded-xl rounded-tr-none rounded-tl-none bg-gray-200 w-full">
@@ -203,7 +203,6 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
 
                         />
                         <button className={`bg-gray-100 dark:bg-gray-800 dark:text-green-200 cursor-pointer flex justify-center items-center pr-3 text-green-400 rounded-r-md`} onClick={handleMessageSubmit} disabled={message.length <= 0}>
-
 
                             <SendHorizontal className='hover:text-black' />
                         </button>
