@@ -14,17 +14,12 @@ const page = async ({ params }: any) => {
         }
     })
 
-
     const conversationId = params.conversationId
     const sellerName = sellerData?.name || "";
 
     const user = await currentUserDetails();
 
-
-
-    // console.log("sellerData", sellerData)
-    // console.log("params are", params)
-    // console.log("conversationId are", params.conversationId)
+    console.log("user", user)
 
     return (
         <div className='overflow-y-hidden min-h-screen'>

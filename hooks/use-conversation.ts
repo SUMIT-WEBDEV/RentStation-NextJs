@@ -22,7 +22,6 @@ export const useConversation = ({
   const [dynamicSellerName, setDynamicSellerName] = useState<any>(sellerName);
   const [userLoading, setUserLoading] = useState(false);
   const [searchChatText, setSearchChatText] = useState<string>("");
-  const [chatLoading, setChatLoading] = useState(false);
 
   if (user === undefined) {
     setUserLoading(true);
@@ -40,14 +39,12 @@ export const useConversation = ({
 
   const handleInboxChat = (selectedUser: any) => {
     if (user) {
-      setChatLoading(true);
       createConversationId(user?.id, selectedUser.id)
         .then((data) => {
           // console.log("data is conversationId-----", data);
           setDynamicConversationId(data.conversationId);
           setDynamicSellerName(selectedUser.name);
           setDynamicSellerId(selectedUser.id);
-          setChatLoading(false);
 
           window.history.pushState(
             {},
@@ -65,7 +62,6 @@ export const useConversation = ({
     dynamicSellerName,
     userLoading,
     searchChatText,
-    chatLoading,
     setSearchChatText,
     handleInboxChat,
   };

@@ -21,7 +21,6 @@ const ChatList = ({ conversationId, sellerId, sellerName, user }: IChatProps) =>
         dynamicSellerName,
         userLoading,
         searchChatText,
-        chatLoading,
         setSearchChatText,
         handleInboxChat
     } = useConversation({ conversationId, sellerId, sellerName, user });
@@ -53,7 +52,7 @@ const ChatList = ({ conversationId, sellerId, sellerName, user }: IChatProps) =>
                 <div className="flex-grow  p-2 lg:rounded-md">
                     {
                         dynamicConversationId &&
-                        <Chat conversationId={dynamicConversationId} sellerName={dynamicSellerName} receiverId={dynamicSellerId} chatLoading={chatLoading} />
+                        <Chat conversationId={dynamicConversationId} sellerName={dynamicSellerName} receiverId={dynamicSellerId} />
                     }
 
                     {!dynamicConversationId &&

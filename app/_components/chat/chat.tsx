@@ -12,12 +12,14 @@ interface IChat {
     conversationId: string,
     receiverId: string,
     sellerName: string,
-    chatLoading: boolean
 }
 
-const Chat = ({ conversationId, sellerName, receiverId, chatLoading }: IChat) => {
+const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState<any>([]);
+
+    const [chatloading, setChatloading] = useState(false)
+
     const user = useCurrentUser()
     const socket = useRef<any>();
 
@@ -80,8 +82,12 @@ const Chat = ({ conversationId, sellerName, receiverId, chatLoading }: IChat) =>
 
 
     useEffect(() => {
+        setChatloading(true)
         getMessages({ conversationId })
-            .then((data) => setMessages(data))
+            .then((data) => {
+                setMessages(data)
+                setChatloading(false)
+            })
             .catch((err) => console.log(err));
         socket.current.emit("addUser", user?.id);
         socket.current.on("getUsers", (users: any) => {
@@ -135,7 +141,7 @@ const Chat = ({ conversationId, sellerName, receiverId, chatLoading }: IChat) =>
             <div className='flex-grow bg-gray-100 overflow-y-scroll' ref={messageContainerRef}>
 
                 {
-                    chatLoading ? <h1>Loading...</h1> : (
+                    chatloading ? <h1>Loading...</h1> : (
 
                         messages && messages?.map((msg: any, index: number) => (
 
