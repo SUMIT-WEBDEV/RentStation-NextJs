@@ -22,29 +22,32 @@ export const useConversation = ({
   const [dynamicSellerName, setDynamicSellerName] = useState<any>(sellerName);
   const [userLoading, setUserLoading] = useState(false);
   const [searchChatText, setSearchChatText] = useState<string>("");
+  const [chatLoading, setChatLoading] = useState(false);
 
   if (user === undefined) {
     setUserLoading(true);
   }
 
-  useEffect(() => {
-    // Add overflow hidden to body on mount
-    document.body.style.overflowY = "hidden";
+  // useEffect(() => {
+  //   // Add overflow hidden to body on mount
+  //   document.body.style.overflowY = "hidden";
 
-    // Remove overflow hidden from body on unmount
-    return () => {
-      document.body.style.overflowY = "unset";
-    };
-  }, []);
+  //   // Remove overflow hidden from body on unmount
+  //   return () => {
+  //     document.body.style.overflowY = "unset";
+  //   };
+  // }, []);
 
   const handleInboxChat = (selectedUser: any) => {
     if (user) {
+      setChatLoading(true);
       createConversationId(user?.id, selectedUser.id)
         .then((data) => {
           // console.log("data is conversationId-----", data);
           setDynamicConversationId(data.conversationId);
           setDynamicSellerName(selectedUser.name);
           setDynamicSellerId(selectedUser.id);
+          setChatLoading(false);
 
           window.history.pushState(
             {},
@@ -62,6 +65,7 @@ export const useConversation = ({
     dynamicSellerName,
     userLoading,
     searchChatText,
+    chatLoading,
     setSearchChatText,
     handleInboxChat,
   };

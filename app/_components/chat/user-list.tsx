@@ -5,13 +5,12 @@ import { memo, useEffect, useState } from "react";
 import userNullProfile from "@/app/assets/nullProfile.png"
 
 
-export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, loading, searchChatText }: any) => {
+export const UserList = ({ userData, handleInboxChat, dynamicSellerId, loading, searchChatText }: any) => {
 
 
     if (loading) {
         return (
             <div className='m-4'>
-
                 {
                     Array.from({ length: 5 }).map((_, index) => (
                         <div className='flex space-x-3 items-center w-full mt-8' key={index}>
@@ -33,10 +32,10 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
     //     return <div>Something went wrong</div>;
     // }
 
-    console.log("userData is", userData)
+    // console.log("userData is", userData)
 
     return (
-        <div className="overflow-y-auto h-full">
+        <div className="">
 
             {userData && userData.conversations && userData.conversations.length > 0 ? (
 
@@ -71,8 +70,8 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
                                         )}
                                     </div>
                                     <div>
-                                        <p>{userName}</p>
-                                        <p className='text-sm text-gray-600'>{lastMessage.text}</p>
+                                        <p className="text-sm">{userName}</p>
+                                        <p className='text-xs text-gray-600'>{lastMessage.text}</p>
                                     </div>
                                 </div>
                             );
@@ -85,7 +84,7 @@ export const UserList = memo(({ userData, handleInboxChat, dynamicSellerId, load
             )}
         </div>
     );
-});
+}
 
 UserList.displayName = 'UserList';
 
