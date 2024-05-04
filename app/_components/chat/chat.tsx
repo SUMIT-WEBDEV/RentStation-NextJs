@@ -4,8 +4,9 @@ import { getMessages, postMessage } from '@/actions/post-message'
 import { useCurrentUser } from '@/hooks/use-current-user'
 import React, { useEffect, useRef, useState, useMemo, memo } from 'react'
 import { io } from "socket.io-client";
-import { SendHorizontal, Smile } from 'lucide-react';
+import { Loader, Loader2Icon, SendHorizontal, Smile } from 'lucide-react';
 import Image from 'next/image'
+import { ClipLoader } from 'react-spinners';
 
 
 interface IChat {
@@ -43,7 +44,7 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
         socket.current.on("getMessage", (data: any) => {
-            console.log("getMessageData is", data)
+            // console.log("getMessageData is", data)
             const modifiedData = {
                 senderId: data.senderId,
                 text: data.text,
@@ -141,7 +142,12 @@ const Chat = ({ conversationId, sellerName, receiverId }: IChat) => {
             <div className='flex-grow bg-gray-100 overflow-y-scroll' ref={messageContainerRef}>
 
                 {
-                    chatloading ? <h1>Loading...</h1> : (
+                    chatloading ? <div className='flex justify-center items-center h-full'><ClipLoader
+                        color="#575151"
+                        cssOverride={{}}
+                        size={40}
+                        speedMultiplier={0.7}
+                    /></div> : (
 
                         messages && messages?.map((msg: any, index: number) => (
 
