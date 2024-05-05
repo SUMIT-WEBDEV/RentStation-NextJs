@@ -33,6 +33,11 @@ export function Products({ products, user, location }: ProductsProps) {
   const [productData, setProductData] = useState<Product[]>(products)
   const [loading, setLoading] = useState<boolean>(true);
 
+  const { storedLocation } = useStoreLocation();
+
+  useEffect(() => {
+    setLoading(true)
+  }, [storedLocation])
 
   useEffect(() => {
     setProductData(products);
