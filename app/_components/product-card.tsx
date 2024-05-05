@@ -58,7 +58,7 @@ export function ProductCard({ product, isFavorite }: ProductCardProps) {
 
     return (
         <Link
-            className="border border-gray rounded-md lg:p-3 p-2 h-fit w-[250px] "
+            className="border border-gray rounded-md lg:p-3 p-2 h-fit w-auto lg:w-[250px] "
             href={`/item/${product.title.split(' ').join('+').toLowerCase()}-${product.id}`}
         >
             <div className="w-full z-10 ">
